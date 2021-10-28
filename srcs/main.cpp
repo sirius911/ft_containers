@@ -26,5 +26,8 @@ int 		main(void)
 	ft::vector<int> vector_int;
 	vector_int.push_back(42);
 	vector_int.push_back(24);
+	const int a = vector_int[1];
+	std::cout << vector_int[0] << std::endl;
+	std::cout << a << std::endl;
 	return (0);
 }

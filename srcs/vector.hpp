@@ -14,6 +14,8 @@
 
 # include <iostream>
 
+# include "vector_iterator.hpp"
+
 namespace ft
 {
 	template<class T, class Allocator = std::allocator<T> >
@@ -21,8 +23,9 @@ namespace ft
 	{
 		public:
 			/*		TYPEDEF			*/
-			typedef	T		value;
-			typedef	value&		ref;
+			typedef	T			value;
+			typedef	T&			ref;
+			typedef const T&	const_ref;
 
 			explicit vector(const Allocator & alloc = Allocator())
 			:_alloc(alloc), _ptr(0), _size_alloc(0), _size_container(0)
@@ -39,6 +42,9 @@ namespace ft
 			vector &operator=(vector & copy)
 			{
 				std::cout << "operator="<<std::endl;
+				for (ft::vectorIterator<T> it = copy.begin(); it != copy.end(); it++)
+					this->push_back(*it);
+				return(*this);
 			};
 
 			virtual ~vector(void)
@@ -48,6 +54,16 @@ namespace ft
 					_alloc.deallocate(_ptr, _size_alloc);
 					_size_alloc = 0;
 				}
+			};
+
+			ref			operator[](size_t pos)
+			{
+				return (_ptr[pos]);
+			};
+
+			const_ref	operator[](size_t pos)  const
+			{
+				return (_ptr[pos]);
 			};
 
 			void	push_back(const T& value)
