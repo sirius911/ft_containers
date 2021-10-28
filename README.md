@@ -2,38 +2,40 @@
 
 ## Vector
 
+https://www.cplusplus.com/reference/vector/vector/
+
 ### member functions:
+
+
+Canonique form :
+
+- [X] vector::vector()
+- [X] vector::vector(vector const &)
+- [X] vector::~vector()
+- [X] vector::operator=
+
 
 - [ ] vector::assign
 - [ ] vector::at
 - [ ] vector::back
-- [ ] vector::begin
-- [ ] vector::capacity
-- [ ] vector::cbegin
-- [ ] vector::cend
-- [ ] vector::clear
-- [ ] vector::crbegin
-- [ ] vector::crend
-- [ ] vector::data
-- [ ] vector::emplace
-- [ ] vector::emplace_back
-- [ ] vector::empty
-- [ ] vector::end
+- [X] vector::begin
+- [X] vector::capacity
+- [X] vector::clear
+- [X] vector::empty
+- [X] vector::end
 - [ ] vector::erase
 - [ ] vector::front
 - [ ] vector::get_allocator
 - [ ] vector::insert
-- [ ] vector::max_size
-- [ ] vector::operator=
-- [ ] vector::operator[]
-- [ ] vector::pop_back
+- [X] vector::max_size
+- [X] vector::operator[]
+- [X] vector::pop_back
 - [ ] vector::push_back
 - [ ] vector::rbegin
 - [ ] vector::rend
-- [ ] vector::reserve
+- [X] vector::reserve
 - [ ] vector::resize
-- [ ] vector::shrink_to_fit
-- [ ] vector::size
+- [X] vector::size
 - [ ] vector::swap
 
 ### non-member overloads:
