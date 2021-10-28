@@ -71,6 +71,37 @@ namespace ft
 			{
 				return(_ptr);
 			};
+
+
+			// Deferencement
+			T &	operator*() 		{return (*_ptr);};
+			T & operator*()const 	{return (*_ptr);};
+
+			//boolean
+			bool operator==(vectorIterator const & b) const
+			{
+				return (_ptr == b._ptr);
+			};
+			bool operator!=(vectorIterator const & b) const
+			{
+				return (_ptr != b._ptr);
+			};
+			bool operator>(vectorIterator const & b) const
+			{
+				return (_ptr > b._ptr);
+			};
+			bool operator<(vectorIterator const & b) const
+			{
+				return (_ptr < b._ptr);
+			};
+			bool operator>=(vectorIterator const & b) const
+			{
+				return (_ptr >= b._ptr);
+			};
+			bool operator<=(vectorIterator const & b) const
+			{
+				return (_ptr <= b._ptr);
+			};
 	};
 }
 
