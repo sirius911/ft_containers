@@ -24,6 +24,7 @@ namespace ft
 
 			vectorIterator(void) {};
 			vectorIterator(T* ptr):_ptr(ptr){};
+			/*vectorIterator(const T* ptr):_ptr(ptr){};*/
 			vectorIterator(vectorIterator const &cpy){ *this = cpy;};
 
 			virtual ~vectorIterator(void){};
@@ -38,19 +39,22 @@ namespace ft
 			vectorIterator	operator++(void){_ptr++; return(*this);};
 			vectorIterator	operator++(int){_ptr++; return(vectorIterator(_ptr - 1));};
 			vectorIterator	operator--(void){_ptr--; return(*this);};
-			vectorIterator operator--(int){_ptr--; return(vectorIterator(_ptr +1));};
+			vectorIterator 	operator--(int){_ptr--; return(vectorIterator(_ptr +1));};
 
 			//+= -= operators
 			void	operator+=(std::ptrdiff_t op){_ptr += op;};
 			void	operator-=(std::ptrdiff_t op){_ptr -= op;};
 
 			// ->
-			T*		operator->(){return(_ptr);};
-			T* 		operator->() const{return(_ptr);};
+			T*				operator->()		{return(_ptr);};
+			const T* 		operator->() const	{return(_ptr);};
 
 			// Deferencement
 			T &	operator*() 		{return (*_ptr);};
-			T & operator*()const 	{return (*_ptr);};
+			const T & operator*()const 	{return (*_ptr);};
+
+			T & operator[](std::ptrdiff_t op)		{return(_ptr[op]);};
+			const T & operator[](std::ptrdiff_t op) const	{return(_ptr[op]);};
 
 			//boolean
 			bool operator==(vectorIterator const & b) const	{return (_ptr == b._ptr);};
