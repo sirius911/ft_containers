@@ -15,6 +15,7 @@
 # include <iostream>
 
 # include "vector_iterator.hpp"
+# include "vector_reverse_iterator.hpp"
 # include "utils.hpp"
 
 namespace ft
@@ -23,10 +24,6 @@ namespace ft
 	class vector
 	{
 		public:
-			/*		TYPEDEF			*/
-/*			typedef	T			value;
-			typedef	T&			ref;
-			typedef const T&	const_ref;*/
 
 			//default (1)
 			explicit vector(const Allocator & alloc = Allocator())
@@ -41,6 +38,8 @@ namespace ft
 				for(size_t i = 0; i < n; i++)
 					_alloc.construct(_ptr + i, val);
 			}
+
+			//range(3)
 
 			//copy(4)
 			explicit vector (vector const &copy)
@@ -106,9 +105,13 @@ namespace ft
 
 			// size
 			std::size_t		size() const {return(_size_container);};
+
 			std::size_t		capacity() const {return(_capacity);};
+
 			std::size_t		max_size() const {return(Allocator().max_size());};
+
 			bool	empty() const {return(_size_container == 0);};
+
 			void	resize(std::size_t n, T val = T())
 			{
 				T	*new_ptr;
@@ -163,6 +166,12 @@ namespace ft
 			const T	&	front() const	{return(*_ptr);};
 			T		&	back()		{return(*(_ptr + _size_container - 1));};
 			const T	&	back() const{return(*(_ptr + _size_container - 1));};
+
+			//rbegin() rend()
+			ft::vectorReverseIterator<T>		rbegin()	   {return(vectorReverseIterator<T>(_ptr + _size_container - 1));};
+			const ft::vectorReverseIterator<T>	rbegin() const {return(vectorReverseIterator<T>(_ptr + _size_container - 1));};
+			ft::vectorReverseIterator<T>		rend()		{return(vectorReverseIterator<T>(_ptr - 1));};
+			const ft::vectorReverseIterator<T>	rend() const{return(vectorReverseIterator<T>(_ptr - 1));};
 
 			Allocator	get_allocator()const{return Allocator();};
 

@@ -92,7 +92,12 @@ static void	test_push_std(void)
 	copy = test;
 	for(size_t i = 0; i < copy.size(); i++)
 		std::cout << copy[i] << " at & " << &copy[i] <<std::endl;
-}
+
+	std::cout << "***********REVERSE ITERATOR **************"<< std::endl;
+	std::vector<int>::reverse_iterator it;
+	for ( it = test.rbegin(); it != test.rend(); it++)
+		std::cout<< *it << std::endl;
+}	
 
 static void	test_push(void)
 {
@@ -185,6 +190,10 @@ static void	test_push(void)
 	std::cout << "##                       ##" << std::endl;
 	for(size_t i = 0; i < copy.size(); i++)
 		std::cout << copy[i] << " at & " << &copy[i] <<std::endl;
+
+	std::cout << "***********REVERSE ITERATOR **************"<< std::endl;
+	for (ft::vectorReverseIterator<int> it = copy.rbegin(); it != copy.rend(); it++)
+		std::cout<< *it << std::endl;
 }
 int 		main(void)
 {
@@ -192,9 +201,9 @@ int 		main(void)
 	test_push_std();
 	test_push();
 
-	ft::vector<int> foo (3,100);   // three ints with a value of 100
+	/*ft::vector<int> foo (3,100);   // three ints with a value of 100
   	ft::vector<int> bar (2,200);   // two ints with a value of 200
 	for (ft::vectorIterator<int> it = foo.begin(); it != foo.end(); it++)
-					std::cout<< *it << std::endl;
+					std::cout<< *it << std::endl;*/
 	return (0);
 }

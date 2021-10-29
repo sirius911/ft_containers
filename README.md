@@ -32,8 +32,8 @@ Canonique form :
 - [X] vector::operator[]
 - [X] vector::pop_back
 - [X] vector::push_back
-- [ ] vector::rbegin
-- [ ] vector::rend
+- [X] vector::rbegin
+- [X] vector::rend
 - [X] vector::reserve
 - [X] vector::resize
 - [X] vector::size

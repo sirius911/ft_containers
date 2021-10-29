@@ -24,7 +24,6 @@ namespace ft
 
 			vectorIterator(void) {};
 			vectorIterator(T* ptr):_ptr(ptr){};
-			/*vectorIterator(const T* ptr):_ptr(ptr){};*/
 			vectorIterator(vectorIterator const &cpy){ *this = cpy;};
 
 			virtual ~vectorIterator(void){};
@@ -40,6 +39,10 @@ namespace ft
 			vectorIterator	operator++(int){_ptr++; return(vectorIterator(_ptr - 1));};
 			vectorIterator	operator--(void){_ptr--; return(*this);};
 			vectorIterator 	operator--(int){_ptr--; return(vectorIterator(_ptr +1));};
+
+			// +/-
+			vectorIterator	operator+(std::ptrdiff_t op){return(vectorIterator(_ptr + op));};
+			vectorIterator	operator-(std::ptrdiff_t op){return(vectorIterator(_ptr - op));};
 
 			//+= -= operators
 			void	operator+=(std::ptrdiff_t op){_ptr += op;};
