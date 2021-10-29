@@ -15,6 +15,7 @@
 # include <iostream>
 
 # include "vector_iterator.hpp"
+# include "utils.hpp"
 
 namespace ft
 {
@@ -27,19 +28,37 @@ namespace ft
 			typedef	T&			ref;
 			typedef const T&	const_ref;*/
 
+			//default (1)
 			explicit vector(const Allocator & alloc = Allocator())
 			:_alloc(alloc), _ptr(0), _capacity(0), _size_container(0){};
 
-			vector (vector const &copy)
-			: _alloc(Allocator()), _capacity(0), _size_container(0)
-			{
-				*this = copy;	//TODO verifie deep copy in STL
-			};
 
-			vector &operator=(vector & copy)
+			// fill(2)
+			explicit vector(size_t n, const T & val = T(), const Allocator & alloc = Allocator())
+			: _alloc(alloc), _ptr(0), _capacity(n), _size_container(n)
 			{
+				_ptr = _alloc.allocate(n);
+				for(size_t i = 0; i < n; i++)
+					_alloc.construct(_ptr + i, val);
+			}
+
+			//copy(4)
+			explicit vector (vector const &copy)
+			: _alloc(copy.get_allocator()), _capacity(copy._capacity), _size_container(0)
+			{
+				_ptr = _alloc.allocate(_capacity);
 				for (ft::vectorIterator<T> it = copy.begin(); it != copy.end(); it++)
 					this->push_back(*it);
+			};
+
+			vector &operator=(vector const& copy)
+			{
+				if(*this != copy)
+				{
+					this->clear();
+					for (ft::vectorIterator<T> it = copy.begin(); it != copy.end(); it++)
+						this->push_back(*it);
+				}
 				return(*this);
 			};
 
@@ -47,14 +66,11 @@ namespace ft
 			{
 				this->clear();
 				if(_capacity > 0)
-				{
 					_alloc.deallocate(_ptr, _capacity);
-					_capacity = 0;
-				}
 			};
 
-			T		&	operator[](size_t pos)		{return (_ptr[pos]);};
-			T		&	operator[](size_t pos) const{return (_ptr[pos]);};
+			T			&	operator[](size_t pos)		{return (_ptr[pos]);};
+			const T		&	operator[](size_t pos) const{return (_ptr[pos]);};
 
 			void	push_back(const T& value)
 			{
@@ -124,12 +140,11 @@ namespace ft
 			{
 				if (n > this->max_size())
 					throw (std::length_error("vector::reserve"));
-				if (n > _capacity)
+				else if (n > _capacity)
 				{
 					T			*prev_ptr = _ptr;
 					std::size_t	prev_size = _size_container;
 					std::size_t	prev_capacity = _capacity;
-
 					_ptr = _alloc.allocate(n);
 					_capacity = n;
 					for(std::size_t i = 0; i < prev_size; i++)
@@ -139,15 +154,15 @@ namespace ft
 			};
 
 			//begin() end() back() front()
-			ft::vectorIterator<T>	begin()			{return (vectorIterator<T>(_ptr));};
-			ft::vectorIterator<T>	begin() const 	{return (vectorIterator<T>(_ptr));};
-			ft::vectorIterator<T>	end()		{return (vectorIterator<T>(_ptr + _size_container));};
-			ft::vectorIterator<T>	end() const {return (vectorIterator<T>(_ptr + _size_container));};
+			ft::vectorIterator<T>		begin()			{return (vectorIterator<T>(_ptr));};
+			const ft::vectorIterator<T>	begin() const 	{return (vectorIterator<T>(_ptr));};
+			ft::vectorIterator<T>		end()		{return (vectorIterator<T>(_ptr + _size_container));};
+			const ft::vectorIterator<T>	end() const {return (vectorIterator<T>(_ptr + _size_container));};
 		
-			T	&	front()			{return(*_ptr);};
-			T	&	front() const	{return(*_ptr);};
-			T	&	back()		{return(*(_ptr + _size_container - 1));};
-			T	&	back() const{return(*(_ptr + _size_container - 1));};
+			T		&	front()			{return(*_ptr);};
+			const T	&	front() const	{return(*_ptr);};
+			T		&	back()		{return(*(_ptr + _size_container - 1));};
+			const T	&	back() const{return(*(_ptr + _size_container - 1));};
 
 			Allocator	get_allocator()const{return Allocator();};
 
@@ -158,6 +173,55 @@ namespace ft
 			size_t			_size_container; //nb of elem in vector
 
 	};
+
+// Non-member function overloads
+
+template <class T, class Allocator>
+	bool operator==(const ft::vector<T, Allocator>& lhs, const ft::vector<T, Allocator> &rhs)
+	{
+		if (lhs.size() != rhs.size())
+			return (false);
+		ft::vectorIterator<T> it_lhs = lhs.begin();
+		ft::vectorIterator<T> it_rhs = rhs.begin();
+		while(it_lhs != lhs.end() && it_rhs != rhs.end() && *it_lhs == *it_rhs)
+		{
+			it_lhs++;
+			it_rhs++;
+		}
+		return(it_lhs == lhs.end() && it_rhs == rhs.end());
+	}
+
+template <class T, class Allocator>
+	bool operator!=(const ft::vector<T, Allocator>& lhs, const ft::vector<T, Allocator> &rhs)
+	{
+		return (!(lhs == rhs));
+	}
+
+template <class T, class Allocator>
+	bool operator<(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs)
+	{
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+	}
+
+template <class T, class Allocator>
+	bool operator<=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs)
+	{
+		//a<=b	->	!(b < a)
+		return (!(rhs < lhs));
+	}
+
+template <class T, class Allocator>
+	bool operator>(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs)
+	{
+		//a>b		->  b<a
+		return (rhs < lhs);
+	}
+
+template <class T, class Allocator>
+	bool operator>=(const vector<T, Allocator>& lhs, const vector<T, Allocator>& rhs)
+	{
+		//a>=b	->	!(a<b)
+		return (!(lhs < rhs));
+	}
 }
 #endif
-

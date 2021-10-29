@@ -87,6 +87,11 @@ static void	test_push_std(void)
 	std::cout << "--MAX_SIZE--" << std::endl;
 	std::cout << test.max_size() << std::endl;
 
+	std::cout << "********* TEST COPY ************" << std::endl;
+	std::vector<int> copy;	// or copy(test)
+	copy = test;
+	for(size_t i = 0; i < copy.size(); i++)
+		std::cout << copy[i] << " at & " << &copy[i] <<std::endl;
 }
 
 static void	test_push(void)
@@ -162,6 +167,24 @@ static void	test_push(void)
 
 	std::cout << "test.back() = " << test.back()<<std::endl;
 	std::cout << "test.front() = " << test.front() << std::endl;
+
+	std::cout << "********* TEST COPY ************" << std::endl;
+
+	ft::vector<int> copy;
+	copy = test;
+	if (copy==test) std::cout << "copy and test are equal\n";
+  	if (copy!=test) std::cout << "copy and test are not equal\n";
+  	test.resize(10);
+  	if (copy==test) std::cout << "after test.resize(10) copy and test are equal\n";
+  	if (copy!=test) std::cout << "after test.resize(10) copy and test are not equal\n";
+  	if (copy < test) std::cout << "copy < test\n";
+  	else if (copy > test) std::cout << "copy > test\n";
+	std::cout << "--INFOS--COPY" << std::endl;
+	std::cout << "Size = " <<  copy.size() << std::endl;
+	std::cout << "Capacity = " << copy.capacity() << std::endl;
+	std::cout << "##                       ##" << std::endl;
+	for(size_t i = 0; i < copy.size(); i++)
+		std::cout << copy[i] << " at & " << &copy[i] <<std::endl;
 }
 int 		main(void)
 {
@@ -169,5 +192,9 @@ int 		main(void)
 	test_push_std();
 	test_push();
 
+	ft::vector<int> foo (3,100);   // three ints with a value of 100
+  	ft::vector<int> bar (2,200);   // two ints with a value of 200
+	for (ft::vectorIterator<int> it = foo.begin(); it != foo.end(); it++)
+					std::cout<< *it << std::endl;
 	return (0);
 }

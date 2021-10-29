@@ -9,11 +9,12 @@ https://www.cplusplus.com/reference/vector/vector/
 
 Canonique form :
 
-- [X] vector::vector()
-- [X] vector::vector(vector const &)
+- [X] (1)vector::vector() (default)
+- [ ] (2)vector::vector(n, val) (fill)
+- [ ] (3)vector::vector(first, last) (range)
+- [X] (4)vector::vector(vector const &) (copy)
 - [X] vector::~vector()
-- [X] vector::operator=
-
+- [ ] vector::operator=
 
 - [ ] vector::assign
 - [ ] vector::at
@@ -40,5 +41,11 @@ Canonique form :
 
 ### non-member overloads:
 
-- [ ] relational operators (vector)
+- [X] relational operators (vector)
+		- [X] ==
+		- [X] !=	a!=b	-> !(a==b)
+		- [X] <
+		- [X] <=	a<=b	->	!(b < a)
+		- [X] >		a>b		->  b < a
+		- [X] >=	a>=b	->	!(a < b)
 - [ ] swap (vector)
