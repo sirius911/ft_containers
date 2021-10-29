@@ -35,73 +35,30 @@ namespace ft
 			}
 
 			//increments
-			vectorIterator	operator++(void) 
-			{
-				_ptr++; return(*this);
-			};
-			vectorIterator	operator++(int)
-			{
-				_ptr++; return(vectorIterator(_ptr - 1));
-			};
-			vectorIterator	operator--(void)
-			{
-				_ptr--; return(*this);
-			};
-			vectorIterator operator--(int)
-			{
-				_ptr--; return(vectorIterator(_ptr +1));
-			};
+			vectorIterator	operator++(void){_ptr++; return(*this);};
+			vectorIterator	operator++(int){_ptr++; return(vectorIterator(_ptr - 1));};
+			vectorIterator	operator--(void){_ptr--; return(*this);};
+			vectorIterator operator--(int){_ptr--; return(vectorIterator(_ptr +1));};
 
 			//+= -= operators
-			void	operator+=(std::ptrdiff_t op)
-			{
-				_ptr += op;
-			};
-			void	operator-=(std::ptrdiff_t op)
-			{
-				_ptr -= op;
-			};
+			void	operator+=(std::ptrdiff_t op){_ptr += op;};
+			void	operator-=(std::ptrdiff_t op){_ptr -= op;};
 
 			// ->
-			T*		operator->()
-			{
-				return(_ptr);
-			};
-			T* 		operator->() const
-			{
-				return(_ptr);
-			};
-
+			T*		operator->(){return(_ptr);};
+			T* 		operator->() const{return(_ptr);};
 
 			// Deferencement
 			T &	operator*() 		{return (*_ptr);};
 			T & operator*()const 	{return (*_ptr);};
 
 			//boolean
-			bool operator==(vectorIterator const & b) const
-			{
-				return (_ptr == b._ptr);
-			};
-			bool operator!=(vectorIterator const & b) const
-			{
-				return (_ptr != b._ptr);
-			};
-			bool operator>(vectorIterator const & b) const
-			{
-				return (_ptr > b._ptr);
-			};
-			bool operator<(vectorIterator const & b) const
-			{
-				return (_ptr < b._ptr);
-			};
-			bool operator>=(vectorIterator const & b) const
-			{
-				return (_ptr >= b._ptr);
-			};
-			bool operator<=(vectorIterator const & b) const
-			{
-				return (_ptr <= b._ptr);
-			};
+			bool operator==(vectorIterator const & b) const	{return (_ptr == b._ptr);};
+			bool operator!=(vectorIterator const & b) const	{return (_ptr != b._ptr);};
+			bool operator>(vectorIterator const & b) const {return (_ptr > b._ptr);};
+			bool operator<(vectorIterator const & b) const {return (_ptr < b._ptr);};
+			bool operator>=(vectorIterator const & b) const {return (_ptr >= b._ptr);};
+			bool operator<=(vectorIterator const & b) const {return (_ptr <= b._ptr);};
 	};
 }
 
