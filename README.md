@@ -10,11 +10,11 @@ https://www.cplusplus.com/reference/vector/vector/
 Canonique form :
 
 - [X] (1)vector::vector() (default)
-- [ ] (2)vector::vector(n, val) (fill)
+- [X] (2)vector::vector(n, val) (fill)
 - [ ] (3)vector::vector(first, last) (range)
 - [X] (4)vector::vector(vector const &) (copy)
 - [X] vector::~vector()
-- [ ] vector::operator=
+- [X] vector::operator=
 
 - [ ] vector::assign
 - [ ] vector::at
