@@ -17,7 +17,7 @@ Canonique form :
 - [X] vector::operator=
 
 - [ ] vector::assign
-- [ ] vector::at
+- [X] vector::at
 - [X] vector::back
 - [X] vector::begin
 - [X] vector::capacity
