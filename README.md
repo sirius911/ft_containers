@@ -17,24 +17,24 @@ Canonique form :
 
 - [ ] vector::assign
 - [ ] vector::at
-- [ ] vector::back
+- [X] vector::back
 - [X] vector::begin
 - [X] vector::capacity
 - [X] vector::clear
 - [X] vector::empty
 - [X] vector::end
 - [ ] vector::erase
-- [ ] vector::front
-- [ ] vector::get_allocator
+- [X] vector::front
+- [X] vector::get_allocator
 - [ ] vector::insert
 - [X] vector::max_size
 - [X] vector::operator[]
 - [X] vector::pop_back
-- [ ] vector::push_back
+- [X] vector::push_back
 - [ ] vector::rbegin
 - [ ] vector::rend
 - [X] vector::reserve
-- [ ] vector::resize
+- [X] vector::resize
 - [X] vector::size
 - [ ] vector::swap
 

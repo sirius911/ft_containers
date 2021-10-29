@@ -53,15 +53,8 @@ namespace ft
 				}
 			};
 
-			T		&	operator[](size_t pos)
-			{
-				return (_ptr[pos]);
-			};
-
-			T		&	operator[](size_t pos)  const
-			{
-				return (_ptr[pos]);
-			};
+			T		&	operator[](size_t pos)		{return (_ptr[pos]);};
+			T		&	operator[](size_t pos) const{return (_ptr[pos]);};
 
 			void	push_back(const T& value)
 			{
@@ -70,11 +63,6 @@ namespace ft
 					size_t	new_capacity = (_size_container > 0)? _size_container * 2 : 1;
 					this->reserve(new_capacity);
 				}
-				/*if(_capacity == 0)
-				{
-					_ptr = _alloc.allocate(1);
-					_capacity++;
-				}*/
 				_alloc.construct(_ptr + _size_container, value);
 				_size_container++;
 			};
@@ -110,12 +98,13 @@ namespace ft
 				T	*new_ptr;
 				if (n == _size_container)
 					return;
+				if (n > this->max_size())
+					throw(std::length_error("vector::resize"));
 				if (n < _size_container)
 				{
 					for(std::size_t i = n; i < _size_container; i++)
 						_alloc.destroy(_ptr + i);
 					_capacity = n;
-					_size_container = n;
 				}
 				else
 				{
@@ -124,8 +113,11 @@ namespace ft
 					as many elements as needed to reach a size of n.
 					If val is specified, the new elements are initialized as
 					copies of val, otherwise, they are value-initialized.*/
-
+					this->reserve(n);
+					for(std::size_t i = _size_container; i < n; i++)
+						_alloc.construct(_ptr+i, val);
 				}
+				_size_container = n;
 			};
 
 			void	reserve(size_t n)
@@ -146,12 +138,19 @@ namespace ft
 				}
 			};
 
-			//begin() end()
+			//begin() end() back() front()
 			ft::vectorIterator<T>	begin()			{return (vectorIterator<T>(_ptr));};
 			ft::vectorIterator<T>	begin() const 	{return (vectorIterator<T>(_ptr));};
 			ft::vectorIterator<T>	end()		{return (vectorIterator<T>(_ptr + _size_container));};
 			ft::vectorIterator<T>	end() const {return (vectorIterator<T>(_ptr + _size_container));};
 		
+			T	&	front()			{return(*_ptr);};
+			T	&	front() const	{return(*_ptr);};
+			T	&	back()		{return(*(_ptr + _size_container - 1));};
+			T	&	back() const{return(*(_ptr + _size_container - 1));};
+
+			Allocator	get_allocator()const{return Allocator();};
+
 		private:
 			T				*_ptr;
 			Allocator		_alloc;

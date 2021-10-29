@@ -27,7 +27,7 @@ static void	test_push_std(void)
 
 	std::cout << "## BASIC STD DEMONSTRATION ##" << std::endl;
 
-	std::cout << "Creating ft::vector test." << std::endl;
+	std::cout << "Creating std::vector test." << std::endl;
 
 	std::cout << "Empty() = " << std::boolalpha << test.empty() << std::endl << std::endl;
 
@@ -74,7 +74,7 @@ static void	test_push_std(void)
 		size_t re = 15;
 	std::cout << "\t resize("<< re <<")"<<std::endl;
 
-	test.resize(re, 666);
+	test.resize(re,666);
 	for(size_t i = 0; i < test.size(); i++)
 	{
 		std::cout << test[i] << " at & " << &test[i] <<std::endl;
@@ -132,36 +132,42 @@ static void	test_push(void)
 	std::cout << "Push : " << test[7] << std::endl;
 	test.push_back(9);
 	std::cout << "Push : " << test[8] << std::endl;
+
 	std::cout << "--INFOS--" << std::endl;
 	std::cout << "Size = " <<  test.size() << std::endl;
 	std::cout << "Capacity = " << test.capacity() << std::endl;
-	std::cout << "##                       ##" << std::endl;
+	std::cout << "##                        ##" << std::endl;
+
 	std::cout << "******* TEST resize **********" << std::endl;
 	for(size_t i = 0; i < test.size(); i++)
 	{
 		std::cout << test[i] << " at & " << &test[i] <<std::endl;
 	}
-	size_t re = 3;
-	std::cout << "\t resize("<<re<<")"<<std::endl;
+		size_t re = 15;
+	std::cout << "\t resize("<< re <<")"<<std::endl;
+
 	test.resize(re, 666);
 	for(size_t i = 0; i < test.size(); i++)
 	{
 		std::cout << test[i] << " at & " << &test[i] <<std::endl;
 	}
+	std::cout << "--INFOS--" << std::endl;
+	std::cout << "Size = " <<  test.size() << std::endl;
+	std::cout << "Capacity = " << test.capacity() << std::endl;
+	std::cout << "##                       ##" << std::endl;
 
 	std::cout << "--MAX_SIZE--" << std::endl;
 	std::cout << test.max_size() << std::endl;
 	//test_push_std();
+
+	std::cout << "test.back() = " << test.back()<<std::endl;
+	std::cout << "test.front() = " << test.front() << std::endl;
 }
 int 		main(void)
 {
-	ft::vector<int> vector_int;
-	vector_int.push_back(42);
-	vector_int.push_back(24);
-	const int a = vector_int[1];
-	std::cout << vector_int[0] << std::endl;
-	std::cout << a << std::endl;
+
 	test_push_std();
 	test_push();
+
 	return (0);
 }
