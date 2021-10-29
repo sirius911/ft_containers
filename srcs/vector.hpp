@@ -173,6 +173,18 @@ namespace ft
 			ft::vectorReverseIterator<T>		rend()		{return(vectorReverseIterator<T>(_ptr - 1));};
 			const ft::vectorReverseIterator<T>	rend() const{return(vectorReverseIterator<T>(_ptr - 1));};
 
+			// at
+			const T	& at(size_t n) const
+			{
+				checkRange(n);
+				return(*(_ptr + n));
+			};
+			 T	& at(size_t n) 
+			{
+				checkRange(n);
+				return(*(_ptr + n));
+			};
+
 			Allocator	get_allocator()const{return Allocator();};
 
 		private:
@@ -180,6 +192,14 @@ namespace ft
 			Allocator		_alloc;
 			size_t			_capacity;
 			size_t			_size_container; //nb of elem in vector
+
+			void	checkRange(const size_t &n) const
+			{
+				if (n >= _size_container)
+					throw(std::out_of_range("vector::checkRange: n (which is "
+						+ std::to_string(n) + ") >= this->size() (which is "
+						+ std::to_string(this->size()) + ")"));
+			}
 
 	};
 

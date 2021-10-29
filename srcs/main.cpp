@@ -97,6 +97,17 @@ static void	test_push_std(void)
 	std::vector<int>::reverse_iterator it;
 	for ( it = test.rbegin(); it != test.rend(); it++)
 		std::cout<< *it << std::endl;
+
+	std::cout << "***********Out of range*************"<< std::endl;
+	try
+	{
+			std::cout << test.at(200);
+	}
+	catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
 }	
 
 static void	test_push(void)
@@ -194,6 +205,18 @@ static void	test_push(void)
 	std::cout << "***********REVERSE ITERATOR **************"<< std::endl;
 	for (ft::vectorReverseIterator<int> it = copy.rbegin(); it != copy.rend(); it++)
 		std::cout<< *it << std::endl;
+
+	std::cout << "***********Out of range*************"<< std::endl;
+	try
+	{
+			std::cout << test.at(200);
+	}
+	catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
+
 }
 int 		main(void)
 {
