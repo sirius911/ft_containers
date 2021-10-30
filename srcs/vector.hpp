@@ -71,7 +71,7 @@ namespace ft
 			T			&	operator[](size_t pos)		{return (_ptr[pos]);};
 			const T		&	operator[](size_t pos) const{return (_ptr[pos]);};
 
-			void	push_back(const T& value)
+			void	push_back(const T & value)
 			{
 				if(_size_container == _capacity)
 				{
@@ -81,6 +81,26 @@ namespace ft
 				_alloc.construct(_ptr + _size_container, value);
 				_size_container++;
 			};
+
+			// assign
+			void	assign(size_t n, const T & val)
+			{
+				this->clear();
+				if (n == 0)
+					return;
+				_size_container = 0;
+				if (n > _capacity)
+				{
+					_alloc.deallocate(_ptr, _capacity);
+					_ptr = _alloc.allocate(n);
+					_capacity = n;
+				}
+				while(_size_container < n)
+				{
+					_alloc.construct(_ptr + _size_container, val);
+					_size_container++;
+				}
+			}
 
 			// remove element
 
