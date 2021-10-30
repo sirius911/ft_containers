@@ -108,6 +108,15 @@ static void	test_push_std(void)
         std::cerr << e.what() << '\n';
     }
 	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
+
+	std::cout << "****************TEST ASSIGN**************"<< std::endl;
+	test.assign(5,42);
+	for ( it = test.rbegin(); it != test.rend(); it++)
+		std::cout<< *it << std::endl;
+	std::cout << "--INFOS--" << std::endl;
+	std::cout << "Size = " <<  test.size() << std::endl;
+	std::cout << "Capacity = " << test.capacity() << std::endl;
+	std::cout << "##                        ##" << std::endl;
 }	
 
 static void	test_push(void)
@@ -207,7 +216,7 @@ static void	test_push(void)
 		std::cout<< *it << std::endl;
 
 	std::cout << "***********Out of range*************"<< std::endl;
-	try
+	/*try
 	{
 			std::cout << test.at(200);
 	}
@@ -216,7 +225,16 @@ static void	test_push(void)
         std::cerr << e.what() << '\n';
     }
 	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
+*/
+	std::cout << "****************TEST ASSIGN**************"<< std::endl;
+	test.assign(5,42);
 
+	for (ft::vectorReverseIterator<int> it = test.rbegin(); it != test.rend(); it++)
+		std::cout<< *it << std::endl;
+	std::cout << "--INFOS--" << std::endl;
+	std::cout << "Size = " <<  test.size() << std::endl;
+	std::cout << "Capacity = " << test.capacity() << std::endl;
+	std::cout << "##                        ##" << std::endl;
 }
 int 		main(void)
 {
