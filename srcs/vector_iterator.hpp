@@ -22,8 +22,15 @@ namespace ft
 
 		public:
 
+			typedef T&			reference;
+			typedef const T&	const_reference;
+			typedef T*			pointer;
+			typedef const T*	const_pointer;
+			typedef ptrdiff_t	difference_type;
+
+
 			vectorIterator(void) {};
-			vectorIterator(T* ptr):_ptr(ptr){};
+			vectorIterator(pointer ptr):_ptr(ptr){};
 			vectorIterator(vectorIterator const &cpy){ *this = cpy;};
 
 			virtual ~vectorIterator(void){};
@@ -41,23 +48,23 @@ namespace ft
 			vectorIterator 	operator--(int){_ptr--; return(vectorIterator(_ptr +1));};
 
 			// +/-
-			vectorIterator	operator+(std::ptrdiff_t op){return(vectorIterator(_ptr + op));};
-			vectorIterator	operator-(std::ptrdiff_t op){return(vectorIterator(_ptr - op));};
+			vectorIterator	operator+(difference_type op){return(vectorIterator(_ptr + op));};
+			vectorIterator	operator-(difference_type op){return(vectorIterator(_ptr - op));};
 
 			//+= -= operators
-			void	operator+=(std::ptrdiff_t op){_ptr += op;};
-			void	operator-=(std::ptrdiff_t op){_ptr -= op;};
+			void	operator+=(difference_type op){_ptr += op;};
+			void	operator-=(difference_type op){_ptr -= op;};
 
 			// ->
-			T*				operator->()		{return(_ptr);};
-			const T* 		operator->() const	{return(_ptr);};
+			pointer				operator->()		{return(_ptr);};
+			const_pointer 		operator->() const	{return(_ptr);};
 
 			// Deferencement
-			T &	operator*() 		{return (*_ptr);};
-			const T & operator*()const 	{return (*_ptr);};
+			reference		operator*() 		{return (*_ptr);};
+			const_reference	operator*() const 	{return (*_ptr);};
 
-			T & operator[](std::ptrdiff_t op)		{return(_ptr[op]);};
-			const T & operator[](std::ptrdiff_t op) const	{return(_ptr[op]);};
+			reference	 	operator[](difference_type op)			{return(_ptr[op]);};
+			const_reference operator[](difference_type op) const	{return(_ptr[op]);};
 
 			//boolean
 			bool operator==(vectorIterator const & b) const	{return (_ptr == b._ptr);};

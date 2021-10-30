@@ -22,8 +22,14 @@ namespace ft
 
 		public:
 
+			typedef T&			reference;
+			typedef const T&	const_reference;
+			typedef T*			pointer;
+			typedef const T*	const_pointer;
+			typedef ptrdiff_t	difference_type;
+
 			vectorReverseIterator(void) {};
-			vectorReverseIterator(T* ptr):_ptr(ptr){};
+			vectorReverseIterator(pointer ptr):_ptr(ptr){};
 			vectorReverseIterator(vectorReverseIterator<T> const &cpy){ *this = cpy;};
 			vectorReverseIterator(vectorIterator<T> const &cpy):_ptr(cpy.operator->()){};
 			virtual ~vectorReverseIterator(void){};
@@ -41,23 +47,23 @@ namespace ft
 			vectorReverseIterator 	operator--(int){_ptr++; return(vectorReverseIterator(_ptr - 1));};
 
 			// +/-
-			vectorReverseIterator	operator+(std::ptrdiff_t op){return(vectorReverseIterator(_ptr - op));};
-			vectorReverseIterator	operator-(std::ptrdiff_t op){return(vectorReverseIterator(_ptr + op));};
+			vectorReverseIterator	operator+(difference_type op){return(vectorReverseIterator(_ptr - op));};
+			vectorReverseIterator	operator-(difference_type op){return(vectorReverseIterator(_ptr + op));};
 
 			//+= -= operators
-			void	operator+=(std::ptrdiff_t op){_ptr -= op;};
-			void	operator-=(std::ptrdiff_t op){_ptr += op;};
+			void	operator+=(difference_type op){_ptr -= op;};
+			void	operator-=(difference_type op){_ptr += op;};
 
 			// ->
-			T*				operator->()		{return(_ptr);};
-			const T* 		operator->() const	{return(_ptr);};
+			pointer				operator->()		{return(_ptr);};
+			const_pointer 		operator->() const	{return(_ptr);};
 
 			// Deferencement
-			T &	operator*() 		{return (*_ptr);};
-			const T & operator*()const 	{return (*_ptr);};
+			reference		operator*() 		{return (*_ptr);};
+			const_reference operator*() const 	{return (*_ptr);};
 
-			T & operator[](std::ptrdiff_t op)		{return(_ptr[op]);};
-			const T & operator[](std::ptrdiff_t op) const	{return(_ptr[op]);};
+			reference		operator[](difference_type op)			{return(_ptr[op]);};
+			const_reference	operator[](difference_type op) const	{return(_ptr[op]);};
 
 			//boolean
 			bool operator==(vectorReverseIterator const & b) const	{return (_ptr == b._ptr);};
