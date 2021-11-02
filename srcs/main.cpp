@@ -239,12 +239,30 @@ static void	test_push(void)
 int 		main(void)
 {
 
-	test_push_std();
-	test_push();
+  	std::cout << std::boolalpha;
+  	std::cout << "is_integral:" << std::endl;
+  	std::cout << "char: " << ft::is_integral<char>::value << std::endl;
+    std::cout << "char16_t: " << ft::is_integral<char16_t>::value << std::endl;
+	std::cout << "char32_t: " << ft::is_integral<char32_t>::value << std::endl;
+  	std::cout << "int: " << ft::is_integral<int>::value << std::endl;
+	std::cout << "const int: " << ft::is_integral<const int>::value << std::endl;
+	std::cout << "float: " << ft::is_integral<float>::value << std::endl;
 
-	/*ft::vector<int> foo (3,100);   // three ints with a value of 100
-  	ft::vector<int> bar (2,200);   // two ints with a value of 200
-	for (ft::vectorIterator<int> it = foo.begin(); it != foo.end(); it++)
-					std::cout<< *it << std::endl;*/
+	// test_push_std();
+	// test_push();
+
+	// ft::vector<int> base;
+
+	// for(int i = 0; i < 100; i++)
+	// 	base.push_back(i);
+	// //ft::vector<int> foo (10,100);   // three ints with a value of 100
+  	// // ft::vector<int> bar (2,200);   // two ints with a value of 200
+	// ft::vectorIterator<int> it1 = base.begin() + 10;
+	// ft::vectorIterator<int> it2 = base.end() - 50;
+
+	// ft::vector<int> foo(it1, it2);
+	//  std::cout << "Size of foo = " << foo.size() << std::endl;
+	// for (ft::vectorIterator<int> it = foo.begin(); it != foo.end(); it++)
+	// 				std::cout<< *it << std::endl;
 	return (0);
 }

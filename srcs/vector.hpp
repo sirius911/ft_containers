@@ -16,7 +16,8 @@
 
 # include "vector_iterator.hpp"
 # include "vector_reverse_iterator.hpp"
-# include "utils.hpp"
+# include "utils/utils.hpp"
+# include "utils/is_integral.hpp"
 
 namespace ft
 {
@@ -24,6 +25,10 @@ namespace ft
 	class vector
 	{
 		public:
+
+			typedef vectorIterator<T>	iterator;
+			typedef vectorReverseIterator<T> rev_iterator;
+
 
 			//default (1)
 			explicit vector(const Allocator & alloc = Allocator())
@@ -37,16 +42,25 @@ namespace ft
 				_ptr = _alloc.allocate(n);
 				for(size_t i = 0; i < n; i++)
 					_alloc.construct(_ptr + i, val);
-			}
+			};
 
 			//range(3)
+			template <class InputIterator>
+			vector(InputIterator first, InputIterator last,
+					const Allocator & alloc = Allocator(), 
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+					: _alloc(alloc), _ptr(0), _capacity(0), _size_container(0)
+					{
+						for(;first != last;first++)
+							this->push_back(*first);
+					}
 
 			//copy(4)
 			explicit vector (vector const &copy)
 			: _alloc(copy.get_allocator()), _capacity(copy._capacity), _size_container(0)
 			{
 				_ptr = _alloc.allocate(_capacity);
-				for (ft::vectorIterator<T> it = copy.begin(); it != copy.end(); it++)
+				for (iterator it = copy.begin(); it != copy.end(); it++)
 					this->push_back(*it);
 			};
 
@@ -55,7 +69,7 @@ namespace ft
 				if(*this != copy)
 				{
 					this->clear();
-					for (ft::vectorIterator<T> it = copy.begin(); it != copy.end(); it++)
+					for (iterator it = copy.begin(); it != copy.end(); it++)
 						this->push_back(*it);
 				}
 				return(*this);
@@ -117,7 +131,7 @@ namespace ft
 			{
 				if(_size_container > 0)
 				{
-					for(ft::vectorIterator<T> it = this->begin(); it != this->end(); it++)
+					for(iterator it = this->begin(); it != this->end(); it++)
 						_alloc.destroy(&(*it));
 					_size_container = 0;
 				}
@@ -177,10 +191,10 @@ namespace ft
 			};
 
 			//begin() end() back() front()
-			ft::vectorIterator<T>		begin()			{return (vectorIterator<T>(_ptr));};
-			const ft::vectorIterator<T>	begin() const 	{return (vectorIterator<T>(_ptr));};
-			ft::vectorIterator<T>		end()		{return (vectorIterator<T>(_ptr + _size_container));};
-			const ft::vectorIterator<T>	end() const {return (vectorIterator<T>(_ptr + _size_container));};
+			iterator		begin()			{return (iterator(_ptr));};
+			const iterator 	begin() const 	{return (iterator(_ptr));};
+			iterator		end()		{return (iterator(_ptr + _size_container));};
+			const iterator	end() const {return (iterator(_ptr + _size_container));};
 		
 			T		&	front()			{return(*_ptr);};
 			const T	&	front() const	{return(*_ptr);};
@@ -188,10 +202,10 @@ namespace ft
 			const T	&	back() const{return(*(_ptr + _size_container - 1));};
 
 			//rbegin() rend()
-			ft::vectorReverseIterator<T>		rbegin()	   {return(vectorReverseIterator<T>(_ptr + _size_container - 1));};
-			const ft::vectorReverseIterator<T>	rbegin() const {return(vectorReverseIterator<T>(_ptr + _size_container - 1));};
-			ft::vectorReverseIterator<T>		rend()		{return(vectorReverseIterator<T>(_ptr - 1));};
-			const ft::vectorReverseIterator<T>	rend() const{return(vectorReverseIterator<T>(_ptr - 1));};
+			rev_iterator		rbegin()	   {return(rev_iterator(_ptr + _size_container - 1));};
+			const rev_iterator	rbegin() const {return(rev_iterator(_ptr + _size_container - 1));};
+			rev_iterator		rend()		{return(rev_iterator(_ptr - 1));};
+			const rev_iterator	rend() const{return(rev_iterator(_ptr - 1));};
 
 			// at
 			const T	& at(size_t n) const

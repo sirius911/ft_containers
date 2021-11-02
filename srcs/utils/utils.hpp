@@ -26,5 +26,14 @@ namespace ft
   		}
   		return (first2!=last2);
 	}
+
+	template<bool C, class T = void> 
+		struct enable_if {};
+
+	template<class T>
+		struct enable_if<true, T> 
+		{ 
+			typedef T type;
+		};
 }
 #endif
