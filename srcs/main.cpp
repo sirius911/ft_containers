@@ -289,7 +289,24 @@ static void	test_push(void)
 }
 int 		main(void)
 {
-	test_push_std();
-	test_push();
+	// test_push_std();
+	// test_push();
+
+	std::cout << "***************Travail sur erase\n";
+	std::cout << "construction du vecteur...";
+	int 	t[10] = {0,10,20,30,40,50,60,70,80,90};
+	ft::vector<int>	vect(t,t+10);
+	std::cout << " ok\n";
+	ft::vector<int>::iterator it = vect.end() - 1;
+	std::cout << "vect.erase(vect.begin() + 3) : \n";
+	ft::vector<int>::iterator sortie = vect.erase(it);
+
+	std::cout << "After erase sortie = ";
+	if (sortie == vect.end())
+		std::cout<< "end()\n";
+	else
+		std::cout << *sortie << std::endl;
+	for(it = vect.begin(); it != vect.end(); it++)
+		std::cout << *it << "\t"<<&(*it) << std::endl;
 	return (0);
 }

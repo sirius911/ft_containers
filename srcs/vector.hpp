@@ -177,6 +177,34 @@ namespace ft
 				}
 			}
 
+			iterator erase(iterator pos)
+			{
+				if(empty() || pos == end())
+					return end();
+				std::cout << "Adress to destroy : " << &(*pos) << std::endl;
+				if (pos == begin())
+					std::cout << "first to destroy\n";
+				else if (pos == end() - 1)
+					std::cout << "last to destroy\n";
+				iterator it = begin();
+				std::cout << "vector : \n";
+				while(it != pos)
+					std::cout << *(it) << "\t"<< &(*(it++))<<std::endl;
+				std::cout << "["<<*(it)<<"]\t"<< &(*(it))<<"\tdestroy()"<<std::endl;;
+				_alloc.destroy(&(it));
+				pointer tmp = &(*(it++));
+				pointer ret = tmp;
+				while(it != end())
+				{
+					_alloc.construct(tmp, *it);
+					std::cout << "\t" << tmp << " <-" << (*it) << std::endl;
+					tmp = &(*(it));
+					it++;
+				}
+				pop_back();	// 
+				return iterator(ret);
+			}
+
 			// size
 			std::size_t		size() const {return(_size_container);};
 
