@@ -117,6 +117,18 @@ static void	test_push_std(void)
 	std::cout << "Size = " <<  test.size() << std::endl;
 	std::cout << "Capacity = " << test.capacity() << std::endl;
 	std::cout << "##                        ##" << std::endl;
+
+	std::cout << "***********************TEST Construct range ********************"<<std::endl;
+	int t[6] = {2, 9, 1, 8, 2, 11};
+	std::vector<int> vi1(t, t+6); //construct vector with the 6 values of t
+	std::vector<int> vi2(t+1, t+5); // from t[1] ti t[5]
+	std::cout << "vi1 = {";
+	for(int i = 0; i < vi1.size(); i++)
+		std::cout << " " << vi1[i];
+	std::cout << "}\nvi2 = {";
+	for(std::vector<int>::iterator it = vi2.begin(); it != vi2.end(); it++)
+		std::cout << " " << *it;
+		std::cout << "}\n";
 }	
 
 static void	test_push(void)
@@ -212,11 +224,11 @@ static void	test_push(void)
 		std::cout << copy[i] << " at & " << &copy[i] <<std::endl;
 
 	std::cout << "***********REVERSE ITERATOR **************"<< std::endl;
-	for (ft::vectorReverseIterator<int> it = copy.rbegin(); it != copy.rend(); it++)
+	for (ft::vector<int>::reverse_iterator it = copy.rbegin(); it != copy.rend(); it++)
 		std::cout<< *it << std::endl;
 
 	std::cout << "***********Out of range*************"<< std::endl;
-	/*try
+	try
 	{
 			std::cout << test.at(200);
 	}
@@ -225,44 +237,33 @@ static void	test_push(void)
         std::cerr << e.what() << '\n';
     }
 	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
-*/
+
 	std::cout << "****************TEST ASSIGN**************"<< std::endl;
 	test.assign(5,42);
 
-	for (ft::vectorReverseIterator<int> it = test.rbegin(); it != test.rend(); it++)
+	for (ft::vector<int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout<< *it << std::endl;
 	std::cout << "--INFOS--" << std::endl;
 	std::cout << "Size = " <<  test.size() << std::endl;
 	std::cout << "Capacity = " << test.capacity() << std::endl;
 	std::cout << "##                        ##" << std::endl;
+
+	std::cout << "***********************TEST Construct range ********************"<<std::endl;
+	int t[6] = {2, 9, 1, 8, 2, 11};
+	ft::vector<int> vi1(t, t+6); //construct vector with the 6 values of t
+	ft::vector<int> vi2(t+1, t+5); // from t[1] ti t[5]
+	std::cout << "vi1 = {";
+	for(int i = 0; i < vi1.size(); i++)
+		std::cout << " " << vi1[i];
+	std::cout << "}\nvi2 = {";
+	for(ft::vector<int>::iterator it = vi2.begin(); it != vi2.end(); it++)
+		std::cout << " " << *it;
+		std::cout << "}\n";
 }
 int 		main(void)
 {
+	test_push_std();
+	test_push();
 
-  	std::cout << std::boolalpha;
-  	std::cout << "is_integral:" << std::endl;
-  	std::cout << "char: " << ft::is_integral<char>::value << std::endl;
-    std::cout << "char16_t: " << ft::is_integral<char16_t>::value << std::endl;
-	std::cout << "char32_t: " << ft::is_integral<char32_t>::value << std::endl;
-  	std::cout << "int: " << ft::is_integral<int>::value << std::endl;
-	std::cout << "const int: " << ft::is_integral<const int>::value << std::endl;
-	std::cout << "float: " << ft::is_integral<float>::value << std::endl;
-
-	// test_push_std();
-	// test_push();
-
-	// ft::vector<int> base;
-
-	// for(int i = 0; i < 100; i++)
-	// 	base.push_back(i);
-	// //ft::vector<int> foo (10,100);   // three ints with a value of 100
-  	// // ft::vector<int> bar (2,200);   // two ints with a value of 200
-	// ft::vectorIterator<int> it1 = base.begin() + 10;
-	// ft::vectorIterator<int> it2 = base.end() - 50;
-
-	// ft::vector<int> foo(it1, it2);
-	//  std::cout << "Size of foo = " << foo.size() << std::endl;
-	// for (ft::vectorIterator<int> it = foo.begin(); it != foo.end(); it++)
-	// 				std::cout<< *it << std::endl;
 	return (0);
 }

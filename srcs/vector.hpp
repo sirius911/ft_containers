@@ -14,9 +14,10 @@
 
 # include <iostream>
 
-# include "vector_iterator.hpp"
-# include "vector_reverse_iterator.hpp"
+# include "random_access_iterator.hpp"
+# include "reverse_iterator.hpp"
 # include "utils/utils.hpp"
+# include "utils/algorithmes.hpp"
 # include "utils/is_integral.hpp"
 
 namespace ft
@@ -25,17 +26,31 @@ namespace ft
 	class vector
 	{
 		public:
-
-			typedef vectorIterator<T>	iterator;
-			typedef vectorReverseIterator<T> rev_iterator;
+			typedef T														value_type;
+			typedef Allocator												allocator_type;
+			typedef typename allocator_type::reference						reference;
+			typedef typename allocator_type::const_reference				const_reference;
+			typedef typename allocator_type::pointer						pointer;
+			typedef typename allocator_type::const_pointer					const_pointer;
+			typedef typename ft::random_access_iterator<T>					iterator;
+			typedef typename ft::random_access_iterator<const T>			const_iterator;
+			typedef typename ft::reverse_iterator<iterator> 				reverse_iterator;
+			typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
+			typedef typename ft::iterator_traits<iterator>::difference_type	differenc_type;		
 
 
 			//default (1)
 			explicit vector(const Allocator & alloc = Allocator())
 			:_alloc(alloc), _ptr(0), _capacity(0), _size_container(0){};
 
-
-			// fill(2)
+			/**
+			 *  @brief Construct a new vector object (fill2)
+			 * 	with n elements. Each element is a copy of val.
+			 * 
+			 * @param n Initial container size
+			 * @param val Value to fill the container with. Each element will be initialized to a copy of the value
+			 * @param alloc Allocator object
+			 * */
 			explicit vector(size_t n, const T & val = T(), const Allocator & alloc = Allocator())
 			: _alloc(alloc), _ptr(0), _capacity(n), _size_container(n)
 			{
@@ -48,7 +63,7 @@ namespace ft
 			template <class InputIterator>
 			vector(InputIterator first, InputIterator last,
 					const Allocator & alloc = Allocator(), 
-					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = nullptr)
+					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft_nullptr_t)
 					: _alloc(alloc), _ptr(0), _capacity(0), _size_container(0)
 					{
 						for(;first != last;first++)
@@ -202,10 +217,10 @@ namespace ft
 			const T	&	back() const{return(*(_ptr + _size_container - 1));};
 
 			//rbegin() rend()
-			rev_iterator		rbegin()	   {return(rev_iterator(_ptr + _size_container - 1));};
-			const rev_iterator	rbegin() const {return(rev_iterator(_ptr + _size_container - 1));};
-			rev_iterator		rend()		{return(rev_iterator(_ptr - 1));};
-			const rev_iterator	rend() const{return(rev_iterator(_ptr - 1));};
+			reverse_iterator		rbegin()	   {return(reverse_iterator(_ptr + _size_container - 1));};
+			const_reverse_iterator	rbegin() const {return(reverse_iterator(_ptr + _size_container - 1));};
+			reverse_iterator		rend()		{return(reverse_iterator(begin()));};
+			const_reverse_iterator	rend() const{return(reverse_iterator(begin()));};
 
 			// at
 			const T	& at(size_t n) const
@@ -219,11 +234,11 @@ namespace ft
 				return(*(_ptr + n));
 			};
 
-			Allocator	get_allocator()const{return Allocator();};
+			Allocator	get_allocator()const{return _alloc;};
 
 		private:
-			T				*_ptr;
-			Allocator		_alloc;
+			value_type		*_ptr;
+			allocator_type	_alloc;
 			size_t			_capacity;
 			size_t			_size_container; //nb of elem in vector
 
@@ -242,16 +257,7 @@ namespace ft
 template <class T, class Allocator>
 	bool operator==(const ft::vector<T, Allocator>& lhs, const ft::vector<T, Allocator> &rhs)
 	{
-		if (lhs.size() != rhs.size())
-			return (false);
-		ft::vectorIterator<T> it_lhs = lhs.begin();
-		ft::vectorIterator<T> it_rhs = rhs.begin();
-		while(it_lhs != lhs.end() && it_rhs != rhs.end() && *it_lhs == *it_rhs)
-		{
-			it_lhs++;
-			it_rhs++;
-		}
-		return(it_lhs == lhs.end() && it_rhs == rhs.end());
+		return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 	}
 
 template <class T, class Allocator>
