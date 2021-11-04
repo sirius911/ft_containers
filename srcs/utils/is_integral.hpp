@@ -25,57 +25,49 @@
 
 namespace ft
 {
-	template <typename T, bool is_integral = false >
-		struct is_integral_helper
-		{
-			typedef T	type;
-			static const bool value = is_integral;
-		};
+	template <class T,T v>
+	struct integral_constant
+	{
+		static const T		value = v;
+		typedef T			value_type;
+		typedef integral_constant<T,v> type;
+	};
 
-
+	typedef integral_constant<bool, true> 	true_type;
+	typedef integral_constant<bool, false>	false_type;
 	// DEFAULT TEMPLATE -> RETURN FALSE
-	template <typename>
-		struct integral_constant : public is_integral_helper<void> {};
+	template <class T>
+	struct is_integral: public false_type{};
 
 	// after, all type overloads the structure
-	template <>
-		struct integral_constant<bool>: public is_integral_helper<bool, true> {};
-	template <>
-		struct integral_constant<const bool>: public is_integral_helper<const bool, true> {};
-	template <>
-		struct integral_constant<char>: public is_integral_helper<char, true> {};
-	template <>
-		struct integral_constant<char16_t>: public is_integral_helper<char16_t, true> {};
-	template <>
-		struct integral_constant<char32_t>: public is_integral_helper<char32_t, true> {};
-	template <>
-		struct integral_constant<int>: public is_integral_helper<int, true> {};
-	template <>
-		struct integral_constant<const int>: public is_integral_helper<const int, true> {};
 
-	/*------ continue with 
-	**  - bool
-    **  - char
-    **  - char16_t
-    **  - char32_t
-    **  - wchar_t
-    **  - signed char
-    **  - short int
-    **  - int
-    **  - long int
-    **  - long long int
-    **  - unsigned char
-    **  - unsigned short int
-    **  - unsigned int
-    **  - unsigned long int
-    **  - unsigned long long int
-
-	and their const 
-	*/
-
-	template <typename T>
-		struct is_integral
-		: public ft::integral_constant<T> { };    
-}
+	template<>	struct is_integral<bool> : public true_type{};
+	template<> 	struct is_integral<char> : public true_type{};
+	template<> 	struct is_integral<wchar_t> : public true_type{};
+	template<> 	struct is_integral<signed char> : public true_type{};
+	template<> 	struct is_integral<short int> : public true_type{};
+	template<> 	struct is_integral<int> : public true_type{};
+	template<> 	struct is_integral<long int> : public true_type{};
+	template<> 	struct is_integral<long long int> : public true_type{};
+	template<> 	struct is_integral<unsigned char> : public true_type{};
+	template<> 	struct is_integral<unsigned short int> : public true_type{};
+	template<> 	struct is_integral<unsigned int> : public true_type{};
+	template<> 	struct is_integral<unsigned long int> : public true_type{};
+	template<> 	struct is_integral<unsigned long long int> : public true_type{};
+	
+	template<>	struct is_integral<const bool> : public true_type{};
+	template<> 	struct is_integral<const char> : public true_type{};
+	template<> 	struct is_integral<const wchar_t> : public true_type{};
+	template<> 	struct is_integral<const signed char> : public true_type{};
+	template<> 	struct is_integral<const short int> : public true_type{};
+	template<> 	struct is_integral<const int> : public true_type{};
+	template<> 	struct is_integral<const long int> : public true_type{};
+	template<> 	struct is_integral<const long long int> : public true_type{};
+	template<> 	struct is_integral<const unsigned char> : public true_type{};
+	template<> 	struct is_integral<const unsigned short int> : public true_type{};
+	template<> 	struct is_integral<const unsigned int> : public true_type{};
+	template<> 	struct is_integral<const unsigned long int> : public true_type{};
+	template<> 	struct is_integral<const unsigned long long int> : public true_type{};
+} //ft::
 
 #endif
