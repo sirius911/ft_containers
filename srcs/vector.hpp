@@ -181,27 +181,18 @@ namespace ft
 			{
 				if(empty() || pos == end())
 					return end();
-				std::cout << "Adress to destroy : " << &(*pos) << std::endl;
-				if (pos == begin())
-					std::cout << "first to destroy\n";
-				else if (pos == end() - 1)
-					std::cout << "last to destroy\n";
 				iterator it = begin();
-				std::cout << "vector : \n";
 				while(it != pos)
-					std::cout << *(it) << "\t"<< &(*(it++))<<std::endl;
-				std::cout << "["<<*(it)<<"]\t"<< &(*(it))<<"\tdestroy()"<<std::endl;;
+					it++;
 				_alloc.destroy(&(it));
 				pointer tmp = &(*(it++));
 				pointer ret = tmp;
 				while(it != end())
 				{
 					_alloc.construct(tmp, *it);
-					std::cout << "\t" << tmp << " <-" << (*it) << std::endl;
-					tmp = &(*(it));
-					it++;
+					tmp = &(*(it++));
 				}
-				pop_back();	// 
+				pop_back();	// destroy the last 
 				return iterator(ret);
 			}
 
