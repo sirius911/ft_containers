@@ -26,7 +26,7 @@ Canonique form :
 - [X] vector::operator=
 
 - [X] vector::assign(range)
-- [ ] vector::assign(fill)
+- [X] vector::assign(fill)
 - [X] vector::at
 - [X] vector::back
 - [X] vector::begin

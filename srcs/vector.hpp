@@ -36,7 +36,7 @@ namespace ft
 			typedef typename ft::random_access_iterator<const T>			const_iterator;
 			typedef typename ft::reverse_iterator<iterator> 				reverse_iterator;
 			typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
-			typedef typename ft::iterator_traits<iterator>::difference_type	differenc_type;		
+			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;		
 
 
 			//default (1)
@@ -59,13 +59,16 @@ namespace ft
 					_alloc.construct(_ptr + i, val);
 			};
 
-			//range(3)
+			//construct range(3)
 			template <class InputIterator>
-			vector(InputIterator first, InputIterator last,
+			explicit vector(InputIterator first, InputIterator last,
 					const Allocator & alloc = Allocator(), 
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft_nullptr_t)
-					: _alloc(alloc), _ptr(0), _capacity(0), _size_container(0)
+					: _alloc(alloc), _size_container(0)
 					{
+						difference_type n = ft::distance(first, last);
+                		_ptr  = _alloc.allocate(n);
+						_capacity = n;
 						for(;first != last;first++)
 							this->push_back(*first);
 					}
@@ -111,8 +114,8 @@ namespace ft
 				_size_container++;
 			};
 
-			// assign
-			void	assign(size_t n, const T & val)
+			// assign (fill)
+			void	assign(size_t n, const value_type &val)
 			{
 				this->clear();
 				if (n == 0)
@@ -129,6 +132,28 @@ namespace ft
 					_alloc.construct(_ptr + _size_container, val);
 					_size_container++;
 				}
+			}
+
+			/**
+             * @brief Assigns new contents to the vector, replacing its current contents,
+             * and modifying its size accordingly. Any elements held in the container before
+             * the call are destroyed and replaced by newly constructed elements (no assignments of elements take place).
+             * The new contents are elements constructed from each of the elements in the range between first and last, in the same order.
+             *
+             * @tparam InputIterator
+             * @param first the first element in the range.
+             * @param last the last element in the range.
+             */
+			template <class InputIterator>
+			void	assign(InputIterator first, InputIterator last,
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft_nullptr_t)
+			{
+				this->clear();
+				difference_type n = ft::distance(first, last);
+                _ptr  = _alloc.allocate(n);
+				_capacity = n;
+				for(;first != last;first++)
+					this->push_back(*first);
 			}
 
 			// remove element

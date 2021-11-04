@@ -109,10 +109,24 @@ static void	test_push_std(void)
     }
 	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
 
-	std::cout << "****************TEST ASSIGN**************"<< std::endl;
+	std::cout << "****************TEST ASSIGN  (FILL)**************"<< std::endl;
 	test.assign(5,42);
-	for ( it = test.rbegin(); it != test.rend(); it++)
-		std::cout<< *it << std::endl;
+
+	for ( int i = 0; i < test.size(); i++)
+		std::cout<< test[i] << std::endl;
+	std::cout << "--INFOS--" << std::endl;
+	std::cout << "Size = " <<  test.size() << std::endl;
+	std::cout << "Capacity = " << test.capacity() << std::endl;
+	std::cout << "##                        ##" << std::endl;
+
+	std::cout << "****************TEST ASSIGN  (range)**************"<< std::endl;
+	int tab_int[50];
+	for (int i = 0 ; i < 25; i++)
+		tab_int[i] = i*2;
+	test.assign(tab_int+1,tab_int+20);
+
+	for ( int i = 0; i < test.size(); i++)
+		std::cout<< test[i] << std::endl;
 	std::cout << "--INFOS--" << std::endl;
 	std::cout << "Size = " <<  test.size() << std::endl;
 	std::cout << "Capacity = " << test.capacity() << std::endl;
@@ -238,8 +252,21 @@ static void	test_push(void)
     }
 	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
 
-	std::cout << "****************TEST ASSIGN**************"<< std::endl;
+	std::cout << "****************TEST ASSIGN  (FILL)**************"<< std::endl;
 	test.assign(5,42);
+
+	for (ft::vector<int>::iterator it = test.begin(); it != test.end(); it++)
+		std::cout<< *it << std::endl;
+	std::cout << "--INFOS--" << std::endl;
+	std::cout << "Size = " <<  test.size() << std::endl;
+	std::cout << "Capacity = " << test.capacity() << std::endl;
+	std::cout << "##                        ##" << std::endl;
+
+	std::cout << "****************TEST ASSIGN  (range)**************"<< std::endl;
+	int tab_int[50];
+	for (int i = 0 ; i < 25; i++)
+		tab_int[i] = i*2;
+	test.assign(tab_int+1,tab_int+20);
 
 	for (ft::vector<int>::iterator it = test.begin(); it != test.end(); it++)
 		std::cout<< *it << std::endl;
@@ -264,6 +291,5 @@ int 		main(void)
 {
 	test_push_std();
 	test_push();
-
 	return (0);
 }

@@ -11,6 +11,8 @@
 /* ************************************************************************** */
 #ifndef UTILS_HPP
 # define UTILS_HPP
+
+# include "../iterator.hpp"
 static	class ft_nullptr_t
 	{
 		private:
@@ -39,5 +41,18 @@ namespace ft
 			typedef T type;
 		};
 
+	template <class InputIterator>
+	typename iterator_traits<InputIterator>::difference_type
+	distance(InputIterator first, InputIterator last)
+	{
+		typename iterator_traits<InputIterator>::difference_type ret = 0;
+		while (first != last)
+		{
+			first++;
+			ret++;
+		}
+		return ret;
+		
+	};
 }
 #endif
