@@ -87,8 +87,9 @@ namespace ft
 				if(*this != copy)
 				{
 					this->clear();
-					for (iterator it = copy.begin(); it != copy.end(); it++)
-						this->push_back(*it);
+					assign(copy.begin(), copy.end());
+					// for (iterator it = copy.begin(); it != copy.end(); it++)
+					// 	this->push_back(*it);
 				}
 				return(*this);
 			};
@@ -251,28 +252,28 @@ namespace ft
 
 			//begin() end() back() front()
 			iterator		begin()			{return (iterator(_ptr));};
-			const iterator 	begin() const 	{return (iterator(_ptr));};
+			const_iterator 	begin() const 	{return (const_iterator(_ptr));};
 			iterator		end()		{return (iterator(_ptr + _size_container));};
-			const iterator	end() const {return (iterator(_ptr + _size_container));};
+			const_iterator	end() const {return (const_iterator(_ptr + _size_container));};
 		
-			T		&	front()			{return(*_ptr);};
-			const T	&	front() const	{return(*_ptr);};
-			T		&	back()		{return(*(_ptr + _size_container - 1));};
-			const T	&	back() const{return(*(_ptr + _size_container - 1));};
+			reference		front()			{return(*_ptr);};
+			const_reference	front() const	{return(*_ptr);};
+			reference		back()		{return(*(_ptr + _size_container - 1));};
+			const_reference	back() const{return(*(_ptr + _size_container - 1));};
 
 			//rbegin() rend()
 			reverse_iterator		rbegin()	   {return(reverse_iterator(_ptr + _size_container - 1));};
-			const_reverse_iterator	rbegin() const {return(reverse_iterator(_ptr + _size_container - 1));};
+			const_reverse_iterator	rbegin() const {return(const_reverse_iterator(_ptr + _size_container - 1));};
 			reverse_iterator		rend()		{return(reverse_iterator(begin()));};
-			const_reverse_iterator	rend() const{return(reverse_iterator(begin()));};
+			const_reverse_iterator	rend() const{return(const_reverse_iterator(begin()));};
 
 			// at
-			const T	& at(size_t n) const
+			const_reference at(size_t n) const
 			{
 				checkRange(n);
 				return(*(_ptr + n));
 			};
-			 T	& at(size_t n) 
+			reference at(size_t n) 
 			{
 				checkRange(n);
 				return(*(_ptr + n));
