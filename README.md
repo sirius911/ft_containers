@@ -34,7 +34,7 @@ Canonique form :
 - [X] vector::clear
 - [X] vector::empty
 - [X] vector::end
-- [ ] vector::erase
+- [X] vector::erase
 - [X] vector::front
 - [X] vector::get_allocator
 - [ ] vector::insert

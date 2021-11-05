@@ -197,6 +197,28 @@ namespace ft
 				return iterator(ret);
 			}
 
+			iterator erase(iterator first, iterator last)
+			{
+				size_t nb = ft::distance(first, last);
+				if(empty())
+					return end();
+				iterator it = begin();
+				while(it != first)
+					it++;
+				iterator start = it;
+				iterator dest = it;
+				while( it != last && it != end())
+				{
+					_alloc.destroy(&(it));
+					it++;
+				}
+				while(it != end())
+					_alloc.construct(&(*(start++)), *(it++));
+				for(size_t i = 0; i < nb; i++)
+					pop_back();
+				return (dest);
+			}
+
 			// size
 			std::size_t		size() const {return(_size_container);};
 

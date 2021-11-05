@@ -287,24 +287,27 @@ static void	test_push(void)
 		std::cout << " " << *it;
 		std::cout << "}\n";
 }
+
+#define NAMESPACE ft
+
 int 		main(void)
 {
 	test_push_std();
 	test_push();
 
-	std::cout << "***************Travail sur erase\n";
+	std::cout << "***************Test sur erase\n";
 	std::cout << "construction du vecteur...";
 	int 	t[10] = {0,10,20,30,40,50,60,70,80,90};
-	ft::vector<int>	vect(t,t+10);
+	NAMESPACE::vector<int>	vect(t,t+10);
 	//ft::vector<int> vect(1,10);
 	std::cout << " ok\n";
-	ft::vector<int>::iterator it;
-	ft::vector<int>::iterator it_begin = vect.begin();
-	ft::vector<int>::iterator it_end = vect.end();
+	NAMESPACE::vector<int>::iterator it;
+	NAMESPACE::vector<int>::iterator it_begin = vect.begin();
+	NAMESPACE::vector<int>::iterator it_end = vect.end();
 	for(it = vect.begin(); it != it_end; it++)
 		std::cout << *it << "\t"<<&(*it) << std::endl;
 	std::cout << "vect.erase(vect.begin() + 3) : \n";
-	ft::vector<int>::iterator sortie = vect.erase(it_begin + 3);
+	NAMESPACE::vector<int>::iterator sortie = vect.erase(it_begin + 2, it_end-3 );
 
 	std::cout << "After erase sortie = ";
 	if (sortie == it_end)
@@ -313,5 +316,6 @@ int 		main(void)
 		std::cout << *sortie << std::endl;
 	for(it = vect.begin(); it != vect.end(); it++)
 		std::cout << *it << "\t"<<&(*it) << std::endl;
+	std::cout << "Empty() = " << std::boolalpha << vect.empty() << std::endl << std::endl;
 	return (0);
 }
