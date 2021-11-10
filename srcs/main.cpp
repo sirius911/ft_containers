@@ -15,11 +15,15 @@
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
+
 struct Buffer
 {
 	int idx;
 	char buff[BUFFER_SIZE];
 };
+
+#define COUNT (MAX_RAM / (int)sizeof(Buffer))
+
 
 static void	test_push_std(void)
 {
@@ -518,13 +522,55 @@ static void	test_push(void)
 
 #define NAMESPACE ft
 
-int 		main(void)
+int 		main(int argc, char **argv)
 {
-	test_push_std();
+	(void) argv;
+	//test_push_std();
 	test_push();
-
+	return 0;
+	if (argc != 2)
 	{
+		std::cerr << "Usage: ./test seed" << std::endl;
+		std::cerr << "Provide a seed please" << std::endl;
+		std::cerr << "Count value:" << COUNT << std::endl;
+		return 1;
+	}
+	const int seed = atoi(argv[1]);
+	srand(seed);
+
+	NAMESPACE::vector<std::string> vector_str;
+	NAMESPACE::vector<int> vector_int;
+	//ft::stack<int> stack_int;
+	NAMESPACE::vector<Buffer> vector_buffer;
+	//ft::stack<Buffer, std::deque<int> > stack_deq_buffer;
+	//ft::map<int, int> map_int;
+	std::cout << "COUNT = " << COUNT << std::endl;
 	
+	for (int i = 0; i < COUNT; i++)
+	{
+		vector_buffer.push_back(Buffer());
+	}
+
+	for (int i = 0; i < COUNT; i++)
+	{
+		const int idx = rand() % COUNT;
+		vector_buffer[idx].idx = 5;
+	}
+	NAMESPACE::vector<Buffer>().swap(vector_buffer);
+
+	try
+	{
+		for (int i = 0; i < COUNT; i++)
+		{
+			const int idx = rand() % COUNT;
+			vector_buffer.at(idx);
+			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << "Normal : "<< e.what()<< std::endl;
+		//NORMAL ! :P
 	}
 	return (0);
 }

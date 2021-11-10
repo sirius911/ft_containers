@@ -83,7 +83,7 @@ namespace ft
 					this->push_back(*it);
 			};
 
-			vector &operator=(vector const& copy)
+			vector &operator=(vector const & copy)
 			{
 				if(*this != copy)
 				{
