@@ -37,7 +37,7 @@ Canonique form :
 - [X] vector::erase
 - [X] vector::front
 - [X] vector::get_allocator
-- [ ] vector::insert
+- [X] vector::insert
 - [X] vector::max_size
 - [X] vector::operator[]
 - [X] vector::pop_back
@@ -47,7 +47,7 @@ Canonique form :
 - [X] vector::reserve
 - [X] vector::resize
 - [X] vector::size
-- [ ] vector::swap
+- [X] vector::swap
 
 ### non-member overloads:
 
@@ -58,4 +58,4 @@ Canonique form :
 		- [X] <=	a<=b	->	!(b < a)
 		- [X] >		a>b		->  b < a
 		- [X] >=	a>=b	->	!(a < b)
-- [ ] swap (vector)
+- [X] swap (vector)

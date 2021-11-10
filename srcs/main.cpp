@@ -142,7 +142,119 @@ static void	test_push_std(void)
 	std::cout << "}\nvi2 = {";
 	for(std::vector<int>::iterator it = vi2.begin(); it != vi2.end(); it++)
 		std::cout << " " << *it;
-		std::cout << "}\n";
+	std::cout << "}\n";
+	std::cout << "--INFOS v1--" << std::endl;
+	std::cout << "Size = " <<  vi1.size() << std::endl;
+	std::cout << "Capacity = " << vi1.capacity() << std::endl;
+	std::cout << "##                        ##" << std::endl;
+	{
+	std::cout << "***************Test sur erase\n";
+	std::cout << "construction du vecteur...";
+	int 	t[10] = {0,10,20,30,40,50,60,70,80,90};
+	std::vector<int>	vect(t,t+10);
+	//ft::vector<int> vect(1,10);
+	std::cout << " ok\n";
+	std::vector<int>::iterator it;
+	std::vector<int>::iterator it_begin = vect.begin();
+	std::vector<int>::iterator it_end = vect.end();
+	for(it = vect.begin(); it != it_end; it++)
+		std::cout << *it << "\t"<<&(*it) << std::endl;
+	std::cout << "vect.erase(vect.begin() + 3) : \n";
+	std::vector<int>::iterator sortie = vect.erase(it_begin + 2, it_end-3 );
+
+	std::cout << "After erase sortie = ";
+	if (sortie == it_end)
+		std::cout<< "end()\n";
+	else
+		std::cout << *sortie << std::endl;
+	for(it = vect.begin(); it != vect.end(); it++)
+		std::cout << *it << "\t"<<&(*it) << std::endl;
+	std::cout << "Empty() = " << std::boolalpha << vect.empty() << std::endl << std::endl;
+
+	}
+	{
+			std::cout << "*******test insert ******************\n";
+		int t[6] = {2, 9, 1, 8, 2, 11};
+		std::vector<int> vict(t, t+6); //construct vector with the 6 values of t
+		std::vector<int> empty_vector;
+		//std::vector<int> vict(empty_vector);
+		std::vector<int>::iterator it;
+		std::vector<int>::iterator sortie;
+
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;
+
+		sortie = vict.insert(vict.end(), 42);
+		std::cout << "\n************************************\n";
+		std::cout << "sortie = " << *sortie << std::endl;
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;
+
+		vict.insert(vict.end(),3,24);
+		std::cout << "\n************************************\n";
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;
+		int u[6] = {60,50,40,30,20,10};
+		vict.insert(vict.begin(), u+1, u+5);
+
+		std::cout << "\n************************************\n";
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;	
+	}
+
+	{
+		std::vector<int> foo (3,100);   // three ints with a value of 100
+  	std::vector<int> bar (5,200);   // five ints with a value of 200
+
+	std::cout << "*********** TEST SWAP ************\n";
+	std::cout << "before swap\n";
+	std::cout << "foo contains:";
+  	for (unsigned i=0; i<foo.size(); i++)
+   		std::cout << ' ' << foo[i];
+  	std::cout << '\n';
+
+  	std::cout << "bar contains:";
+  	for (unsigned i=0; i<bar.size(); i++)
+  	  std::cout << ' ' << bar[i];
+ 	std::cout << '\n';
+  	foo.swap(bar);
+	std::cout << "After foo.swap(bar)\n";
+  	std::cout << "foo contains:";
+  	for (unsigned i=0; i<foo.size(); i++)
+   		std::cout << ' ' << foo[i];
+  	std::cout << '\n';
+  	std::cout << "bar contains:";
+  	for (unsigned i=0; i<bar.size(); i++)
+  	  std::cout << ' ' << bar[i];
+ 	std::cout << '\n';
+	std::swap(bar, foo);
+	std::cout << "After ft::swap(bar, foo)"<<std::endl;
+  	std::cout << "foo contains:";
+  	for (unsigned i=0; i<foo.size(); i++)
+		std::cout << ' ' << foo[i];
+	std::cout << std::endl;
+
+	std::cout << "bar contains:";
+	for (unsigned i=0; i<bar.size(); i++)
+  	 	std::cout << ' ' << bar[i];
+ 	std::cout << std::endl;
+	}
 }	
 
 static void	test_push(void)
@@ -237,20 +349,21 @@ static void	test_push(void)
 	for(size_t i = 0; i < copy.size(); i++)
 		std::cout << copy[i] << " at & " << &copy[i] <<std::endl;
 
+
 	std::cout << "***********REVERSE ITERATOR **************"<< std::endl;
 	for (ft::vector<int>::reverse_iterator it = copy.rbegin(); it != copy.rend(); it++)
 		std::cout<< *it << std::endl;
 
 	std::cout << "***********Out of range*************"<< std::endl;
-	try
-	{
-			std::cout << test.at(200);
-	}
-	catch(const std::exception& e)
-    {
-        std::cerr << e.what() << '\n';
-    }
-	std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
+	// try
+	// {
+	// 		std::cout << test.at(200);
+	// }
+	// catch(const std::exception& e)
+    // {
+    //     std::cerr << e.what() << '\n';
+    // }
+	//std::cout << "test[0] = "<<test[0]<< " & test[200] = "<<test[200]<<std::endl ;
 
 	std::cout << "****************TEST ASSIGN  (FILL)**************"<< std::endl;
 	test.assign(5,42);
@@ -264,7 +377,7 @@ static void	test_push(void)
 
 	std::cout << "****************TEST ASSIGN  (range)**************"<< std::endl;
 	int tab_int[50];
-	for (int i = 0 ; i < 25; i++)
+	for (int i = 0 ; i < 50; i++)
 		tab_int[i] = i*2;
 	test.assign(tab_int+1,tab_int+20);
 
@@ -285,29 +398,26 @@ static void	test_push(void)
 	std::cout << "}\nvi2 = {";
 	for(ft::vector<int>::iterator it = vi2.begin(); it != vi2.end(); it++)
 		std::cout << " " << *it;
-		std::cout << "}\n";
-}
+	std::cout << "}\n";
+	std::cout << "--INFOS v1--" << std::endl;
+	std::cout << "Size = " <<  vi1.size() << std::endl;
+	std::cout << "Capacity = " << vi1.capacity() << std::endl;
+	std::cout << "##                        ##" << std::endl;
 
-#define NAMESPACE ft
-
-int 		main(void)
-{
-	test_push_std();
-	test_push();
-
+	{
 	std::cout << "***************Test sur erase\n";
 	std::cout << "construction du vecteur...";
 	int 	t[10] = {0,10,20,30,40,50,60,70,80,90};
-	NAMESPACE::vector<int>	vect(t,t+10);
+	ft::vector<int>	vect(t,t+10);
 	//ft::vector<int> vect(1,10);
 	std::cout << " ok\n";
-	NAMESPACE::vector<int>::iterator it;
-	NAMESPACE::vector<int>::iterator it_begin = vect.begin();
-	NAMESPACE::vector<int>::iterator it_end = vect.end();
+	ft::vector<int>::iterator it;
+	ft::vector<int>::iterator it_begin = vect.begin();
+	ft::vector<int>::iterator it_end = vect.end();
 	for(it = vect.begin(); it != it_end; it++)
 		std::cout << *it << "\t"<<&(*it) << std::endl;
 	std::cout << "vect.erase(vect.begin() + 3) : \n";
-	NAMESPACE::vector<int>::iterator sortie = vect.erase(it_begin + 2, it_end-3 );
+	ft::vector<int>::iterator sortie = vect.erase(it_begin + 2, it_end-3 );
 
 	std::cout << "After erase sortie = ";
 	if (sortie == it_end)
@@ -317,5 +427,104 @@ int 		main(void)
 	for(it = vect.begin(); it != vect.end(); it++)
 		std::cout << *it << "\t"<<&(*it) << std::endl;
 	std::cout << "Empty() = " << std::boolalpha << vect.empty() << std::endl << std::endl;
+
+	}
+
+	{
+		std::cout << "*******test insert ******************\n";
+		int t[6] = {2, 9, 1, 8, 2, 11};
+		ft::vector<int> vict(t, t+6); //construct vector with the 6 values of t
+		ft::vector<int> empty_vector;
+		//ft::vector<int> vict(empty_vector);
+		ft::vector<int>::iterator it;
+		ft::vector<int>::iterator sortie;
+
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;
+
+		sortie = vict.insert(vict.end(), 42);
+		std::cout << "\n************************************\n";
+		std::cout << "sortie = " << *sortie << std::endl;
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;
+
+		vict.insert(vict.end(),3,24);
+		std::cout << "\n************************************\n";
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;
+		int u[6] = {60,50,40,30,20,10};
+		vict.insert(vict.begin(), u+1, u+5);
+
+		std::cout << "\n************************************\n";
+		for(it = vict.begin(); it != vict.end(); it++)
+			std::cout << *it << "\t"<<&(*it) << std::endl;
+		std::cout << "--INFOS--" << std::endl;
+		std::cout << "Size = " <<  vict.size() << std::endl;
+		std::cout << "Capacity = " << vict.capacity() << std::endl;
+		std::cout << "##                        ##" << std::endl;
+	}
+
+	{
+		ft::vector<int> foo (3,100);   // three ints with a value of 100
+  		ft::vector<int> bar (5,200);   // five ints with a value of 200
+
+		std::cout << "*********** TEST SWAP ************\n";
+		std::cout << "before swap\n";
+		std::cout << "foo contains:";
+  		for (unsigned i=0; i<foo.size(); i++)
+	   		std::cout << ' ' << foo[i];
+	  	std::cout << std::endl;
+
+	  	std::cout << "bar contains:";
+	  	for (unsigned i=0; i<bar.size(); i++)
+  	  		std::cout << ' ' << bar[i];
+ 		std::cout << std::endl;
+  		foo.swap(bar);
+		std::cout << "After foo.swap(bar)"<<std::endl;
+  		std::cout << "foo contains:";
+  		for (unsigned i=0; i<foo.size(); i++)
+	   		std::cout << ' ' << foo[i];
+	  	std::cout << std::endl;
+	  	std::cout << "bar contains:";
+	  	for (unsigned i=0; i<bar.size(); i++)
+  	  		std::cout << ' ' << bar[i];
+ 		std::cout << std::endl;
+
+		ft::swap(bar, foo);
+		std::cout << "After ft::swap(bar, foo)"<<std::endl;
+  		std::cout << "foo contains:";
+  		for (unsigned i=0; i<foo.size(); i++)
+	   		std::cout << ' ' << foo[i];
+	  	std::cout << std::endl;
+
+	  	std::cout << "bar contains:";
+	  	for (unsigned i=0; i<bar.size(); i++)
+  	  	std::cout << ' ' << bar[i];
+ 		std::cout << std::endl;
+	}
+}
+
+#define NAMESPACE ft
+
+int 		main(void)
+{
+	test_push_std();
+	test_push();
+
+	{
+	
+	}
 	return (0);
 }

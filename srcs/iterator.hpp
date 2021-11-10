@@ -56,7 +56,7 @@ namespace ft
 	
 	/*							Specialized									*/
 	template <class T>
-	struct iterator_traits<T *>
+	struct iterator_traits<T*>
 	{
 			typedef	ptrdiff_t							difference_type;
 			typedef T									value_type;
@@ -65,15 +65,15 @@ namespace ft
 			typedef	ft::random_access_iterator_tag		iterator_category;
 	};
 
-	// template <class It>
-	// struct iterator_traits<const It *>
-	// {
-	// 		typedef	ptrdiff_t							difference_type;
-	// 		typedef It									value_type;
-	// 		typedef It*									pointer;
-	// 		typedef	It&									reference;
-	// 		typedef	ft::random_access_iterator_tag		iterator_category;
-	// };
+	template <class It>
+	struct iterator_traits<const It*>
+	{
+			typedef	ptrdiff_t							difference_type;
+			typedef It									value_type;
+			typedef It*									pointer;
+			typedef	It&									reference;
+			typedef	ft::random_access_iterator_tag		iterator_category;
+	};
 } // ft::
 
 #endif
