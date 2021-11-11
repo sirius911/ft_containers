@@ -164,7 +164,7 @@ static void	test_push_std(void)
 	for(it = vect.begin(); it != it_end; it++)
 		std::cout << *it << "\t"<<&(*it) << std::endl;
 	std::cout << "vect.erase(vect.begin() + 3) : \n";
-	std::vector<int>::iterator sortie = vect.erase(it_begin + 2, it_end-3 );
+	std::vector<int>::iterator sortie = vect.erase(it_begin + 3);
 
 	std::cout << "After erase sortie = ";
 	if (sortie == it_end)
@@ -421,7 +421,7 @@ static void	test_push(void)
 	for(it = vect.begin(); it != it_end; it++)
 		std::cout << *it << "\t"<<&(*it) << std::endl;
 	std::cout << "vect.erase(vect.begin() + 3) : \n";
-	ft::vector<int>::iterator sortie = vect.erase(it_begin + 2, it_end-3 );
+	ft::vector<int>::iterator sortie = vect.erase(it_begin + 3);
 
 	std::cout << "After erase sortie = ";
 	if (sortie == it_end)
@@ -525,7 +525,7 @@ static void	test_push(void)
 int 		main(int argc, char **argv)
 {
 	(void) argv;
-	//test_push_std();
+	test_push_std();
 	test_push();
 	return 0;
 	if (argc != 2)

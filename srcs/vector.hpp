@@ -34,7 +34,6 @@ namespace ft
 			typedef typename allocator_type::const_pointer					const_pointer;
 			typedef typename ft::random_access_iterator<T>					iterator;
 			typedef typename ft::random_access_const_iterator<T>			const_iterator;
-			//typedef typename ft::random_access_iterator<const T>			const_iterator;
 			typedef typename ft::reverse_iterator<iterator> 				reverse_iterator;
 			typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;		
@@ -360,7 +359,7 @@ namespace ft
 				iterator it = begin();
 				while(it != pos)
 					it++;
-				_alloc.destroy(&(it));
+				_alloc.destroy(&(*it));
 				pointer tmp = &(*(it++));
 				pointer ret = tmp;
 				while(it != end())
@@ -383,10 +382,7 @@ namespace ft
 				iterator start = it;
 				iterator dest = it;
 				while( it != last && it != end())
-				{
-					_alloc.destroy(&(it));
-					it++;
-				}
+					_alloc.destroy(&(*(it++)));
 				while(it != end())
 					_alloc.construct(&(*(start++)), *(it++));
 				for(size_t i = 0; i < nb; i++)
