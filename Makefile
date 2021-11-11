@@ -46,4 +46,7 @@ fclean:		clean
 
 re:			fclean all
 
+run:		fclean all
+			./$(NAME)
+
 .phony: all clean fclean re
