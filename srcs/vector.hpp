@@ -160,7 +160,7 @@ namespace ft
 			//insert single element(1)
 			iterator	insert(iterator position, const value_type &val)
 			{
-				std::cout<<"insert(element)\n";
+				//std::cout<<"insert(element)\n";
 				difference_type index = position - begin();
 				insert(position, 1, val);
 				return begin() + index;
@@ -169,26 +169,26 @@ namespace ft
 			//insert fill(2)
 			void		insert(iterator position, size_t n, const value_type &val)
 			{
-				std::cout << "insert(fill)\n";
+				//std::cout << "insert(fill)\n";
 				difference_type index = position - begin();
 				if(n + _size_container > _capacity)
 				{
 					// resize
-					size_t new_capacity = (_size_container > 0)? (_size_container + n) * 2: n*2;
+					size_type new_capacity = (_size_container > 0)? (_size_container + n) * 2: n*2;
 					if (new_capacity > this->max_size())
 							throw (std::length_error("vector::reserve"));
 					else
 					{
 						value_type	*prev_ptr = _ptr;
-						std::size_t	prev_size = _size_container;
-						std::size_t	prev_capacity = _capacity;
+						size_type	prev_size = _size_container;
+						size_type	prev_capacity = _capacity;
 						_ptr = _alloc.allocate(new_capacity);
 						_capacity = new_capacity;
-						std::size_t i = 0;
+						difference_type i = 0;
 						for(; i < index; i++)
 							_alloc.construct(_ptr + i, *(prev_ptr + i));
-						std::size_t z = i;
-						for(std::size_t j = 0; j < n; j++)
+						size_type z = i;
+						for(size_type j = 0; j < n; j++)
 						{
 							_alloc.construct(_ptr + i, val);
 							i++;
@@ -209,13 +209,13 @@ namespace ft
 					if(position == end())
 					{
 						//std::cout << "at the end !!\n";
-						for (int i = 0; i < n; i++)
+						for (size_t i = 0; i < n; i++)
 							push_back(val);
 					}
 					else
 					{
-						size_t i = index;
-						size_t ending = _size_container - 1;
+						difference_type i = index;
+						difference_type ending = _size_container - 1;
 					
 						//std::cout << "at " << index << " ending = "<< ending <<std::endl;
 						
@@ -245,7 +245,7 @@ namespace ft
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type * = ft_nullptr_t) 
 			{
 				//std::cout<<"insert(range)\n";
-				size_t n = ft::distance(first, last);
+				size_type n = ft::distance(first, last);
 				difference_type index = position - begin();
 				//std::cout << "n = "<<n << " index = "<<index<<std::endl;
 				if(n + _size_container > _capacity)
@@ -261,10 +261,10 @@ namespace ft
 						std::size_t	prev_capacity = _capacity;
 						_ptr = _alloc.allocate(new_capacity);
 						_capacity = new_capacity;
-						std::size_t i = 0;
+						difference_type i = 0;
 						for(; i < index; i++)
 							_alloc.construct(_ptr + i, *(prev_ptr + i));
-						std::size_t z = i;
+						size_type z = i;
 						for(;first != last;first++)
 						{
 							_alloc.construct(_ptr + (i++),*first);
@@ -290,8 +290,8 @@ namespace ft
 					}
 					else
 					{
-						size_t i = index;
-						size_t ending = _size_container - 1;
+						difference_type i = index;
+						difference_type ending = _size_container - 1;
 					
 						//std::cout << "at " << index << " ending = "<< ending <<std::endl;
 						
@@ -478,10 +478,10 @@ namespace ft
 			Allocator	get_allocator()const{return _alloc;};
 
 		private:
-			allocator_type	_alloc;
-			value_type		*_ptr;
-			size_t			_capacity;
-			size_t			_size_container; //nb of elem in vector
+			allocator_type		_alloc;
+			value_type			*_ptr;
+			size_type			_capacity;
+			size_type			_size_container; //nb of elem in vector
 
 			void	checkRange(const size_t &n) const
 			{
