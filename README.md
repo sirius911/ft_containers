@@ -7,6 +7,26 @@ Containers abstracting :
 - stack: Adapts a container to provide stack (LIFO - Last In First Out)
 - queue: Adapts a container to provide queue (FIFO - First In First Out)
 
+## Stack
+
+Stacks are a type of container adaptor, specifically designed to operate in a LIFO context (last-in first-out), where elements are inserted and extracted only from one end of the container.
+
+https://www.cplusplus.com/reference/stack/stack/
+
+### member functions:
+
+- [X] Constructors
+- [X] Destructors
+- [X] stack::empty()
+- [X] stack::size()
+- [X] stack::top()
+- [X] stack::push()
+- [X] stack::pop()
+
+### non-member function overloads:
+
+- [ ] relational operators
+
 ## Vector
 
 Containers abstracting : Dynamic contiguous array

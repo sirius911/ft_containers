@@ -11,7 +11,9 @@
 /* ************************************************************************** */
 
 #include "vector.hpp"
+#include "stack.hpp"
 #include <vector>
+#include <stack>
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -538,12 +540,25 @@ int 		main(int argc, char **argv)
 	const int seed = atoi(argv[1]);
 	srand(seed);
 
-	NAMESPACE::vector<std::string> vector_str;
-	NAMESPACE::vector<int> vector_int;
-	//ft::stack<int> stack_int;
-	NAMESPACE::vector<Buffer> vector_buffer;
-	//ft::stack<Buffer, std::deque<int> > stack_deq_buffer;
+	ft::vector<std::string> vector_str;
+	ft::vector<int> vector_int;
+	ft::stack<int> stack_int;
+	ft::vector<Buffer> vector_buffer;
+	ft::stack<Buffer, std::deque<int> > stack_deq_buffer;
 	//ft::map<int, int> map_int;
+	std::cout << "stack_int.empty() = " << std::boolalpha << stack_int.empty() << std::endl;
+	std::cout << "stack_int.size() = " << stack_int.size() << std::endl;
+	stack_int.push(10);
+	stack_int.push(20);
+	std::cout << "stack_int.empty() = " << std::boolalpha << stack_int.empty() << std::endl;
+	std::cout << "stack_int.size() = " << stack_int.size() << std::endl;
+	std::cout << "stack_int.top() = "<< stack_int.top() << std::endl;
+	stack_int.top() -= 5;
+	std::cout << "stack_int.top() = "<< stack_int.top() << std::endl;
+	stack_int.pop();
+	const int const_int = stack_int.top();
+	std::cout << "const int = "<< const_int << std::endl;
+	return 0;
 	std::cout << "COUNT = " << COUNT << std::endl;
 	
 	for (int i = 0; i < COUNT; i++)
@@ -556,7 +571,7 @@ int 		main(int argc, char **argv)
 		const int idx = rand() % COUNT;
 		vector_buffer[idx].idx = 5;
 	}
-	NAMESPACE::vector<Buffer>().swap(vector_buffer);
+	ft::vector<Buffer>().swap(vector_buffer);
 
 	try
 	{
@@ -572,5 +587,6 @@ int 		main(int argc, char **argv)
 		std::cout << "Normal : "<< e.what()<< std::endl;
 		//NORMAL ! :P
 	}
+
 	return (0);
 }

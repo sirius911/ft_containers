@@ -24,19 +24,18 @@ namespace ft
 
 		public:
 
-			typedef T&			reference;
-			typedef T*			pointer;
-			typedef ptrdiff_t	difference_type;
+			typedef T				value_type;
+			typedef T&				reference;
+			typedef T*				pointer;
+			typedef const T&		const_reference;
+			typedef const T*		const_pointer;
+			typedef std::ptrdiff_t	difference_type;
+			typedef std::size_t		size_type;
 
 
 			random_access_iterator(void):_ptr(0) {};	//default constructor
 			random_access_iterator(pointer ptr):_ptr(ptr){};
-			random_access_iterator(random_access_iterator<T> const &cpy) // constructor by copy
-			{
-				if (this != &cpy)
-					*this = cpy;
-			};
-
+			random_access_iterator(random_access_iterator<T> const &cpy): _ptr(cpy._ptr) {}
 			virtual ~random_access_iterator(void){};	// destructor
 			random_access_iterator &operator=(random_access_iterator<T> const &cpy)
 			{
@@ -45,8 +44,33 @@ namespace ft
 				return (*this);
 			}
 
+			//if trying to copy a const_iterator based on a iterator
+			operator random_access_iterator<T const>() const{ return random_access_iterator<T const>(_ptr);}
+
 			// getter
 			pointer			base(void) const { return _ptr;};
+
+			// relational operator
+			bool operator==(const random_access_iterator &src) const {return _ptr == src._ptr;}
+			bool operator!=(const random_access_iterator &src) const {return _ptr != src._ptr;}
+			bool operator>(const random_access_iterator &src) const {return _ptr > src._ptr;}
+			bool operator>=(const random_access_iterator &src) const {return _ptr >= src._ptr;}
+			bool operator<(const random_access_iterator &src) const {return _ptr < src._ptr;}
+			bool operator<=(const random_access_iterator &src) const {return _ptr <= src._ptr;}
+
+			//relational operator between const and non const iterator
+			template <class Ite1, class Ite2>
+				friend bool operator==(const random_access_iterator<Ite1> &lhs,const random_access_iterator<Ite2> &rhs);
+			template <class Ite1, class Ite2>
+				friend bool operator!=(const random_access_iterator<Ite1> &lhs,const random_access_iterator<Ite2> &rhs);
+			template <class Ite1, class Ite2>
+				friend bool operator>(const random_access_iterator<Ite1> &lhs,const random_access_iterator<Ite2> &rhs);
+			template <class Ite1, class Ite2>
+				friend bool operator>=(const random_access_iterator<Ite1> &lhs,const random_access_iterator<Ite2> &rhs);
+			template <class Ite1, class Ite2>
+				friend bool operator<(const random_access_iterator<Ite1> &lhs,const random_access_iterator<Ite2> &rhs);
+			template <class Ite1, class Ite2>
+				friend bool operator<=(const random_access_iterator<Ite1> &lhs,const random_access_iterator<Ite2> &rhs);
 
 			//increments
 			random_access_iterator	&operator++(void){_ptr++; return(*this);};
@@ -65,268 +89,231 @@ namespace ft
 			};
 
 			// +/-
-			random_access_iterator	operator+(difference_type op)const{return(_ptr + op);};
-			random_access_iterator	operator-(difference_type op)const{return(_ptr - op);};
+			random_access_iterator	operator+(difference_type op)const{return(random_access_iterator<T>(_ptr + op));};
+			random_access_iterator	operator-(difference_type op)const{return(random_access_iterator<T>(_ptr - op));};
+			difference_type			operator-(random_access_iterator const &src) const {return _ptr - src._ptr;};
 
 			//+= -= operators
-			void	operator+=(difference_type op){_ptr += op;};
-			void	operator-=(difference_type op){_ptr -= op;};
+			random_access_iterator	&operator+=(difference_type op){_ptr += op; return *this;};
+			random_access_iterator	&operator-=(difference_type op){_ptr -= op; return *this;};
 
-			// ->
-			pointer				operator->()		{return(_ptr);};
-
-			// Deferencement
-			reference		operator*() 		{return (*_ptr);};
-
-			reference	 	operator[](difference_type op)			{return(_ptr[op]);};
+			// access
+			pointer			operator->()							{return(_ptr);};
+			reference		operator*() 							{return (*_ptr);};
+			reference	 	operator[](difference_type op) const	{return(_ptr[op]);};
 	};
 	
 	//overload operators
-	// same class
 	template <class T>
-	ptrdiff_t	operator-(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() - rhs.base());
-	}
+		ft::random_access_iterator<T> operator+(typename ft::random_access_iterator<T>::difference_type n, ft::random_access_iterator<T> const & rhs)
+		{ return rhs + n;};
 
-	//overload comparaison
-	// same iterator
-	template <class T>
-	bool operator==(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() == rhs.base());
-	}
-
-	template <class T>
-	bool operator!=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() != rhs.base());
-	}
-
-	template <class T>
-	bool operator<(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() < rhs.base());
-	}
-
-	template <class T>
-	bool operator>(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() > rhs.base());
-	}
-
-	template <class T>
-	bool operator>=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() >= rhs.base());
-	}
-	
-	template <class T>
-	bool operator<=(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
-	{
-		return (lhs.base() <= rhs.base());
-	}
+	// template <class T>
+	// ptrdiff_t	operator-(const random_access_iterator<T> &lhs, const random_access_iterator<T> &rhs)
+	// {
+	// 	return (lhs.base() - rhs.base());
+	// }
 
 	//differents iterators
-	template <typename T, typename U>
-	bool operator==(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	template <typename Ite1, typename Ite2>
+	bool operator==(const random_access_iterator<Ite1> &lhs, const random_access_iterator<Ite2> &rhs)
 	{
-		return (lhs.base() == rhs.base());
+		return (lhs._ptr == rhs._ptr);
 	}
 
-	template <typename T, typename U>
-	bool operator!=(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	template <typename Ite1, typename Ite2>
+	bool operator!=(const random_access_iterator<Ite1> &lhs, const random_access_iterator<Ite2> &rhs)
 	{
-		return (lhs.base() != rhs.base());
+		return (lhs._ptr != rhs._ptr);
 	}
 
-	template <typename T, typename U>
-	bool operator<(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	template <typename Ite1, typename Ite2>
+	bool operator<(const random_access_iterator<Ite1> &lhs, const random_access_iterator<Ite2> &rhs)
 	{
-		return (lhs.base() < rhs.base());
+		return (lhs._ptr < rhs._ptr);
 	}
 
-	template <typename T, typename U>
-	bool operator>(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	template <typename Ite1, typename Ite2>
+	bool operator>(const random_access_iterator<Ite1> &lhs, const random_access_iterator<Ite2> &rhs)
 	{
-		return (lhs.base() > rhs.base());
+		return (lhs._ptr > rhs._ptr);
 	}
 
-	template <typename T, typename U>
-	bool operator>=(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	template <typename Ite1, typename Ite2>
+	bool operator>=(const random_access_iterator<Ite1> &lhs, const random_access_iterator<Ite2> &rhs)
 	{
-		return (lhs.base() >= rhs.base());
+		return (lhs._ptr >= rhs._ptr);
 	}
 
-	template <typename T, typename U>
-	bool operator<=(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	template <typename Ite1, typename Ite2>
+	bool operator<=(const random_access_iterator<Ite1> &lhs, const random_access_iterator<Ite2> &rhs)
 	{
-		return (lhs.base() <= rhs.base());
+		return (lhs._ptr <= rhs._ptr);
 	}
 
 	// operators
-	template <typename T, typename U>
-	ptrdiff_t	operator-(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
-	{
-		return (lhs.base() - rhs.base());
-	}
+	// template <typename T, typename U>
+	// ptrdiff_t	operator-(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() - rhs.base());
+	// }
 
-	template <typename T>
-	class	random_access_const_iterator : public iterator<ft::random_access_iterator_tag, T>
-	{
-		private:
-			T*	_ptr;
+	// template <typename T>
+	// class	random_access_const_iterator : public iterator<ft::random_access_iterator_tag, T>
+	// {
+	// 	private:
+	// 		T*	_ptr;
 
-		public:
-			typedef const T		value_type;
-			typedef const T&	reference;
-			typedef const T*	pointer;
-			typedef ptrdiff_t	difference_type;
+	// 	public:
+	// 		typedef const T		value_type;
+	// 		typedef const T&	reference;
+	// 		typedef const T*	pointer;
+	// 		typedef ptrdiff_t	difference_type;
 
 
-			random_access_const_iterator(void):_ptr(0) {};	//default constructor
-			random_access_const_iterator(T* ptr):_ptr(ptr){};
-			random_access_const_iterator(random_access_iterator<T> const &cpy) : _ptr(cpy._ptr) {};
-			random_access_const_iterator(random_access_const_iterator<T> const &cpy) // constructor by copy
-			{
-				if (this != &cpy)
-					*this = cpy;
-			};
+	// 		random_access_const_iterator(void):_ptr(0) {};	//default constructor
+	// 		random_access_const_iterator(T* ptr):_ptr(ptr){};
+	// 		random_access_const_iterator(random_access_iterator<T> const &cpy) : _ptr(cpy.base()) {};
+	// 		random_access_const_iterator(random_access_const_iterator<T> const &cpy) // constructor by copy
+	// 		{
+	// 			if (this != &cpy)
+	// 				*this = cpy;
+	// 		};
 
-			virtual ~random_access_const_iterator(void){};	// destructor
-			random_access_const_iterator &operator=(random_access_const_iterator<T> const &cpy)
-			{
-				if(this != &cpy)
-					_ptr = cpy._ptr;
-				return (*this);
-			}
+	// 		virtual ~random_access_const_iterator(void){};	// destructor
+	// 		random_access_const_iterator &operator=(random_access_const_iterator<T> const &cpy)
+	// 		{
+	// 			if(this != &cpy)
+	// 				_ptr = cpy._ptr;
+	// 			return (*this);
+	// 		}
 
-			// getter
-			pointer			base(void) const { return _ptr;};
+	// 		// getter
+	// 		pointer			base(void) const { return _ptr;};
 
-			//increments
-			random_access_const_iterator	&operator++(void){_ptr++; return(*this);};
-			random_access_const_iterator	operator++(int)
-			{
-				random_access_const_iterator old = *this;
-				_ptr++;
-				return(old);
-			};
-			random_access_const_iterator	&operator--(void){_ptr--; return(*this);};
-			random_access_const_iterator 	operator--(int)
-			{
-				random_access_const_iterator old = *this;
-				_ptr--;
-				return(old);
-			};
+	// 		//increments
+	// 		random_access_const_iterator	&operator++(void){_ptr++; return(*this);};
+	// 		random_access_const_iterator	operator++(int)
+	// 		{
+	// 			random_access_const_iterator old = *this;
+	// 			_ptr++;
+	// 			return(old);
+	// 		};
+	// 		random_access_const_iterator	&operator--(void){_ptr--; return(*this);};
+	// 		random_access_const_iterator 	operator--(int)
+	// 		{
+	// 			random_access_const_iterator old = *this;
+	// 			_ptr--;
+	// 			return(old);
+	// 		};
 
-			// +/-
-			random_access_const_iterator	operator+(difference_type op)const{return(_ptr + op);};
-			random_access_const_iterator	operator-(difference_type op)const{return(_ptr - op);};
+	// 		// +/-
+	// 		random_access_const_iterator	operator+(difference_type op)const{return(_ptr + op);};
+	// 		random_access_const_iterator	operator-(difference_type op)const{return(_ptr - op);};
 
-			//+= -= operators
-			void	operator+=(difference_type op){_ptr += op;};
-			void	operator-=(difference_type op){_ptr -= op;};
+	// 		//+= -= operators
+	// 		void	operator+=(difference_type op){_ptr += op;};
+	// 		void	operator-=(difference_type op){_ptr -= op;};
 
-			// ->
-			pointer			operator->()		{return(_ptr);};
+	// 		// ->
+	// 		pointer			operator->()		{return(_ptr);};
 
-			// Deferencement
-			reference		operator*() 		{return (*_ptr);};
+	// 		// Deferencement
+	// 		reference		operator*() 		{return (*_ptr);};
 
-			reference	 	operator[](difference_type op)			{return(_ptr[op]);};
+	// 		reference	 	operator[](difference_type op)			{return(_ptr[op]);};
 
-	};
-	//overloads
-	//same class
+	// };
+	// //overloads
+	// //same class
 
-	template <class T>
-	ptrdiff_t	operator-(const random_access_const_iterator<T> &lhs,
-						  const random_access_const_iterator<T> &rhs)
-	{
-		return (lhs.base() - rhs.base());
-	}
-	template <class T>
-    bool operator==(const ft::random_access_const_iterator<T> &x,
-                    const ft::random_access_const_iterator<T> &y)
-    {
-        return (x.base() == y.base());
-    }
+	// template <class T>
+	// ptrdiff_t	operator-(const random_access_const_iterator<T> &lhs,
+	// 					  const random_access_const_iterator<T> &rhs)
+	// {
+	// 	return (lhs.base() - rhs.base());
+	// }
+	// template <class T>
+    // bool operator==(const ft::random_access_const_iterator<T> &x,
+    //                 const ft::random_access_const_iterator<T> &y)
+    // {
+    //     return (x.base() == y.base());
+    // }
 
-	template <class T>
-	bool operator!=(const random_access_const_iterator<T> &x,
-					const random_access_const_iterator<T> &y)
-	{
-		return (x.base() != y.base());
-	}
-	template <class T>
-	bool operator<(const random_access_const_iterator<T> &x,
-					const random_access_const_iterator<T> &y)
-	{
-		return (x.base() < y.base());
-	}
-	template <class T>
-	bool operator<=(const random_access_const_iterator<T> &x,
-					const random_access_const_iterator<T> &y)
-	{
-		return (x.base() <= y.base());
-	}
-	template <class T>
-	bool operator>(const random_access_const_iterator<T> &x,
-					const random_access_const_iterator<T> &y)
-	{
-		return (x.base() > y.base());
-	}
-	template <class T>
-	bool operator>=(const random_access_const_iterator<T> &x,
-					const random_access_const_iterator<T> &y)
-	{
-		return (x.base() >= y.base());
-	}
+	// template <class T>
+	// bool operator!=(const random_access_const_iterator<T> &x,
+	// 				const random_access_const_iterator<T> &y)
+	// {
+	// 	return (x.base() != y.base());
+	// }
+	// template <class T>
+	// bool operator<(const random_access_const_iterator<T> &x,
+	// 				const random_access_const_iterator<T> &y)
+	// {
+	// 	return (x.base() < y.base());
+	// }
+	// template <class T>
+	// bool operator<=(const random_access_const_iterator<T> &x,
+	// 				const random_access_const_iterator<T> &y)
+	// {
+	// 	return (x.base() <= y.base());
+	// }
+	// template <class T>
+	// bool operator>(const random_access_const_iterator<T> &x,
+	// 				const random_access_const_iterator<T> &y)
+	// {
+	// 	return (x.base() > y.base());
+	// }
+	// template <class T>
+	// bool operator>=(const random_access_const_iterator<T> &x,
+	// 				const random_access_const_iterator<T> &y)
+	// {
+	// 	return (x.base() >= y.base());
+	// }
 
-	//differents iterators
-	template <typename T, typename U>
-	bool operator==(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
-	{
-		return (lhs.base() == rhs.base());
-	}
+	// //differents iterators
+	// template <typename T, typename U>
+	// bool operator==(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() == rhs.base());
+	// }
 
-	template <typename T, typename U>
-	bool operator!=(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
-	{
-		return (lhs.base() != rhs.base());
-	}
+	// template <typename T, typename U>
+	// bool operator!=(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() != rhs.base());
+	// }
 
-	template <typename T, typename U>
-	bool operator<(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
-	{
-		return (lhs.base() < rhs.base());
-	}
+	// template <typename T, typename U>
+	// bool operator<(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() < rhs.base());
+	// }
 
-	template <typename T, typename U>
-	bool operator>(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
-	{
-		return (lhs.base() > rhs.base());
-	}
+	// template <typename T, typename U>
+	// bool operator>(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() > rhs.base());
+	// }
 
-	template <typename T, typename U>
-	bool operator>=(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
-	{
-		return (lhs.base() >= rhs.base());
-	}
+	// template <typename T, typename U>
+	// bool operator>=(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() >= rhs.base());
+	// }
 
-	template <typename T, typename U>
-	bool operator<=(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
-	{
-		return (lhs.base() <= rhs.base());
-	}
+	// template <typename T, typename U>
+	// bool operator<=(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() <= rhs.base());
+	// }
 
-	// operators
-	template <typename T, typename U>
-	ptrdiff_t	operator-(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
-	{
-		return (lhs.base() - rhs.base());
-	}
+	// // operators
+	// template <typename T, typename U>
+	// ptrdiff_t	operator-(const random_access_const_iterator<T> &lhs, const random_access_const_iterator<U> &rhs)
+	// {
+	// 	return (lhs.base() - rhs.base());
+	// }
 }	//ft
 
 #endif

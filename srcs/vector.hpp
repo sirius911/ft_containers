@@ -33,10 +33,12 @@ namespace ft
 			typedef typename allocator_type::pointer						pointer;
 			typedef typename allocator_type::const_pointer					const_pointer;
 			typedef typename ft::random_access_iterator<T>					iterator;
-			typedef typename ft::random_access_const_iterator<T>			const_iterator;
+			typedef typename ft::random_access_iterator<const T>			const_iterator;
+			//typedef typename ft::random_access_const_iterator<T>			const_iterator;
 			typedef typename ft::reverse_iterator<iterator> 				reverse_iterator;
 			typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
-			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;		
+			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
+			typedef typename std::size_t									size_type;	
 
 
 			//default (1)
@@ -401,7 +403,6 @@ namespace ft
 
 			void	resize(std::size_t n, T val = T())
 			{
-				T	*new_ptr;
 				if (n == _size_container)
 					return;
 				if (n > this->max_size())
@@ -446,10 +447,13 @@ namespace ft
 			//iterators
 			iterator		begin()			{return (iterator(_ptr));};
 			const_iterator 	begin() const 	{return (const_iterator(_ptr));};
+
 			iterator		end()		{return (iterator(_ptr + _size_container));};
 			const_iterator	end() const {return (const_iterator(_ptr + _size_container));};
-			reverse_iterator		rbegin()	   {return(reverse_iterator(_ptr + _size_container - 1));};
-			const_reverse_iterator	rbegin() const {return(const_reverse_iterator(_ptr + _size_container - 1));};
+
+			reverse_iterator		rbegin()	   {return(reverse_iterator(end()));};
+			const_reverse_iterator	rbegin() const {return(const_reverse_iterator(end()));};
+
 			reverse_iterator		rend()		{return(reverse_iterator(begin()));};
 			const_reverse_iterator	rend() const{return(const_reverse_iterator(begin()));};
 		
@@ -474,8 +478,8 @@ namespace ft
 			Allocator	get_allocator()const{return _alloc;};
 
 		private:
-			value_type		*_ptr;
 			allocator_type	_alloc;
+			value_type		*_ptr;
 			size_t			_capacity;
 			size_t			_size_container; //nb of elem in vector
 
