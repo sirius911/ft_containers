@@ -60,45 +60,27 @@ namespace ft
 
 		// non-members overloads functions
 		template <class T, class Container>
-			bool operator==(const ft::stack<T, Container> &lhs,
-							const ft::stack<T, Container> &rhs)
-			{
-				return (lhs._c == rhs._c);
-			}
+			bool operator==(const ft::stack<T, Container> &lhs,const ft::stack<T, Container> &rhs)
+			{return (lhs._c == rhs._c);}
 
 		template <class T, class Container>
-			bool operator!=(const ft::stack<T, Container> &lhs,
-							const ft::stack<T, Container> &rhs)
-			{
-				return (lhs._c != rhs._c);
-			}
+			bool operator!=(const ft::stack<T, Container> &lhs,const ft::stack<T, Container> &rhs)
+			{return (lhs._c != rhs._c);}
 
 		template <class T, class Container>
-			bool operator<(const ft::stack<T, Container> &lhs,
-							const ft::stack<T, Container> &rhs)
-			{
-				return (lhs._c < rhs._c);
-			}
+			bool operator<(const ft::stack<T, Container> &lhs,const ft::stack<T, Container> &rhs)
+			{return (lhs._c < rhs._c);}
 
 		template <class T, class Container>
-			bool operator<=(const ft::stack<T, Container> &lhs,
-							const ft::stack<T, Container> &rhs)
-			{
-				return (lhs._c <= rhs._c);
-			}
+			bool operator<=(const ft::stack<T, Container> &lhs,const ft::stack<T, Container> &rhs)
+			{return (lhs._c <= rhs._c);}
 		
 		template <class T, class Container>
-			bool operator>(const ft::stack<T, Container> &lhs,
-							const ft::stack<T, Container> &rhs)
-			{
-				return (lhs._c > rhs._c);
-			}
+			bool operator>(const ft::stack<T, Container> &lhs,const ft::stack<T, Container> &rhs)
+			{return (lhs._c > rhs._c);}
 
 		template <class T, class Container>
-			bool operator>=(const ft::stack<T, Container> &lhs,
-							const ft::stack<T, Container> &rhs)
-			{
-				return (lhs._c >= rhs._c);
-			}
+			bool operator>=(const ft::stack<T, Container> &lhs,const ft::stack<T, Container> &rhs)
+			{return (lhs._c >= rhs._c);}
 } // ft
 #endif
