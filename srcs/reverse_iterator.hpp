@@ -107,19 +107,9 @@ namespace ft
             friend difference_type operator-(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator1> &rhs);
             template< class Iterator1, class Iterator2>
             friend typename reverse_iterator<Iterator1>::difference_type operator-(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs);
-			//const_reference operator*() const 	{return (_ptr);};
 
-			// reference		operator[](difference_type op)			{return(_ptr[op]);};
-			// const_reference	operator[](difference_type op) const	{return(_ptr[op]);};
-
-			//boolean
-			
-			// bool operator>(reverse_iterator const & b) const {return (_ptr > b._ptr);};
-			// bool operator<(reverse_iterator const & b) const {return (_ptr < b._ptr);};
-			// bool operator>=(reverse_iterator const & b) const {return (_ptr >= b._ptr);};
-			// bool operator<=(reverse_iterator const & b) const {return (_ptr <= b._ptr);};
-
-            difference_type     substract(const reverse_iterator<Iterator> rhs)const {return (rhs.base() - _ptr);}
+            //forbiden
+            //difference_type     substract(const reverse_iterator<Iterator> rhs)const {return (rhs.base() - _ptr);}
 	};
 
     //Non member functions : comparaison operators overloads
@@ -185,15 +175,20 @@ namespace ft
     /*                -                 */
     template <class Iterator>
     typename reverse_iterator<Iterator>::difference_type operator-(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
-    { return (rhs._ptr - lhs._ptr);
+    { 
+        return ((rhs._ptr - lhs._ptr));
+        //return (lhs.operator-(rhs));
     //  return (lhs.substract(rhs));
     }
     
     template< class Iterator1, class Iterator2>
     typename reverse_iterator<Iterator1>::difference_type operator-( const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
     {
-        //return (rhs._ptr - lhs._ptr);
-        return (lhs.substract(rhs));
+        // size_t  a = rhs._ptr;
+        // size_t  b = lhs._ptr;
+        return ((rhs._ptr - lhs._ptr));
+        //return (lhs.operator-(rhs));
+        //return (lhs.substract(rhs));
     }
 }
 

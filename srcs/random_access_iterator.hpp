@@ -59,6 +59,7 @@ namespace ft
 			bool operator<=(const random_access_iterator &src) const {return _ptr <= src._ptr;}
 
 			//relational operator between const and non const iterator
+			// must be friend to access protected _ptr in non membre functions
 			template <class Ite1, class Ite2>
 				friend bool operator==(const random_access_iterator<Ite1> &lhs,const random_access_iterator<Ite2> &rhs);
 			template <class Ite1, class Ite2>
@@ -114,6 +115,12 @@ namespace ft
 	// 	return (lhs.base() - rhs.base());
 	// }
 
+	template <typename T, typename U>
+	ptrdiff_t	operator-(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
+	{
+		return (lhs.base() - rhs.base());
+	}
+
 	//differents iterators
 	template <typename Ite1, typename Ite2>
 	bool operator==(const random_access_iterator<Ite1> &lhs, const random_access_iterator<Ite2> &rhs)
@@ -151,12 +158,8 @@ namespace ft
 		return (lhs._ptr <= rhs._ptr);
 	}
 
-	// operators
-	// template <typename T, typename U>
-	// ptrdiff_t	operator-(const random_access_iterator<T> &lhs, const random_access_iterator<U> &rhs)
-	// {
-	// 	return (lhs.base() - rhs.base());
-	// }
+	//operators
+	
 
 	// template <typename T>
 	// class	random_access_const_iterator : public iterator<ft::random_access_iterator_tag, T>
