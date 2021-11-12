@@ -6,12 +6,13 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:47:51 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/12 11:25:38 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/12 13:55:49 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.hpp"
 #include "stack.hpp"
+#include "pair.hpp"
 #include <vector>
 #include <stack>
 
@@ -522,11 +523,31 @@ static void	test_push(void)
 	}
 }
 
+void	pair_tester()
+{
+	ft::pair <std::string,double> product1;                     // default constructor
+  	ft::pair <std::string,double> product2 ("tomatoes",2.30);   // value init
+  	ft::pair <std::string,double> product3 (product2);          // copy constructor
+
+  	product1 = ft::make_pair(std::string("lightbulbs"),0.99);   // using make_pair (move)
+
+  product2.first = "shoes";                  // the type of first is string
+  product2.second = 39.90;                   // the type of second is double
+
+  std::cout << "The price of " << product1.first << " is $" << product1.second << '\n';
+  std::cout << "The price of " << product2.first << " is $" << product2.second << '\n';
+  std::cout << "The price of " << product3.first << " is $" << product3.second << '\n';
+}
+
 #define NAMESPACE ft
 
 int 		main(int argc, char **argv)
 {
 	(void) argv;
+
+	pair_tester();
+	return 0;
+
 	test_push_std();
 	test_push();
 
