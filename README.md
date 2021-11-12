@@ -79,3 +79,13 @@ Canonique form :
 		- [X] >		a>b		->  b < a
 		- [X] >=	a>=b	->	!(a < b)
 - [X] swap (vector)
+
+
+## usefull sites :
+
+http://carl.seleborg.free.fr/cpp/cours/chap2/arbres.html
+https://cours.etsmtl.ca/SEG/FHenri/inf145/Suppl%C3%A9ments/arbres%20binaires.htm
+
+	https://www.geeksforgeeks.org/c-program-red-black-tree-insertion/
+
+https://www.cs.usfca.edu/~galles/visualization/RedBlack.html

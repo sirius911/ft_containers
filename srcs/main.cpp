@@ -6,13 +6,14 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:47:51 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/12 13:55:49 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/12 16:58:13 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.hpp"
 #include "stack.hpp"
 #include "pair.hpp"
+#include "RBTree.hpp"
 #include <vector>
 #include <stack>
 
@@ -538,6 +539,7 @@ void	pair_tester()
   std::cout << "The price of " << product2.first << " is $" << product2.second << '\n';
   std::cout << "The price of " << product3.first << " is $" << product3.second << '\n';
 }
+
 
 #define NAMESPACE ft
 
