@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   random_access_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 07:54:07 by clorin            #+#    #+#             */
-/*   Updated: 2021/10/28 07:55:00 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/12 11:25:22 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef RANDOM_ACCESS_ITERATOR_HPP
 # define RANDOM_ACCESS_ITERATOR_HPP
 

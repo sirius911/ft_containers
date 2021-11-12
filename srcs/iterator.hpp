@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   iterator.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorin <qclorin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 16:14:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/02 16:48:03 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/12 11:26:00 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 

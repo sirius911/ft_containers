@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   is_integral.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/02 11:35:20 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/02 11:35:47 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/12 11:26:25 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef IS_INTEGRAL_HPP
 # define IS_INTEGRAL_HPP
 

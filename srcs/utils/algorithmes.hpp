@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   algorithmes.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 08:43:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/03 08:44:11 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/12 11:26:11 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef ALGORITHMES_HPP
 # define ALGORITHMES_HPP
 

@@ -3,12 +3,13 @@
 /*                                                        :::      ::::::::   */
 /*   reverse_iterator.hpp                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clorin <clorin@42.fr>                      +#+  +:+       +#+        */
+/*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 09:00:31 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/03 09:01:18 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/12 11:25:16 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #ifndef REVERSE_ITERATOR_HPP
 # define REVERSE_ITERATOR_HPP
 
