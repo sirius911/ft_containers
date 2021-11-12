@@ -37,28 +37,22 @@ namespace ft
 				const value_type	&top(void) const { return _c.back();}
 
 			template <class U, class Ctr>
-			friend bool operator==(const ft::stack<T, Ctr> &lhs,
-							const ft::stack<T, Ctr> &rhs);
+			friend bool operator==(const ft::stack<U, Ctr> &lhs,const ft::stack<U, Ctr> &rhs);
 
 			template <class U, class Ctr>
-			friend bool operator!=(const ft::stack<T, Ctr> &lhs,
-							const ft::stack<T, Ctr> &rhs);
+			friend bool operator!=(const ft::stack<U, Ctr> &lhs,const ft::stack<U, Ctr> &rhs);
 
 			template <class U, class Ctr>
-			friend bool operator<(const ft::stack<T, Ctr> &lhs,
-							const ft::stack<T, Ctr> &rhs);
+			friend bool operator<(const ft::stack<U, Ctr> &lhs,const ft::stack<U, Ctr> &rhs);
 
 			template <class U, class Ctr>
-			friend bool operator<=(const ft::stack<T, Ctr> &lhs,
-							const ft::stack<T, Ctr> &rhs);
+			friend bool operator<=(const ft::stack<U, Ctr> &lhs,const ft::stack<U, Ctr> &rhs);
 
 			template <class U, class Ctr>
-			friend bool operator>(const ft::stack<T, Ctr> &lhs,
-							const ft::stack<T, Ctr> &rhs);
+			friend bool operator>(const ft::stack<U, Ctr> &lhs,const ft::stack<U, Ctr> &rhs);
 
 			template <class U, class Ctr>
-			friend bool operator>=(const ft::stack<T, Ctr> &lhs,
-							const ft::stack<T, Ctr> &rhs);
+			friend bool operator>=(const ft::stack<U, Ctr> &lhs,const ft::stack<U, Ctr> &rhs);
 
 			protected:
 				Container		_c;
