@@ -488,8 +488,8 @@ namespace ft
 			{
 				if (n >= _size_container)
 					throw(std::out_of_range("vector::checkRange: n (which is "
-						+ std::to_string(n) + ") >= this->size() (which is "
-						+ std::to_string(this->size()) + ")"));
+						+ ft::to_string(n) + ") >= this->size() (which is "
+						+ ft::to_string(this->size()) + ")"));
 			}
 
 	};

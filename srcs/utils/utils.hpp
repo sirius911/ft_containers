@@ -14,6 +14,7 @@
 # define UTILS_HPP
 
 # include "../iterator.hpp"
+# include <sstream>
 static	class ft_nullptr_t
 	{
 		private:
@@ -33,7 +34,6 @@ namespace ft
 *
 *	Otherwise, enable_if::type is not defined.
 */
-
 	template<bool C, class T = void> 
 		struct enable_if {};
 	template<class T>
@@ -55,5 +55,14 @@ namespace ft
 		return ret;
 		
 	};
-}
+
+	template<class T>
+	std::string to_string(T obj)
+	{
+		std::ostringstream ss;
+		ss << obj;
+		return (ss.str());
+	}
+
+}//ft
 #endif
