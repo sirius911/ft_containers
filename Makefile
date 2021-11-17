@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: clorin <clorin@42.fr>                      +#+  +:+       +#+         #
+#    By: clorin <clorin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/08 13:25:45 by clorin            #+#    #+#              #
-#    Updated: 2021/10/08 13:25:48 by clorin           ###   ########.fr        #
+#    Updated: 2021/11/15 07:55:42 by clorin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,6 @@ ${NAME}:	${OBJS}
 clean:		
 			@echo "Cleaning: ${OBJS}"
 			@rm -rf ${OBJS_DIR}
-			@rm -rf ChristmasTreesForm_shrubbery
 
 fclean:		clean
 			@rm -rf ${NAME}
