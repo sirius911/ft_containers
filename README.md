@@ -25,7 +25,7 @@ https://www.cplusplus.com/reference/stack/stack/
 
 ### non-member function overloads:
 
-- [ ] relational operators
+- [X] relational operators
 
 ## Vector
 
@@ -81,11 +81,14 @@ Canonique form :
 - [X] swap (vector)
 
 
-## usefull sites :
+## useful sites for red black binary trees :
 
-http://carl.seleborg.free.fr/cpp/cours/chap2/arbres.html
-https://cours.etsmtl.ca/SEG/FHenri/inf145/Suppl%C3%A9ments/arbres%20binaires.htm
+Arbres binaires simples : 	http://carl.seleborg.free.fr/cpp/cours/chap2/arbres.html
+							https://cours.etsmtl.ca/SEG/FHenri/inf145/Suppl%C3%A9ments/arbres%20binaires.htm
 
+Arbres binaires Rouges Noires:
+	https://fr.wikipedia.org/wiki/Arbre_bicolore
 	https://www.geeksforgeeks.org/c-program-red-black-tree-insertion/
+	https://miashs-www.u-ga.fr/prevert/Prog/Java/CoursJava/arbresRougeNoir.html
 
-https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
+simulateurs: https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
