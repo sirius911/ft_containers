@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:47:51 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/12 16:58:13 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/17 08:59:32 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "RBTree.hpp"
 #include <vector>
 #include <stack>
+#include <string.h>
 
 #define MAX_RAM 4294967296
 #define BUFFER_SIZE 4096
@@ -546,8 +547,51 @@ void	pair_tester()
 int 		main(int argc, char **argv)
 {
 	(void) argv;
+	srand(argc);
+	typedef	ft::pair<const int, int> value;
+	typedef ft::Node<value>*   node_ptr;
+	ft::RBTree<const int, value,ft::selectFirst<value, int> > tree;
+	// tree.insert(ft::make_pair(4,"coucou"));
+	// tree.insert(ft::make_pair(3,"hello word"));
+	// tree.insert(ft::make_pair(10,"a boy like me"));
+	// tree.insert(ft::make_pair(7,"A girl like you"));
+	// tree.insert(ft::make_pair(6,"I love you"));
 
-	pair_tester();
+	int nb = 0;
+	for(int i = 0; i < 30; i++)
+	{
+		int idx = rand() % 100;
+		std::cout << " "<<idx;
+		if (tree.insert(ft::make_pair(idx,idx)))
+			nb++;
+	}
+	std::cout << std::endl<< "\t total = "<< nb << std::endl;
+	// 
+	
+
+	tree.print();
+	int	to_del = 35;
+	std::cout << "rechercher key = "<<to_del<<" -> [";
+	node_ptr	node = tree.search(to_del);
+	if (node == tree.getNill())
+		std::cout << "not found]\n";
+	else
+	{
+		std::cout << (node->data).second<<"]\n";
+		std::cout << "delete "<< to_del << std::endl;
+		tree.deleteNode(to_del);
+		tree.print();
+	}
+	node = tree.max();
+	std::cout << "Max = "<< (node->data).second << std::endl;
+	std::cout << "delete "<< 82 << std::endl;
+	tree.deleteNode(82);
+	tree.print();
+	node = tree.min();
+	std::cout << "Min = "<< (node->data).second << std::endl;
+	std::cout << "size = " << tree.getSize()<< std::endl;
+
+	
 	return 0;
 
 	test_push_std();
