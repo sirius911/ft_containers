@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:45:25 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/12 13:53:48 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/17 08:27:05 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,24 @@
 
 namespace ft
 {
+
+    template <class Input, class Output>
+    struct selectFirst : public std::unary_function<Input, Output>
+    {
+        const Output &operator()(const Input &x) const
+        {
+            return x.first;
+        }
+    };
+
+    template <class Input, class Output>
+    struct selectSecond : public std::unary_function<Input, Output>
+    {
+        const Output &operator()(const Input &x) const
+        {
+            return (x.second);
+        }
+    };
 
     template<class T1, class T2>
         struct pair
