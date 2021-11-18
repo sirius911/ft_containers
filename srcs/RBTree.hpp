@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/18 14:13:55 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/18 14:17:32 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,15 +421,17 @@ namespace ft
                     node_ptr    brother = _brother(node);
                     if(is_left(node))
                     {
-                        if (brother->color == RED)
+                        if (brother->color == RED)  //CAS 1
                         {
                             brother->color = BLACK;
                             node->parent->color = RED;
                             left_rotation(node->parent);
                             brother = node->parent->right;
                         }
+
                         if(brother->left->color == BLACK && brother->right->color == BLACK) //the 2 childrens of the brother are BLACK
                         {
+                            //CAS 2
                             brother->color = RED;   // recoloration but
                             node = node->parent;    //we must control the parent
                         }
@@ -437,11 +439,14 @@ namespace ft
                         {
                             if(brother->right->color == BLACK)
                             {
+                                //CAS 3
                                 brother->left->color = BLACK;
                                 node->color = RED;
                                 right_rotation(node);
                                 brother = node->parent->right;
                             }
+
+                            //CAS 4
                             brother->color = node->parent->color;
                             node->parent->color = BLACK;
                             brother->right->color = BLACK;
