@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/18 14:10:43 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/18 14:13:55 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,9 @@
 # define RBTREE_HPP
 
 #include <iostream>
-#include <math.h>
 #include "utils/utils.hpp"
-#include "visual_tree.hpp"
 
-#include <list>
-
-# define C_GREEN 	"\e[32m"
 # define C_RED		"\e[31m"
-# define C_YELLOW	"\e[33m"
-# define C_CYAN		"\e[34m"
 # define C_BLACK    "\e[30m\e[47m"
 # define C_RESET	"\e[0m"
 namespace ft
