@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:47:51 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/17 08:59:32 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/18 13:41:47 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -558,7 +558,7 @@ int 		main(int argc, char **argv)
 	// tree.insert(ft::make_pair(6,"I love you"));
 
 	int nb = 0;
-	for(int i = 0; i < 30; i++)
+	for(int i = 0; i < 50; i++)
 	{
 		int idx = rand() % 100;
 		std::cout << " "<<idx;
@@ -570,7 +570,7 @@ int 		main(int argc, char **argv)
 	
 
 	tree.print();
-	int	to_del = 35;
+	int	to_del = 62;
 	std::cout << "rechercher key = "<<to_del<<" -> [";
 	node_ptr	node = tree.search(to_del);
 	if (node == tree.getNill())

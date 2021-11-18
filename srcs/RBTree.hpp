@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/17 08:55:57 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/18 14:10:43 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ namespace ft
             //constructor
             RBTree(const value_compare &comp = value_compare(), const allocator_type alloc = allocator_type()):_size(0),_alloc(alloc)
             {
+                // construction of leaf _nill (_TNULL)
                 _TNULL = _alloc.allocate(1);
                 _root = _TNULL;
                 _alloc.construct(_TNULL, node_type(value_type(), nullptr, nullptr,nullptr, BLACK));
             }
+
             virtual     ~RBTree()
             {
                 clear_recusive(_root);
@@ -199,7 +201,55 @@ namespace ft
 
             bool        deleteNode(const key_type &key)
             {
-                return(_deleteNode(key));
+                node_ptr _to_del, _to_control, _tmp;
+                Color   saved_color;
+                
+                _to_del = search(key);
+                if (_to_del == _TNULL)
+                    return false;       //  not found
+                saved_color = _to_del->color;
+                //if the node to del have only one or no children
+                // juste graft his children (or _nill) to his parent
+                if(_to_del->left == _TNULL)
+                {
+                    // Only a right children
+                    _to_control = _to_del->right;
+                    graft(_to_del, _to_del->right);
+                }
+                else if(_to_del->right == _TNULL)
+                {
+                    // only a left children
+                    _to_control = _to_del->left;
+                    graft(_to_del, _to_del->left);
+                }
+                else
+                {
+                    // 2 childrens
+                    //is replaced by the minimum of it's right branch (successeur)
+                    //std::cout << " with 2 childrens \n\t";
+                    _tmp = min(_to_del->right); //search for the minimum in the right child's branch
+                    saved_color = _tmp->color;
+                    _to_control = _tmp->right;  // to control right branch
+                    if (_tmp->parent == _to_del)//the minimum is 
+                        _to_control->parent = _tmp;
+                    else
+                    {
+                        graft(_tmp, _tmp->right);
+                        _tmp->right = _to_del->right;   // the right of tmp is now 
+                        _tmp->right->parent = _tmp;     //the old right of _to_del
+                    }
+                    graft(_to_del, _tmp);
+                    _tmp->left = _to_del->left; //the left of tmp is now 
+                    _tmp->left->parent = _tmp;  //the old left of _to_del
+
+                    _tmp->color = _to_del->color; // the tmp take the color of _to_del 
+                }
+                _alloc.destroy(_to_del);        // we now delete the _to_del
+                _alloc.deallocate(_to_del, 1);
+                _size--;
+                if(saved_color == BLACK)
+                    RN_correction(_to_control);
+                return true;
             }
 
             node_ptr    search(const key_type &key) const
@@ -263,11 +313,6 @@ namespace ft
                 x->parent = y;
             }
 
-            void    balance_delete(node_ptr node)
-            {
-                
-            }
-
             void    balance(node_ptr new_node)
             {
                 while(new_node->parent->color == RED)
@@ -277,7 +322,7 @@ namespace ft
                         break;
                     //check color of uncle
                     node_ptr    u;
-                    u = uncle(new_node);
+                    u = _uncle(new_node);
                     if(u->color == RED)
                     {
                         // uncle is RED
@@ -323,15 +368,15 @@ namespace ft
                 _root->color = BLACK;
             }
 
-            static node_ptr uncle(node_ptr node)
+            static node_ptr _uncle(node_ptr node)
             {
                 node_ptr    p = node->parent;
                 if (p->parent == nullptr)   //no grand-parent
                     return (nullptr);       // no uncle
-                return (brother(p));
+                return (_brother(p));
             }
 
-            static node_ptr brother(node_ptr node)
+            static node_ptr _brother(node_ptr node)
             {
                 node_ptr    p = node->parent;
                 if (p == nullptr)
@@ -364,78 +409,89 @@ namespace ft
                 _size--;
             }
 
-            void        replace(node_ptr a, node_ptr b) //replace a with b
+            void        graft(node_ptr a, node_ptr b) //graft b instead of a
             {
-                if(a->parent == nullptr)
+                node_ptr    p = a->parent;
+                if(p == nullptr)
                     _root = b;
                 else if(is_left(a))
-                    a->parent->left = b;
+                    p->left = b;
                 else
-                    a->parent->right = b;
-                b->parent = a->parent;
+                    p->right = b;
+                b->parent = p;
             }
-
-            bool        _deleteNode(const key_type &key)
+ 
+            void    RN_correction(node_ptr node)
             {
-                node_ptr _to_del, _to_control, _tmp;
-                Color   saved_color;
-                
-                _to_del = search(key);
-                if (_to_del == _TNULL)
-                    return false;
-                //std::cout << "Node to destroy = " << &_to_del;
-                saved_color = _to_del->color;
-                if(_to_del->left == _TNULL)
+                while(node != _root && node->color == BLACK)
                 {
-                    // Only a right children
-                    //std::cout << " with only a right children :";
-                    _to_control = _to_del->right;
-                    // std::cout << " replace ";
-                    // if(_to_del->right == _TNULL)
-                    //     std::cout << "with _nill\n";
-                    // else
-                    //     std::cout << "with " << &(_to_del->right)<<std::endl;
-                    replace(_to_del, _to_del->right);
-                }
-                else if(_to_del->right == _TNULL)
-                {
-                    // only a left children
-                    _to_control = _to_del->left;
-                    //  std::cout << " with only a left children :";
-                    //  std::cout << " replace ";
-                    // if(_to_del->left == _TNULL)
-                    //     std::cout << "with _nill\n";
-                    // else
-                    //     std::cout << "with " << &(_to_del->left)<<std::endl;
-                    replace(_to_del, _to_del->left);
-                }
-                else
-                {
-                    // 2 childrens
-                    //is replaced by the minimum of it's right branch
-                    //std::cout << " with 2 childrens \n\t";
-                    _tmp = min(_to_del->right); //search for the minimum in the right child's branch
-                    saved_color = _tmp->color;
-                    _to_control = _tmp->right;  // to control right branch
-                    if (_tmp->parent == _to_del)//the minimum is 
-                        _to_control->parent = _tmp;
-                    else
+                    node_ptr    brother = _brother(node);
+                    if(is_left(node))
                     {
-                        replace(_tmp, _tmp->right);
-                        _tmp->right = _to_del->right; //
-                        _tmp->right->parent = _tmp;
+                        if (brother->color == RED)
+                        {
+                            brother->color = BLACK;
+                            node->parent->color = RED;
+                            left_rotation(node->parent);
+                            brother = node->parent->right;
+                        }
+                        if(brother->left->color == BLACK && brother->right->color == BLACK) //the 2 childrens of the brother are BLACK
+                        {
+                            brother->color = RED;   // recoloration but
+                            node = node->parent;    //we must control the parent
+                        }
+                        else    //at least one children is RED
+                        {
+                            if(brother->right->color == BLACK)
+                            {
+                                brother->left->color = BLACK;
+                                node->color = RED;
+                                right_rotation(node);
+                                brother = node->parent->right;
+                            }
+                            brother->color = node->parent->color;
+                            node->parent->color = BLACK;
+                            brother->right->color = BLACK;
+                            left_rotation(node->parent);
+                            node = _root;
+                            break;
+                        }
                     }
-                    replace(_to_del, _tmp);
-                    _tmp->left = _to_del->left; // to verif if the replace OK
-                    _tmp->left->parent = _tmp;
-                    _tmp->color = _to_del->color;
+                    else    //mirror
+                    {
+                        //node is right
+                        if (brother->color == RED)
+                        {
+                            brother->color = BLACK;
+                            node->parent->color = RED;
+                            right_rotation(node->parent);
+                            brother = node->parent->left;
+                        }
+
+                        if (brother->left->color == BLACK && brother->right->color == BLACK)
+                        {
+                            brother->color = RED;   // recoloration but
+                            node = node->parent;    // we must control parent
+                        }
+                        else
+                        {
+                            if(brother->left->color == BLACK)
+                            {
+                                brother->right->color = BLACK;
+                                brother->color = RED;
+                                left_rotation(node);
+                                brother = node->parent->left;
+                            }
+                            brother->color = node->parent->color;
+                            node->parent->color = BLACK;
+                            brother->left->color = BLACK;
+                            right_rotation(node->parent);
+                            node = _root;
+                            break;
+                        }
+                    }
                 }
-                _alloc.destroy(_to_del);
-                _alloc.deallocate(_to_del, 1);
-                _size--;
-                if(saved_color == BLACK)
-                    balance_delete(_to_control);
-                return true;
+                node->color = BLACK;
             }
 
             void print(bool memory, node_ptr root, std::string indent="", bool last=true) const
