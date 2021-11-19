@@ -22,14 +22,15 @@ Iterator type : bidirectional & reverse iterator
 
 https://www.cplusplus.com/reference/map/map/
 
-- [ ] constructor by default
-- [ ] constructor by copy
+- [X] constructor by default (1)
+- [ ] constructor with range (2)
+- [ ] constructor by copy (3)
 - [ ] destructor
 - [ ] operator=
 
 -Iterators
-- [ ] begin
-- [ ] end
+- [X] begin
+- [X] end
 - [ ] rbegin
 - [ ] rend
 
@@ -40,10 +41,11 @@ https://www.cplusplus.com/reference/map/map/
 
 -Element access
 - [ ] operator[]
-- [ ]
 
 -Modifiers
-- [ ] insert
+- [X] insert (1) single elemnt
+- [ ] insert (2) with hint
+- [ ] insert (3) range
 - [ ] erase
 - [ ] swap
 - [ ] clear

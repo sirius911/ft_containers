@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:47:51 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/18 13:41:47 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 12:20:15 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,10 @@
 #include "stack.hpp"
 #include "pair.hpp"
 #include "RBTree.hpp"
+#include "map.hpp"
 #include <vector>
 #include <stack>
+#include <map>
 #include <string.h>
 
 #define MAX_RAM 4294967296
@@ -541,12 +543,8 @@ void	pair_tester()
   std::cout << "The price of " << product3.first << " is $" << product3.second << '\n';
 }
 
-
-#define NAMESPACE ft
-
-int 		main(int argc, char **argv)
+void	test_RBtree(int argc)
 {
-	(void) argv;
 	srand(argc);
 	typedef	ft::pair<const int, int> value;
 	typedef ft::Node<value>*   node_ptr;
@@ -557,29 +555,33 @@ int 		main(int argc, char **argv)
 	// tree.insert(ft::make_pair(7,"A girl like you"));
 	// tree.insert(ft::make_pair(6,"I love you"));
 
+	std::cout << "creating tree with ";
 	int nb = 0;
-	for(int i = 0; i < 50; i++)
+	while(nb < 100)
 	{
-		int idx = rand() % 100;
+		int idx = rand() % 250;
 		std::cout << " "<<idx;
 		if (tree.insert(ft::make_pair(idx,idx)))
 			nb++;
 	}
-	std::cout << std::endl<< "\t total = "<< nb << std::endl;
+	std::cout << " ... ok\n\t total = "<< nb << std::endl;
 	// 
 	
 
 	tree.print();
-	int	to_del = 62;
-	std::cout << "rechercher key = "<<to_del<<" -> [";
+	int	to_del = 74;
+	std::cout << "rechercher key = "<<to_del<<" -> ";
 	node_ptr	node = tree.search(to_del);
 	if (node == tree.getNill())
-		std::cout << "not found]\n";
+		std::cout << "[not found]\n";
 	else
 	{
-		std::cout << (node->data).second<<"]\n";
-		std::cout << "delete "<< to_del << std::endl;
-		tree.deleteNode(to_del);
+		std::cout << "[Found]\n";
+		std::cout << "\tdelete "<< to_del ;
+		if(tree.deleteNode(to_del))
+			std::cout << " Ok\n";
+		else
+			std::cout << C_RED<<" KO\n"<<C_RESET;
 		tree.print();
 	}
 	node = tree.max();
@@ -590,12 +592,46 @@ int 		main(int argc, char **argv)
 	node = tree.min();
 	std::cout << "Min = "<< (node->data).second << std::endl;
 	std::cout << "size = " << tree.getSize()<< std::endl;
+}
 
+#define NAMESPACE ft
+
+int 		main(int argc, char **argv)
+{
+	(void) argv;
+	//test_RBtree(argc);
+	//return 0;
+
+	ft::map<int, int> map_int;
+	typedef typename ft::map<int,int>::iterator it;
+	typedef	ft::pair<int, int> value;
+	typedef ft::Node<value>*   node_ptr;
+	ft::pair<it,bool> result = map_int.insert(ft::make_pair(12,12));
+	if(result.second)
+		std::cout << "Ok\n";
+	else
+		std::cout << "KO\n";
+	result = map_int.insert(ft::make_pair(10,10));
+	if(result.second)
+		std::cout << "Ok\n";
+	else
+		std::cout << "KO\n";
+
+	map_int.insert(ft::make_pair(13,13));
+	map_int.insert(ft::make_pair(01,01));
+	it	beg = map_int.begin();
 	
-	return 0;
-
-	test_push_std();
-	test_push();
+	std::cout << "begin = "<< (*(beg++)).second << std::endl;
+	std::cout << "beg++ = ";
+	std::cout << "begin = "<< (*beg).second << std::endl;
+	std::cout << "begin = "<< (*(++beg)).second << std::endl;
+	std::cout << "begin = "<< (*(++beg)).second << std::endl;
+	std::cout << "begin = "<< (*(++beg)).second << std::endl;
+	std::cout << "begin = "<< (*(--beg)).second << std::endl;
+	beg--;
+	std::cout << "begin = "<< (*beg).second << std::endl;
+	//test_push_std();
+	//test_push();
 
 	if (argc != 2)
 	{
@@ -612,7 +648,7 @@ int 		main(int argc, char **argv)
 	ft::stack<int> stack_int;
 	ft::vector<Buffer> vector_buffer;
 	ft::stack<Buffer, std::deque<int> > stack_deq_buffer;
-	//ft::map<int, int> map_int;
+	
 	std::cout << "stack_int.empty() = " << std::boolalpha << stack_int.empty() << std::endl;
 	std::cout << "stack_int.size() = " << stack_int.size() << std::endl;
 	stack_int.push(10);
