@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 07:54:07 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/12 11:25:22 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 08:20:24 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,14 @@ namespace ft
 
 		public:
 
-			typedef T				value_type;
-			typedef T&				reference;
-			typedef T*				pointer;
-			typedef const T&		const_reference;
-			typedef const T*		const_pointer;
-			typedef std::ptrdiff_t	difference_type;
-			typedef std::size_t		size_type;
+			typedef T										value_type;
+			typedef T&										reference;
+			typedef T*										pointer;
+			typedef const T&								const_reference;
+			typedef const T*								const_pointer;
+			typedef std::ptrdiff_t							difference_type;
+			typedef std::size_t								size_type;
+			typedef typename ft::random_access_iterator_tag	iterator_category;
 
 
 			random_access_iterator(void):_ptr(0) {};	//default constructor
