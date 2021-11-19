@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 21:27:35 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 21:34:49 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,14 @@ namespace ft
                 if (node == _tree.getNill())
                     return (end());
                 return (const_iterator(node, _tree.getRoot(), _tree.getNill()));
+            }
+
+            size_type       count(const key_type &k) const
+            {
+                node_ptr    node = _tree.search(k);
+                if (node == _tree.getNill())
+                    return 0;
+                return 1;
             }
 
             /*************************** Allocator ***************************/

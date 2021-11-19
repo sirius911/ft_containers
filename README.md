@@ -53,12 +53,12 @@ https://www.cplusplus.com/reference/map/map/
 - [X] clear
 
 -Observers
-- [ ] key_comp
-- [ ] value_comp
+- [X] key_comp
+- [X] value_comp
 
 -Operations
 - [X] find
-- [ ] count
+- [X] count
 - [ ] lower_bound
 - [ ] upper_bound
 - [ ] equal_range
