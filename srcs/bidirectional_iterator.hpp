@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 08:12:02 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 17:14:00 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 17:47:49 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,12 @@ namespace ft
             bidirectional_iterator  &operator++(void)
             {
                 if (_ptr != _nill)
-                _ptr = successor(_ptr);
+                    _ptr = successor(_ptr);
                 return *this;
             }
             bidirectional_iterator  operator++(int)
             {
+
                 bidirectional_iterator  old(*this);
                 this->operator++();
                 return old;
@@ -97,7 +98,15 @@ namespace ft
                 bidirectional_iterator  old(*this);
                 this->operator--();
                 return old;
-;            }
+            }
+
+            /*          comparaison         */
+            template     <class Iter1, class Iter2>
+            friend bool operator==(ft::bidirectional_iterator<Iter1, Node<Iter1> > const &lhs, ft::bidirectional_iterator<Iter2, Node<Iter2> > const &rhs);
+
+            template     <class Iter1, class Iter2>
+            friend bool operator!=(ft::bidirectional_iterator<Iter1, Node<Iter1> > const &lhs, ft::bidirectional_iterator<Iter2, Node<Iter2> > const &rhs);
+
 
             private:
                 node_ptr    successor(node_ptr node)
@@ -142,5 +151,13 @@ namespace ft
                     return node;
                 }
     };
+
+    template <class Iter1, class Iter2>
+    bool        operator==(ft::bidirectional_iterator<Iter1, Node<Iter1> > const &lhs, ft::bidirectional_iterator<Iter2, Node<Iter2> > const &rhs)
+    {return (lhs._ptr == rhs._ptr);}
+    
+    template <class Iter1, class Iter2>
+    bool        operator!=(ft::bidirectional_iterator<Iter1, Node<Iter1> > const &lhs, ft::bidirectional_iterator<Iter2, Node<Iter2> > const &rhs)
+    {return (lhs._ptr != rhs._ptr);}
 }//ft
 #endif

@@ -24,31 +24,33 @@ https://www.cplusplus.com/reference/map/map/
 
 - [X] constructor by default (1)
 - [ ] constructor with range (2)
-- [ ] constructor by copy (3)
+- [X] constructor by copy (3)
 - [ ] destructor
 - [ ] operator=
 
 -Iterators
 - [X] begin
 - [X] end
-- [ ] rbegin
-- [ ] rend
+- [X] rbegin
+- [X] rend
 
 -Capacity
-- [ ] empty
-- [ ] size
-- [ ] max_size
+- [X] empty
+- [X] size
+- [X] max_size
 
 -Element access
-- [ ] operator[]
+- [X] operator[]
 
 -Modifiers
 - [X] insert (1) single elemnt
-- [ ] insert (2) with hint
-- [ ] insert (3) range
-- [ ] erase
+- [X] insert (2) with hint
+- [X] insert (3) range
+- [X] erase (1) with iterator
+- [X] erase (2)	with key
+- [X] erase (3) with range
 - [ ] swap
-- [ ] clear
+- [X] clear
 
 -Observers
 - [ ] key_comp

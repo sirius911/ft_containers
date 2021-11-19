@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:47:51 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 12:20:15 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 19:08:11 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -594,7 +594,7 @@ void	test_RBtree(int argc)
 	std::cout << "size = " << tree.getSize()<< std::endl;
 }
 
-#define NAMESPACE ft
+#define NAMESPACE std
 
 int 		main(int argc, char **argv)
 {
@@ -602,37 +602,81 @@ int 		main(int argc, char **argv)
 	//test_RBtree(argc);
 	//return 0;
 
-	ft::map<int, int> map_int;
-	typedef typename ft::map<int,int>::iterator it;
-	typedef	ft::pair<int, int> value;
+	NAMESPACE::map<int, int> map_int;
+	typedef typename NAMESPACE::map<int,int>::iterator it;
+	typedef	NAMESPACE::pair<int, int> value;
 	typedef ft::Node<value>*   node_ptr;
-	ft::pair<it,bool> result = map_int.insert(ft::make_pair(12,12));
+
+	NAMESPACE::pair<it,bool> result = map_int.insert(NAMESPACE::make_pair(12,120));
 	if(result.second)
 		std::cout << "Ok\n";
 	else
 		std::cout << "KO\n";
-	result = map_int.insert(ft::make_pair(10,10));
+	result = map_int.insert(NAMESPACE::make_pair(10,10));
 	if(result.second)
 		std::cout << "Ok\n";
 	else
 		std::cout << "KO\n";
 
-	map_int.insert(ft::make_pair(13,13));
-	map_int.insert(ft::make_pair(01,01));
+	map_int.insert(NAMESPACE::make_pair(13,13));
+	map_int.insert(NAMESPACE::make_pair(01,01));
+
 	it	beg = map_int.begin();
 	
-	std::cout << "begin = "<< (*(beg++)).second << std::endl;
-	std::cout << "beg++ = ";
-	std::cout << "begin = "<< (*beg).second << std::endl;
-	std::cout << "begin = "<< (*(++beg)).second << std::endl;
-	std::cout << "begin = "<< (*(++beg)).second << std::endl;
-	std::cout << "begin = "<< (*(++beg)).second << std::endl;
-	std::cout << "begin = "<< (*(--beg)).second << std::endl;
-	beg--;
-	std::cout << "begin = "<< (*beg).second << std::endl;
-	//test_push_std();
-	//test_push();
+	map_int.insert(beg, NAMESPACE::make_pair(-5,-5));
+	beg = map_int.begin();
+	while(beg != map_int.end())
+		std::cout << (*(beg++)).second << std::endl;
+	
+	std::cout <<"\n Revers iterator\n";
+	NAMESPACE::map<int,int>::reverse_iterator rit;
+	rit = map_int.rbegin();
+	while(rit != map_int.rend())
+		std::cout << (*(rit++)).second << std::endl;
 
+	std::cout << "size = " << map_int.size() << " empty = " << ((map_int.empty())?"true":"false" )<< " maxsize = "<< map_int.max_size() << std::endl;
+	
+	std::cout << "Delete by iterator : \n";
+	map_int.erase(map_int.begin());
+	beg = map_int.begin();
+	while(beg != map_int.end())
+		std::cout << (*(beg++)).second << std::endl;
+	std::cout << "size = " << map_int.size() << " empty = " << ((map_int.empty())?"true":"false" )<< std::endl;
+	
+
+	std::cout << "delete by key : \n";
+	int nb_erase = map_int.erase(10);
+	beg = map_int.begin();
+	std::cout << "nb = "<< nb_erase << std::endl;
+	while(beg != map_int.end())
+		std::cout << (*(beg++)).second << std::endl;
+	std::cout << "size = " << map_int.size() << " empty = " << ((map_int.empty())?"true":"false" )<< std::endl;
+	nb_erase = map_int.erase(10);	// no eraser
+	std::cout << "nb = "<< nb_erase << std::endl;
+	
+
+	std::cout << "\n test operator [] :\n with a good value : \n";
+	std::cout << "map_int[12] = " << map_int[12]<< std::endl;
+	std::cout << "\t with a new value : \n";
+	map_int[15] = 150;
+	std::cout << "map_int[15] = 150 " << map_int[15] << std::endl;
+	map_int[2] = 200;
+	beg = map_int.begin();
+	while(beg != map_int.end())
+		std::cout << (*(beg)).second << " "<<&((*(beg++)).second)<< std::endl;
+	std::cout << "size = " << map_int.size() << " empty = " << ((map_int.empty())?"true":"false" )<< std::endl;
+	
+
+	NAMESPACE::map<int, int> map_cpy(map_int);
+
+	std::cout << "clear():\n";
+	map_int.clear();
+	std::cout << "size = " << map_int.size() << " empty = " << ((map_int.empty())?"true":"false" )<< std::endl;
+	
+	beg = map_cpy.begin();
+	while(beg != map_cpy.end())
+		std::cout << (*(beg)).second << " "<<&((*(beg++)).second)<< std::endl;
+	return 0;
 	if (argc != 2)
 	{
 		std::cerr << "Usage: ./test seed" << std::endl;

@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 17:14:28 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 19:03:20 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,10 +53,18 @@ namespace ft
             tree_type           _tree;
 
         public:
+            //empty (1)
             explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()):
             _alloc(alloc), _comp(comp), _tree() {}
 
-            map(const map &cpy):_alloc(cpy._alloc), _comp(cpy._comp), _tree(cpy._tree){} // copy
+            
+
+            //copy(3)
+            map(const map &cpy)
+            {
+                insert(cpy.begin(), cpy.end());
+            }
+
             virtual ~map(){}
 
             map &operator=(const map &cpy)
@@ -64,7 +72,7 @@ namespace ft
                     (void)cpy;
             }
 
-            /*      Iterators       
+            /*    ***************************  Iterators  ************************     
             *       iterator(_ptr, _root, _nill)
             */
 
@@ -89,12 +97,68 @@ namespace ft
                 return (const_iterator(_tree.getNill(), _tree.getRoot(), _tree.getNill()));
             }
 
-            /*      Modifiers    */
+            reverse_iterator        rbegin()        {return(reverse_iterator(end()));}
+            const_reverse_iterator  rbegin() const  {return (const_reverse_iterator(end()));}
+
+            reverse_iterator        rend()          {return(reverse_iterator(begin()));}
+            const_reverse_iterator  rend() const    {return(const_reverse_iterator(begin()));}
+
+            /*  ********************** Capacity ***********************/
+            
+            bool            empty() const       {return (_tree.getSize() == 0);}
+            size_type       size() const        {return _tree.getSize();}
+            size_type       max_size() const    {return _tree.max_size();}
+
+            /*  ********************* Element Access ******************/
+
+            mapped_type    &operator[] (const key_type &k)
+            {
+                _tree.insert(value_type(k, mapped_type()));
+                node_ptr    node = _tree.search(k);
+                return (node->data.second);
+            }
+
+
+            /*  *********************    Modifiers   ***************** */
             ft::pair<iterator,bool>    insert(const value_type &val)
             {
                 bool    succes = _tree.insert(val);
                 iterator    it = find(val.first);
                 return (ft::pair<iterator, bool>(it, succes));
+            }
+            iterator                    insert(iterator, const value_type &val)
+            {
+               return insert(val).first;
+            }
+
+            template <class InputIterator>
+            void                        insert(InputIterator first, InputIterator last)
+            {
+                while(first != last)
+                    _tree.insert(*(first++));
+            }
+
+            void                        erase(iterator position)
+            {
+                erase((*position).first);
+            }
+
+            size_type                   erase(const key_type &k)
+            {
+               if(_tree.deleteNode(k))
+                    return 1;
+                else return 0;       
+            }
+
+            void                        erase(iterator first, iterator last)
+            {
+                while(first != last)
+                    erase(first++);
+            }
+
+            void                        clear()
+            {
+                erase(begin(), end());
             }
 
             /*      operations      */
