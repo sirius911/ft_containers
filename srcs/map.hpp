@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 11:41:40 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 17:14:28 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ namespace ft
 
             map &operator=(const map &cpy)
             {
-                    
+                    (void)cpy;
             }
 
             /*      Iterators       

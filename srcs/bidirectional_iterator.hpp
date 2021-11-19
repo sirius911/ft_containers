@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 08:12:02 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 12:15:19 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 17:14:00 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ namespace ft
 
         public:
             //constructors
-            bidirectional_iterator():_ptr(nullptr), _root(nullptr), _nill(nullptr){}    //default
+            bidirectional_iterator():_ptr(ft_nullptr_t), _root(ft_nullptr_t), _nill(ft_nullptr_t){}    //default
             bidirectional_iterator(const bidirectional_iterator &cpy):_ptr(cpy._ptr), _root(cpy._root), _nill(cpy._nill){} //copy
             virtual ~bidirectional_iterator(){} //destructor
 

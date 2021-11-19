@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 08:01:49 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 17:13:09 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,13 @@ namespace ft
 
         public:
             //constructor
-            RBTree(const value_compare &comp = value_compare(), const allocator_type alloc = allocator_type()):_size(0),_alloc(alloc)
+            RBTree(const value_compare &comp = value_compare(), const allocator_type alloc = allocator_type()):
+            _comp(comp), _size(0),_alloc(alloc)
             {
                 // construction of leaf _nill (_TNULL)
                 _TNULL = _alloc.allocate(1);
                 _root = _TNULL;
-                _alloc.construct(_TNULL, node_type(value_type(), nullptr, nullptr,nullptr, BLACK));
+                _alloc.construct(_TNULL, node_type(value_type(), ft_nullptr_t, ft_nullptr_t,ft_nullptr_t, BLACK));
             }
 
             virtual     ~RBTree()
@@ -117,8 +118,8 @@ namespace ft
             {
                 node_ptr    new_node;
                 new_node = _alloc.allocate(1);
-                _alloc.construct(new_node, node_type(data, nullptr, _TNULL,_TNULL,RED));
-                node_ptr    y = nullptr;
+                _alloc.construct(new_node, node_type(data, ft_nullptr_t, _TNULL,_TNULL,RED));
+                node_ptr    y = ft_nullptr_t;
                 node_ptr    x = _root;
                 while (x !=_TNULL)
                 {
@@ -138,7 +139,7 @@ namespace ft
                 }
                 // y is parent of x is a free place
                 new_node->parent = y;
-                if(y == nullptr)
+                if(y == ft_nullptr_t)
                     _root = new_node;   //first Node
                 else if(_comp(KeyOfValue()(new_node->data), KeyOfValue()(y->data)))
                     y->left = new_node;
@@ -146,14 +147,14 @@ namespace ft
                     y->right = new_node;
                 _size++;
                 //if new_node is a root node, color = BLACK & simply return 
-                if(new_node->parent == nullptr)
+                if(new_node->parent == ft_nullptr_t)
                 {
                     new_node->color = BLACK;
                     return true;
                 }
 
                 //if the grandparent is null, OK return
-                if(new_node->parent->parent == nullptr)
+                if(new_node->parent->parent == ft_nullptr_t)
                     return true;
                 //if Parent is black nothing to do
                 if(new_node->parent->color == BLACK)
@@ -163,19 +164,19 @@ namespace ft
                 return true;
             }
 
-            value_type  &get_data(node_ptr node = nullptr) const
+            value_type  &get_data(node_ptr node = ft_nullptr_t) const
             {
-                if(node == nullptr)
+                if(node == ft_nullptr_t)
                     node = _root;
                 return (node->data);
             }
 
-            int         height(node_ptr node = nullptr) const
+            int         height(node_ptr node = ft_nullptr_t) const
             {
-                if(node == nullptr)
+                if(node == ft_nullptr_t)
                     node = _root;
                 int hl = 0,hr = 0,h = 0 ;
-                if( node == nullptr || node == _TNULL)
+                if( node == ft_nullptr_t || node == _TNULL)
                     h = 0;
                 else
                 {
@@ -278,7 +279,7 @@ namespace ft
 				if (y->left != _TNULL)
 					y->left->parent = x;
 				y->parent = x->parent; // x old parent is now y new parent
-				if (x->parent == nullptr)
+				if (x->parent == ft_nullptr_t)
 					this->_root = y;
                 else if (is_left(x))    // x on left or right ?
 					x->parent->left = y; 
@@ -296,7 +297,7 @@ namespace ft
                 if (y->right != _TNULL)
                     y->right->parent = x;
                 y->parent = x->parent;  // x old parent is now y new parent;
-                if (x->parent == nullptr)
+                if (x->parent == ft_nullptr_t)
                     this->_root = y;
                 else if (is_right(x))  //x on left or right ?
                     x->parent->right = y;
@@ -364,16 +365,16 @@ namespace ft
             static node_ptr _uncle(node_ptr node)
             {
                 node_ptr    p = node->parent;
-                if (p->parent == nullptr)   //no grand-parent
-                    return (nullptr);       // no uncle
+                if (p->parent == ft_nullptr_t)   //no grand-parent
+                    return (ft_nullptr_t);       // no uncle
                 return (_brother(p));
             }
 
             static node_ptr _brother(node_ptr node)
             {
                 node_ptr    p = node->parent;
-                if (p == nullptr)
-                    return nullptr;
+                if (p == ft_nullptr_t)  //if no parent => no brother
+                    return ft_nullptr_t;
                 if (node == p->left)
                     return p->right;
                 else
@@ -405,7 +406,7 @@ namespace ft
             void        graft(node_ptr a, node_ptr b) //graft b instead of a
             {
                 node_ptr    p = a->parent;
-                if(p == nullptr)
+                if(p == ft_nullptr_t)
                     _root = b;
                 else if(is_left(a))
                     p->left = b;
@@ -493,8 +494,7 @@ namespace ft
             }
 
             void print(bool memory, node_ptr root, std::string indent="", bool last=true) const
-			{
-                typedef ft::selectSecond<Value, int>  get_data; 
+			{ 
 				if (root != _TNULL)
 				{
 					std::cout << indent;
@@ -509,7 +509,7 @@ namespace ft
 						indent += "|    ";
 					}
 					std::string sColor = root->color? C_RED:C_BLACK;
-					std::cout << sColor << get_data()(root->data) << C_RESET;
+					std::cout << sColor << KeyOfValue()(root->data) << C_RESET;
                     if(memory)
                         std::cout << " " <<&root;
                     std::cout << std::endl;
