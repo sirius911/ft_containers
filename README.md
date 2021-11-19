@@ -7,6 +7,60 @@ Containers abstracting :
 - stack: Adapts a container to provide stack (LIFO - Last In First Out)
 - queue: Adapts a container to provide queue (FIFO - First In First Out)
 
+
+## Map
+
+Map
+Maps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order.
+
+In a map, the key values are generally used to sort and uniquely identify the elements, while the mapped values store the content associated to this key. The types of key and mapped value may differ, and are grouped together in member type value_type, which is a pair type combining both:
+
+typedef pair<const Key T> value_type;
+
+Containers abstracting : pointer to RBtree Nodes
+Iterator type : bidirectional & reverse iterator
+
+https://www.cplusplus.com/reference/map/map/
+
+- [ ] constructor by default
+- [ ] constructor by copy
+- [ ] destructor
+- [ ] operator=
+
+-Iterators
+- [ ] begin
+- [ ] end
+- [ ] rbegin
+- [ ] rend
+
+-Capacity
+- [ ] empty
+- [ ] size
+- [ ] max_size
+
+-Element access
+- [ ] operator[]
+- [ ]
+
+-Modifiers
+- [ ] insert
+- [ ] erase
+- [ ] swap
+- [ ] clear
+
+-Observers
+- [ ] key_comp
+- [ ] value_comp
+
+-Operations
+- [ ] find
+- [ ] count
+- [ ] lower_bound
+- [ ] upper_bound
+- [ ] equal_range
+
+-Allocator
+- [ ] get allocator
 ## Stack
 
 Stacks are a type of container adaptor, specifically designed to operate in a LIFO context (last-in first-out), where elements are inserted and extracted only from one end of the container.
