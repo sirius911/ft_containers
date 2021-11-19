@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 19:03:20 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 21:27:35 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ namespace ft
 			typedef typename std::size_t									               size_type;
 
             typedef ft::RBTree<key_type, value_type,ft::selectFirst<value_type, key_type> > tree_type;
-
+            class                                                           value_compare;
         private:
             allocator_type      _alloc;
             key_compare         _comp;
@@ -57,7 +57,13 @@ namespace ft
             explicit map(const key_compare &comp = key_compare(), const allocator_type &alloc = allocator_type()):
             _alloc(alloc), _comp(comp), _tree() {}
 
-            
+            //range(2)
+            template <class InputIterator>
+            map(InputIterator first, InputIterator last, const key_compare &comp = key_compare(),
+                const allocator_type &alloc = allocator_type()): _alloc(alloc), _comp(comp), _tree()
+            {
+                insert(first, last);
+            }
 
             //copy(3)
             map(const map &cpy)
@@ -65,11 +71,18 @@ namespace ft
                 insert(cpy.begin(), cpy.end());
             }
 
-            virtual ~map(){}
+            virtual ~map(){} //nothing because except _tree is free with th destructor of RBTree class
 
             map &operator=(const map &cpy)
             {
-                    (void)cpy;
+                if(this != &cpy)
+                {
+                    clear();
+                    _alloc = cpy._alloc;
+                    _comp = cpy._comp;
+                    this->insert(cpy.begin(), cpy.end());
+                }
+                return *this;
             }
 
             /*    ***************************  Iterators  ************************     
@@ -161,7 +174,14 @@ namespace ft
                 erase(begin(), end());
             }
 
-            /*      operations      */
+            /************************   Observers ***********************/
+
+            key_compare     key_comp() const {return _comp;}
+            //value_compare   value_comp() const {return }
+
+
+            /**************************  operations  ********************/
+            
             iterator        find(const key_type &k)
             {
                 node_ptr  node  = _tree.search(k);
@@ -176,9 +196,32 @@ namespace ft
                     return (end());
                 return (const_iterator(node, _tree.getRoot(), _tree.getNill()));
             }
+
+            /*************************** Allocator ***************************/
+
+            allocator_type      get_allocator() const {return _alloc;}
             
     };
 
+    template <class Key, class T, class Compare, class Alloc>
+    class map<Key,T,Compare,Alloc>::value_compare
+    {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+        // see https://www.cplusplus.com/reference/map/map/value_comp/
+        friend class map;
+        
+        protected:
+            Compare comp;
+             value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+        
+        public:
+            typedef bool result_type;
+            typedef value_type first_argument_type;
+            typedef value_type second_argument_type;
+            bool operator() (const value_type& x, const value_type& y) const
+            {
+                return comp(x.first, y.first);
+            }
+    };
 } // namespace ft
 
 #endif

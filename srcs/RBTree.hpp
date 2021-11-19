@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 17:13:09 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 21:08:50 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,35 @@ namespace ft
             {
                 if (!n) return 0;
                 return 1 + std::max(max_depth(n->left), max_depth(n->right));
+            }
+/*
+ node_ptr            _root;
+            node_ptr            _TNULL;
+            value_compare       _comp;
+            size_type           _size;
+            allocator_type      _alloc;
+*/
+            void        swap(RBTree &tree)
+            {
+                node_ptr    tmp_root, tmp_TNULL;
+                value_compare   tmp_value_compare;
+                size_type       tmp_size;
+                allocator_type  tmp_alloc;
+
+                tmp_root = _root;
+                tmp_TNULL = _TNULL;
+                tmp_size = _size;
+                tmp_alloc = _alloc;
+
+                this->_root     = tree._root;
+                this->_TNULL    = tree._TNULL;
+                this->_size     = tree._size;
+                this->_alloc    = tree._alloc;
+
+                tree._root      = tmp_root;
+                tree._TNULL     = tmp_TNULL;
+                tree._size      = tmp_size;
+                tree._alloc     = tmp_alloc;
             }
        
         private:

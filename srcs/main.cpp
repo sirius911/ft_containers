@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 19:47:51 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 19:08:11 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/19 21:23:46 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -602,6 +602,28 @@ int 		main(int argc, char **argv)
 	//test_RBtree(argc);
 	//return 0;
 
+{
+	NAMESPACE::map<char,int> mymap;
+
+  	mymap['x']=1001;
+  	mymap['y']=2002;
+  	mymap['z']=3003;
+
+  	std::cout << "mymap contains:\n";
+
+  	NAMESPACE::pair<char,int> highest = *mymap.rbegin();          // last element
+
+  	NAMESPACE::map<char,int>::iterator it = mymap.begin();
+  	do {
+    	std::cout << it->first << " => " << it->second << '\n';
+  	} while ( mymap.value_comp()(*it++, highest) );
+
+  return 0;
+}
+
+
+
+
 	NAMESPACE::map<int, int> map_int;
 	typedef typename NAMESPACE::map<int,int>::iterator it;
 	typedef	NAMESPACE::pair<int, int> value;
@@ -667,7 +689,7 @@ int 		main(int argc, char **argv)
 	std::cout << "size = " << map_int.size() << " empty = " << ((map_int.empty())?"true":"false" )<< std::endl;
 	
 
-	NAMESPACE::map<int, int> map_cpy(map_int);
+	NAMESPACE::map<int, int> map_cpy = map_int;
 
 	std::cout << "clear():\n";
 	map_int.clear();

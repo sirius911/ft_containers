@@ -23,10 +23,10 @@ Iterator type : bidirectional & reverse iterator
 https://www.cplusplus.com/reference/map/map/
 
 - [X] constructor by default (1)
-- [ ] constructor with range (2)
+- [X] constructor with range (2)
 - [X] constructor by copy (3)
-- [ ] destructor
-- [ ] operator=
+- [X] destructor
+- [X] operator=
 
 -Iterators
 - [X] begin
@@ -57,14 +57,14 @@ https://www.cplusplus.com/reference/map/map/
 - [ ] value_comp
 
 -Operations
-- [ ] find
+- [X] find
 - [ ] count
 - [ ] lower_bound
 - [ ] upper_bound
 - [ ] equal_range
 
 -Allocator
-- [ ] get allocator
+- [X] get allocator
 ## Stack
 
 Stacks are a type of container adaptor, specifically designed to operate in a LIFO context (last-in first-out), where elements are inserted and extracted only from one end of the container.
