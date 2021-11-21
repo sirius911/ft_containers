@@ -49,7 +49,7 @@ https://www.cplusplus.com/reference/map/map/
 - [X] erase (1) with iterator
 - [X] erase (2)	with key
 - [X] erase (3) with range
-- [ ] swap
+- [X] swap
 - [X] clear
 
 -Observers
@@ -59,12 +59,16 @@ https://www.cplusplus.com/reference/map/map/
 -Operations
 - [X] find
 - [X] count
-- [ ] lower_bound
-- [ ] upper_bound
-- [ ] equal_range
+- [X] lower_bound
+- [X] upper_bound
+- [X] equal_range
 
 -Allocator
 - [X] get allocator
+
+### Non-member overloads:
+- [X] relational operators
+- [X] swap
 ## Stack
 
 Stacks are a type of container adaptor, specifically designed to operate in a LIFO context (last-in first-out), where elements are inserted and extracted only from one end of the container.

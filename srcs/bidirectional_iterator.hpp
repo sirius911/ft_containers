@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 08:12:02 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 17:47:49 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/21 20:45:20 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,10 @@ namespace ft
             virtual ~bidirectional_iterator(){} //destructor
 
             bidirectional_iterator(node_ptr ptr, node_ptr root, node_ptr nill):_ptr(ptr), _root(root), _nill(nill){}
+            operator bidirectional_iterator<const value_type, const node_type>()const
+            {
+                return bidirectional_iterator<const value_type, const node_type>(_ptr, _root, _nill);
+            }
             
             bidirectional_iterator &operator=(bidirectional_iterator const &cpy)
             {
@@ -61,11 +65,11 @@ namespace ft
             }
 
             /*      Access      */
-            reference       operator*()      { return this->_ptr->data;}
+            reference       operator*()       { return _ptr->data;}
             const_reference operator*() const { return _ptr->data;}
 
-            pointer         operator->()       {return &(operator*());}
-            const_pointer   operator->() const {return &(operator*());}
+            pointer         operator->()       { return &(_ptr->data);}
+            const_pointer   operator->() const { return &(_ptr->data);}
 
             /*increment */
 
@@ -101,6 +105,11 @@ namespace ft
             }
 
             /*          comparaison         */
+            
+            bool operator==(const bidirectional_iterator &lhs) {return _ptr == lhs._ptr;}
+            bool operator!=(const bidirectional_iterator &lhs) {return _ptr != lhs._ptr;}
+            
+            /*      comparaison with const and non const iterators      */
             template     <class Iter1, class Iter2>
             friend bool operator==(ft::bidirectional_iterator<Iter1, Node<Iter1> > const &lhs, ft::bidirectional_iterator<Iter2, Node<Iter2> > const &rhs);
 

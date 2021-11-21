@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 21:34:49 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/21 22:59:51 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #include "reverse_iterator.hpp"
 #include "pair.hpp"
 #include "RBTree.hpp"
+#include "utils/algorithmes.hpp"
 #include <iostream>
 
 
@@ -45,7 +46,7 @@ namespace ft
 			typedef typename ft::iterator_traits<iterator>::difference_type	               difference_type;
 			typedef typename std::size_t									               size_type;
 
-            typedef ft::RBTree<key_type, value_type,ft::selectFirst<value_type, key_type> > tree_type;
+            typedef ft::RBTree<key_type, value_type,ft::selectFirst<value_type, key_type>, key_compare> tree_type;
             class                                                           value_compare;
         private:
             allocator_type      _alloc;
@@ -174,10 +175,21 @@ namespace ft
                 erase(begin(), end());
             }
 
+            void                        swap( map &x)
+            {
+                _tree.swap(x._tree);
+            }
+
+            // to del
+            void        print_tree() const
+            {
+                _tree.print();
+            }
+
             /************************   Observers ***********************/
 
             key_compare     key_comp() const {return _comp;}
-            //value_compare   value_comp() const {return }
+            value_compare   value_comp() const {return value_compare(_comp); }
 
 
             /**************************  operations  ********************/
@@ -205,11 +217,121 @@ namespace ft
                 return 1;
             }
 
+            iterator        lower_bound(const key_type &k)
+            {
+                iterator    it = begin();
+                while(it != end())
+                {
+                    if (_comp((*it).first, k) == false)
+                        break;
+                    it++;
+                }
+                return (it);
+            }
+
+            const_iterator  lower_bound(const key_type &k) const
+            {
+                const_iterator    it = begin();
+                while(it != end())
+                {
+                    if (_comp((*it).first, k) == false)
+                        break;
+                    it++;
+                }
+                return (it);
+            }
+
+            iterator        upper_bound(const key_type &k)
+            {
+                iterator    it = begin();
+                while(it != end())
+                {
+                    if (_comp(k, (*it).first) == true)
+                        break;
+                    it++;
+                }
+                return (it);
+            }
+
+            const_iterator  upper_bound(const key_type &k) const
+            {
+                const_iterator it = begin();
+                while(it != end())
+                {
+                    if (_comp(k, (*it).first) == true)
+                        break;
+                    it++;
+                }
+                return (it);
+            }
+
+            pair<iterator, iterator>            equal_range(const key_type &k)
+            {
+                return (ft::make_pair<iterator, iterator>(lower_bound(k), upper_bound(k)));
+            }
+
+            pair<const_iterator, const_iterator> equal_range(const key_type &k) const
+            {
+                return (ft::make_pair<const_iterator, const_iterator>(lower_bound(k), upper_bound(k)));
+            }
+
             /*************************** Allocator ***************************/
 
             allocator_type      get_allocator() const {return _alloc;}
             
     };
+
+    /*      *********** operators relational ***********************/
+    // equal
+    template <class Key, class T, class Compare, class Alloc>
+    bool    operator==(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+    }
+    
+    // not equal <==> !(==)
+    template <class Key, class T, class Compare, class Alloc>
+    bool    operator!=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (!(rhs == lhs));
+    }
+
+    // < 
+    template <class Key, class T, class Compare, class Alloc>
+    bool    operator<(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+    }
+
+    template <class Key, class T, class Compare, class Alloc>
+    bool    operator>(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        //a>b		<==>  b<a
+		return (rhs < lhs);
+    }
+
+    template <class Key, class T, class Compare, class Alloc>
+    bool    operator<=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        //a<=b	->	!(b < a)
+		return (!(rhs < lhs));
+    }
+
+    template <class Key, class T, class Compare, class Alloc>
+    bool    operator>=(const map<Key, T, Compare, Alloc> &lhs, const map<Key, T, Compare, Alloc> &rhs)
+    {
+        //a>=b	->	!(a<b)
+		return (!(lhs < rhs));
+    }
+
+
+    /*      *********** Non-member overload functions ***********/
+
+    template <class Key, class T, class Compare, class Alloc>
+    void    swap(map<Key, T, Compare, Alloc> &x, map<Key, T, Compare, Alloc> &y)
+    {
+        x.swap(y);
+    }
 
     template <class Key, class T, class Compare, class Alloc>
     class map<Key,T,Compare,Alloc>::value_compare
