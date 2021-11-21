@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/19 21:08:50 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/21 22:26:37 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,10 +197,13 @@ namespace ft
             {
                 node_ptr _to_del, _to_control, _tmp;
                 Color   saved_color;
+                bool    leaf;
+
                 
                 _to_del = search(key);
                 if (_to_del == _TNULL)
                     return false;       //  not found
+                leaf = is_leaf(_to_del);
                 saved_color = _to_del->color;
                 //if the node to del have only one or no children
                 // juste graft his children (or _nill) to his parent
@@ -241,7 +244,7 @@ namespace ft
                 _alloc.destroy(_to_del);        // we now delete the _to_del
                 _alloc.deallocate(_to_del, 1);
                 _size--;
-                if(saved_color == BLACK)
+                if(!leaf && saved_color == BLACK)
                     RN_correction(_to_control);
                 return true;
             }
@@ -256,32 +259,29 @@ namespace ft
                 if (!n) return 0;
                 return 1 + std::max(max_depth(n->left), max_depth(n->right));
             }
-/*
- node_ptr            _root;
-            node_ptr            _TNULL;
-            value_compare       _comp;
-            size_type           _size;
-            allocator_type      _alloc;
-*/
+
             void        swap(RBTree &tree)
             {
                 node_ptr    tmp_root, tmp_TNULL;
-                value_compare   tmp_value_compare;
+                value_compare   tmp_comp;
                 size_type       tmp_size;
                 allocator_type  tmp_alloc;
 
                 tmp_root = _root;
                 tmp_TNULL = _TNULL;
+                tmp_comp = _comp;
                 tmp_size = _size;
                 tmp_alloc = _alloc;
 
                 this->_root     = tree._root;
                 this->_TNULL    = tree._TNULL;
+                this->_comp     = tree._comp;
                 this->_size     = tree._size;
                 this->_alloc    = tree._alloc;
 
                 tree._root      = tmp_root;
                 tree._TNULL     = tmp_TNULL;
+                tree._comp      = tmp_comp;
                 tree._size      = tmp_size;
                 tree._alloc     = tmp_alloc;
             }
@@ -417,6 +417,11 @@ namespace ft
             static bool    is_right(node_ptr node)
             {
                 return (node == node->parent->right);
+            }
+
+            bool     is_leaf(node_ptr node) const
+            {
+                return (node->left == _TNULL && node->right == _TNULL);
             }
 
             /*clear*/
