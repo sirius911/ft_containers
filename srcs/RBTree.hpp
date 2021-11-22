@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/21 22:26:37 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/22 16:09:12 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ namespace ft
                         x = x->right;   //the new_code hqve to be right tree
                     else
                     {
-                        // no equal key
+                        // no equal key so delete it
                         _alloc.destroy(new_node);
                         _alloc.deallocate(new_node, 1);
                         return false;

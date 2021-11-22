@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/21 22:59:51 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/22 16:10:17 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,12 +178,6 @@ namespace ft
             void                        swap( map &x)
             {
                 _tree.swap(x._tree);
-            }
-
-            // to del
-            void        print_tree() const
-            {
-                _tree.print();
             }
 
             /************************   Observers ***********************/
