@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:45:25 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/21 22:53:25 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/22 18:46:21 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ namespace ft
     };
 
     template <class Input, class Output>
-    struct selectSecond : public std::unary_function<Input, Output>
+    struct selectKey : public std::unary_function<Input, Output>
     {
         const Output &operator()(const Input &x) const
         {
-            return (x.second);
+            return (x);
         }
     };
 

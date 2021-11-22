@@ -6,8 +6,57 @@ Containers abstracting :
 - map: Binary Search Tree of key-value pairs, sorted by unique keys.
 - stack: Adapts a container to provide stack (LIFO - Last In First Out)
 - queue: Adapts a container to provide queue (FIFO - First In First Out)
+- set are containers that store unique elements following a specific order.
 
 
+## Set
+
+### Member functions:
+
+- [ ] constructor by default (1)
+- [ ] constructor range (2)
+- [ ] constructor by copy (3)
+
+- [ ] ~set
+
+- [ ] operator=
+
+-Iterators
+- [ ] begin
+- [ ] end
+- [ ] rbegin
+- [ ] rend
+
+-Capacity
+- [ ] empty
+- [ ] size
+- [ ] max_size
+
+-Modifiers
+- [ ] insert
+- [ ] erase
+- [ ] swap
+- [ ] clear
+
+-Observers
+- [ ] key_comp
+- [ ] value_comp
+
+-Operations
+- [ ] find
+- [ ] count
+- [ ] lower_bound
+- [ ] upper_bound
+- [ ] equal_range
+
+-Allocator
+- [ ] get_allocator
+
+### Non-member overloads:
+- [ ] relational operators
+- [ ] swap
+
+https://www.cplusplus.com/reference/set/set/
 ## Map
 
 Map
@@ -21,6 +70,8 @@ Containers abstracting : pointer to RBtree Nodes
 Iterator type : bidirectional & reverse iterator
 
 https://www.cplusplus.com/reference/map/map/
+
+### Member functions:
 
 - [X] constructor by default (1)
 - [X] constructor with range (2)
