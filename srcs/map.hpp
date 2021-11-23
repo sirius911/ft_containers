@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/22 16:10:17 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/23 14:48:32 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ namespace ft
 
             typedef ft::RBTree<key_type, value_type,ft::selectFirst<value_type, key_type>, key_compare> tree_type;
             class                                                           value_compare;
+            
         private:
             allocator_type      _alloc;
             key_compare         _comp;
