@@ -13,44 +13,44 @@ Containers abstracting :
 
 ### Member functions:
 
-- [ ] constructor by default (1)
-- [ ] constructor range (2)
-- [ ] constructor by copy (3)
+- [X] constructor by default (1)
+- [X] constructor range (2)
+- [X] constructor by copy (3)
 
-- [ ] ~set
+- [X] ~set
 
-- [ ] operator=
+- [X] operator=
 
 -Iterators
-- [ ] begin
-- [ ] end
-- [ ] rbegin
-- [ ] rend
+- [X] begin
+- [X] end
+- [X] rbegin
+- [X] rend
 
 -Capacity
-- [ ] empty
-- [ ] size
-- [ ] max_size
+- [X] empty
+- [X] size
+- [X] max_size
 
 -Modifiers
-- [ ] insert
-- [ ] erase
+- [X] insert
+- [X] erase
 - [ ] swap
-- [ ] clear
+- [X] clear
 
 -Observers
-- [ ] key_comp
-- [ ] value_comp
+- [X] key_comp
+- [X] value_comp
 
 -Operations
-- [ ] find
-- [ ] count
-- [ ] lower_bound
-- [ ] upper_bound
-- [ ] equal_range
+- [X] find
+- [X] count
+- [X] lower_bound
+- [X] upper_bound
+- [X] equal_range
 
 -Allocator
-- [ ] get_allocator
+- [X] get_allocator
 
 ### Non-member overloads:
 - [ ] relational operators
