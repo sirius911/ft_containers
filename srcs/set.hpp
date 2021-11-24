@@ -18,7 +18,7 @@
 #include "iterator.hpp"
 #include "RBTree.hpp"
 #include "pair.hpp"     //to selectKey()
-
+#include "utils/algorithmes.hpp"
 #include <iostream>
 
 namespace ft
@@ -237,6 +237,50 @@ namespace ft
 
     };
 
+    /*      *********** operators relational ***********************/
+    // equal
+    template <class T, class Compare, class Alloc>
+    bool    operator==(const set<T, Compare, Alloc> &lhs, const set<T, Compare, Alloc> &rhs)
+    {
+        return (lhs.size() == rhs.size() && ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+    }
+
+    // !=   
+    template <class T, class Compare, class Alloc>
+    bool    operator!=(const set<T, Compare, Alloc> &lhs, const set<T, Compare, Alloc> &rhs)
+    {
+        return (!(lhs == rhs));
+    }
+
+    // < 
+    template <class T, class Compare, class Alloc>
+    bool    operator<(const set<T, Compare, Alloc> &lhs, const set<T, Compare, Alloc> &rhs)
+    {
+        return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
+    }
+
+    template <class T, class Compare, class Alloc>
+    bool    operator>(const set<T, Compare, Alloc> &lhs, const set<T, Compare, Alloc> &rhs)
+    {
+        //a>b		<==>  b<a
+		return (rhs < lhs);
+    }
+
+    template <class T, class Compare, class Alloc>
+    bool    operator<=(const set<T, Compare, Alloc> &lhs, const set<T, Compare, Alloc> &rhs)
+    {
+        //a<=b	->	!(b < a)
+		return (!(rhs < lhs));
+    }
+
+    template <class T, class Compare, class Alloc>
+    bool    operator>=(const set< T, Compare, Alloc> &lhs, const set<T, Compare, Alloc> &rhs)
+    {
+        //a>=b	->	!(a<b)
+		return (!(lhs < rhs));
+    }
+
+
     /*      *********** Non-member overload functions ***********/
 
     template <class T, class Compare, class Alloc>
@@ -244,6 +288,26 @@ namespace ft
     {
         x.swap(y);
     }
+
+    template <class T, class Compare, class Alloc>
+    class set<T,Compare,Alloc>::value_compare
+    {   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+        // see https://www.cplusplus.com/reference/map/map/value_comp/
+        friend class set;
+        
+        protected:
+            Compare comp;
+             value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+        
+        public:
+            typedef bool result_type;
+            typedef value_type first_argument_type;
+            typedef value_type second_argument_type;
+            bool operator() (const value_type& x, const value_type& y) const
+            {
+                return comp(x, y);
+            }
+    };
 
 } // ft
 #endif

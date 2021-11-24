@@ -35,7 +35,7 @@ Containers abstracting :
 -Modifiers
 - [X] insert
 - [X] erase
-- [ ] swap
+- [X] swap
 - [X] clear
 
 -Observers
@@ -53,8 +53,8 @@ Containers abstracting :
 - [X] get_allocator
 
 ### Non-member overloads:
-- [ ] relational operators
-- [ ] swap
+- [X] relational operators
+- [X] swap
 
 https://www.cplusplus.com/reference/set/set/
 ## Map
