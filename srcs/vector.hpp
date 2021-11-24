@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:22:16 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/12 11:26:48 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/24 22:01:00 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,14 @@ namespace ft
 
 			vector &operator=(vector const & copy)
 			{
+				size_type old_capacity = _capacity;
 				if(*this != copy)
 				{
-					this->clear();
 					assign(copy.begin(), copy.end());
+					if(_capacity < old_capacity)
+					{
+						this->reserve(old_capacity);
+					}
 				}
 				return(*this);
 			};

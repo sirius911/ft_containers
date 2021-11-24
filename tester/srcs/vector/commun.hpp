@@ -12,14 +12,11 @@
 #endif
 
 template <typename T>
-void    print_vector(NAMESPACE::vector<T> &vector_test, bool memory = false, bool capacity = false)
+void    print_vector(NAMESPACE::vector<T> &vector_test, bool capacity = false)
 {
     for(size_t i = 0; i < vector_test.size(); i++)
 	{
-		std::cout << vector_test[i];
-        if(memory)
-            std::cout << " at & " << &vector_test[i];
-        std::cout << std::endl;
+		std::cout << vector_test[i] << std::endl;
 	}
     if(capacity)
     {

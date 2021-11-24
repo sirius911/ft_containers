@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:59:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/24 17:55:37 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/24 21:16:52 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,51 @@ int     main(int argc, char** argv)
         std::cerr << "error no output file" << std::endl;
         return 1;
     }
-    // std::ofstream out(argv[1]);
-    // std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
-    // std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
-{
-  NAMESPACE::vector<int> first;
-  NAMESPACE::vector<int> second;
-  NAMESPACE::vector<int> third;
-  second.assign (7,100);             // 7 ints with a value of 100
+    std::ofstream out(argv[1]);
+    std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
+    std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
+	NAMESPACE::vector<int> vct(5);
+	NAMESPACE::vector<int>::iterator it = vct.begin(), ite = vct.end();
 
-  NAMESPACE::vector<int>::iterator it;
+	std::cout << "len: " << (ite - it) << std::endl;
+	for (; it != ite; ++it)
+		*it = (ite - it);
 
-  it=first.begin()+1;
+	it = vct.begin();
+	NAMESPACE::vector<int> vct_range(it, --(--ite));
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 5;
 
-  second.assign (it,first.end()-1); // the 5 central values of first
+	it = vct.begin();
+	NAMESPACE::vector<int> vct_copy(vct);
+	for (int i = 0; it != ite; ++it)
+		*it = ++i * 7;
+	vct_copy.push_back(42);
+	vct_copy.push_back(21);
 
-  int myints[] = {1776,7,4};
-  third.assign (myints,myints+3);   // assigning from array.
+	std::cout << "\t-- PART ONE --" << std::endl;
+  std::cout << "vct"<<std::endl;
+	print_vector(vct, true);
+  std::cout << "vct_range" << std::endl;
+	print_vector(vct_range, true);
+  std::cout << "vct_copy" << std::endl;
+	print_vector(vct_copy, true);
 
-  std::cout << "Size of first: " << int (first.size()) << '\n';
-  std::cout << "Size of second: " << int (second.size()) << '\n';
-  std::cout << "Size of third: " << int (third.size()) << '\n';
-}
-    // std::cout.rdbuf(coutbuf); //reset to standard output again
+  std::cout << "vct = vct_copy" << std::endl;
+	vct = vct_copy;
+  std::cout << "vct_copy = vct_range"<< std::endl;
+	vct_copy = vct_range;
+  std::cout << "vct.range()"<< std::endl;
+	vct_range.clear();
+
+	std::cout << "\t-- PART TWO --" << std::endl;
+  std::cout << "vct" << std::endl;
+	print_vector(vct, true);
+  std::cout << "vct_range" << std::endl;
+	print_vector(vct_range, true);
+  std::cout << "vct_copy" << std::endl;
+	print_vector(vct_copy, true);
+
+    std::cout.rdbuf(coutbuf); //reset to standard output again
     return 0;
 }
