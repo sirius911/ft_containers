@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   assign_test.cpp                                    :+:      :+:    :+:   */
+/*   copy_test.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:59:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/24 21:16:52 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/25 08:12:11 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ int     main(int argc, char** argv)
     std::ofstream out(argv[1]);
     std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
     std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
+    
 	NAMESPACE::vector<int> vct(5);
 	NAMESPACE::vector<int>::iterator it = vct.begin(), ite = vct.end();
 
