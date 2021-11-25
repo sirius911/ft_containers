@@ -1,0 +1,32 @@
+24c24
+< Capacity = 14
+---
+> Capacity = 10
+46c46
+< Capacity = 20
+---
+> Capacity = 18
+60c60
+< Capacity = 20
+---
+> Capacity = 10
+96c96
+< Capacity = 23
+---
+> Capacity = 5
+105c105
+< Capacity = 23
+---
+> Capacity = 5
+114c114
+< Capacity = 87
+---
+> Capacity = 5
+125c125
+< Capacity = 88
+---
+> Capacity = 6
+139c139
+< Capacity = 5
+---
+> Capacity = 0

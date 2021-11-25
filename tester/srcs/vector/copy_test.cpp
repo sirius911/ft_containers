@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:59:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/25 08:12:11 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/25 13:28:27 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,11 @@ int     main(int argc, char** argv)
 	print_vector(vct_range, true);
   std::cout << "vct_copy" << std::endl;
 	print_vector(vct_copy, true);
+
+	std::cout << "\t-- PART THREE --" << std::endl;
+	NAMESPACE::vector<int> copy(vct);	//copy by construct
+	print_vector(copy, true);
+/******************************************************************************************/
 
     std::cout.rdbuf(coutbuf); //reset to standard output again
     return 0;
