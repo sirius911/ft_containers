@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/11 15:14:08 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/22 17:35:12 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/26 16:18:46 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ namespace ft
 				typedef size_t		size_type;
 
 				explicit 	stack(const container_type &ctnr = container_type()): c(ctnr){}
+				//no constructor by copy and operator=
+				// see https://www.cplusplus.com/reference/stack/stack/stack/
 				virtual 	~stack() {}
-
+				
 				bool		empty(void) const { return c.empty();}
 				size_type	size(void) const { return c.size();}
 

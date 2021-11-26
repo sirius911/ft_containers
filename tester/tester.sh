@@ -116,7 +116,7 @@ do_test () {
 
 pheader
 # containers=(vector map stack set)
-containers=(map stack)
+containers=(stack)
 for container in ${containers[@]}; do
 		printf "%40s\n" $container
 		do_test $container 2>/dev/null
