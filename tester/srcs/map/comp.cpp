@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:59:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/25 15:56:42 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/26 17:16:44 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int     main(int argc, char** argv)
 			ft_comp(mp, it1, it2);
 
 	printSize(mp);
-	return (0);
 }
  
     std::cout.rdbuf(coutbuf); //reset to standard output again

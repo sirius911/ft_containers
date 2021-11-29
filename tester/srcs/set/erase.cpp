@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   empty.cpp                                          :+:      :+:    :+:   */
+/*   erase.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:59:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/26 17:15:22 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/27 18:42:00 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.hpp"
 #include <list>
 
-#define T1 char
-#define T2 int
-typedef _pair<const T1, T2> T3;
+static int iter = 0;
 
-template <class T>
-void	is_empty(T const &mp)
+template <typename SET, typename U>
+void	ft_erase(SET &st, U param)
 {
-	std::cout << "is_empty: " << mp.empty() << std::endl;
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	st.erase(param);
+	printSize(st);
 }
 
+template <typename SET, typename U, typename V>
+void	ft_erase(SET &st, U param, V param2)
+{
+	std::cout << "\t-- [" << iter++ << "] --" << std::endl;
+	st.erase(param, param2);
+	printSize(st);
+}
 
 int     main(int argc, char** argv)
 {
@@ -33,33 +40,32 @@ int     main(int argc, char** argv)
     std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
     std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
 {
-	std::list<T3> lst;
-	unsigned int lst_size = 7;
+	std::list<std::string> lst;
+	unsigned int lst_size = 10;
 	for (unsigned int i = 0; i < lst_size; ++i)
-		lst.push_back(T3('a' + i, lst_size - i));
+		lst.push_back(std::string((lst_size - i), i + 65));
+	NAMESPACE::set<std::string> st(lst.begin(), lst.end());
+	printSize(st);
 
-	NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end()), mp2;
-	NAMESPACE::map<T1, T2>::iterator it;
+	ft_erase(st, ++st.begin());
 
-	lst.clear();
-	is_empty(mp);
-	printSize(mp);
+	ft_erase(st, st.begin());
+	ft_erase(st, --st.end());
 
-	is_empty(mp2);
-	mp2 = mp;
-	is_empty(mp2);
+	ft_erase(st, st.begin(), ++(++(++st.begin())));
+	ft_erase(st, --(--(--st.end())), --st.end());
 
-	it = mp.begin();
-	for (unsigned long int i = 3; i < mp.size(); ++i)
-		it++->second = i * 7;
+	st.insert("Hello");
+	st.insert("Hi there");
+	printSize(st);
+	ft_erase(st, --(--(--st.end())), st.end());
 
-	printSize(mp);
-	printSize(mp2);
-
-	mp2.clear();
-	is_empty(mp2);
-	printSize(mp2);
-}
+	st.insert("ONE");
+	st.insert("TWO");
+	st.insert("THREE");
+	st.insert("FOUR");
+	printSize(st);
+	ft_erase(st, st.begin(), st.end());}
  
     std::cout.rdbuf(coutbuf); //reset to standard output again
     return 0;

@@ -6,11 +6,16 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:59:29 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/25 16:19:55 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/27 22:03:19 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "commun.hpp"
+#include <list>
+
+#define T1 float
+#define T2 foo<int>
+typedef _pair<const T1, T2> T3;
 
 int     main(int argc, char** argv)
 {
@@ -21,20 +26,41 @@ int     main(int argc, char** argv)
     std::streambuf *coutbuf = std::cout.rdbuf(); //save old buf
     std::cout.rdbuf(out.rdbuf()); //redirect std::cout to out.txt!
 {
-	NAMESPACE::map<int, int> mp;
-	mp[1] = 2;
-}
-{
-    NAMESPACE::map<int, int> const mp;
-	NAMESPACE::map<int, int>::iterator it = mp.begin(); // <-- error expected
+	std::list<T3> lst;
+	unsigned int lst_size = 5;
+	for (unsigned int i = 0; i < lst_size; ++i)
+		lst.push_back(T3(2.5 + i, i + 1));
 
-	(void)it;
-}
-{
-    NAMESPACE::map<char, int>::iterator it;
-	NAMESPACE::map<char, float>::const_iterator ite;
+	NAMESPACE::map<T1, T2> mp(lst.begin(), lst.end());
+	NAMESPACE::map<T1, T2>::iterator it(mp.begin());
+	NAMESPACE::map<T1, T2>::const_iterator ite(mp.begin());
+	printSize(mp);
 
-	std::cout << (it != ite) << std::endl;
+	printPair(++ite);
+	printPair(ite++);
+	printPair(ite++);
+	printPair(++ite);
+
+	it->second.m();
+	ite->second.m();
+
+	printPair(++it);
+	printPair(it++);
+	printPair(it++);
+	printPair(++it);
+
+	printPair(--ite);
+	printPair(ite--);
+	printPair(--ite);
+	printPair(ite--);
+
+	(*it).second.m();
+	(*ite).second.m();
+
+	printPair(--it);
+	printPair(it--);
+	printPair(it--);
+	printPair(--it);
 }
  
     std::cout.rdbuf(coutbuf); //reset to standard output again

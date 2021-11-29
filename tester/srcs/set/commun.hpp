@@ -5,13 +5,16 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 15:47:55 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/26 17:44:54 by clorin           ###   ########.fr       */
+/*   Created: 2021/11/26 17:06:21 by clorin            #+#    #+#             */
+/*   Updated: 2021/11/27 19:00:54 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../srcs/stack.hpp"
-#include <stack>
+#ifndef COMMUN_HPP
+# define COMMUN_HPP
+
+#include "../srcs/set.hpp"
+#include <set>
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -20,19 +23,41 @@
 # define NAMESPACE ft
 #endif
 
-template <typename T_STACK>
-void	printSize(T_STACK &stck, bool print_content = 1)
+#define _pair NAMESPACE::pair
+
+template <typename T>
+std::string	printPair(const T &iterator, bool nl = true, std::ostream &o = std::cout)
 {
-	std::cout << "size: " << stck.size() << std::endl;
+	o << "value: " << *iterator;
+	if (nl)
+		o << std::endl;
+	return ("");
+}
+
+template <typename T_SET>
+void	printSize(T_SET const &st, bool print_content = 1)
+{
+	std::cout << "size: " << st.size() << std::endl;
+	std::cout << "max_size: " << st.max_size() << std::endl;
 	if (print_content)
 	{
-		std::cout << std::endl << "Content was:" << std::endl;
-		while (stck.size() != 0) {
-			std::cout << "- " << stck.top() << std::endl;
-			stck.pop();
-		}
+		typename T_SET::const_iterator it = st.begin(), ite = st.end();
+		std::cout << std::endl << "Content is:" << std::endl;
+		for (; it != ite; ++it)
+			std::cout << "- " << printPair(it, false) << std::endl;
 	}
 	std::cout << "###############################################" << std::endl;
+}
+
+template <typename T1>
+void	printReverse(NAMESPACE::set<T1> &st)
+{
+	typename NAMESPACE::set<T1>::iterator it = st.end(), ite = st.begin();
+
+	std::cout << "printReverse:" << std::endl;
+	while (it-- != ite)
+		std::cout << "-> " << printPair(it, false) << std::endl;
+	std::cout << "_______________________________________________" << std::endl;
 }
 
 template <typename T>
@@ -69,3 +94,21 @@ std::ostream	&operator<<(std::ostream &o, foo<T> const &bar) {
 	o << bar.getValue();
 	return o;
 }
+
+template <typename T>
+T	inc(T it, int n)
+{
+	while (n-- > 0)
+		++it;
+	return (it);
+}
+
+template <typename T>
+T	dec(T it, int n)
+{
+	while (n-- > 0)
+		--it;
+	return (it);
+}
+
+#endif
