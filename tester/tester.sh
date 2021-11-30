@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-
+#!/bin/bash
 RESET="\e[0m"
 BOLD="\e[1m"
 RED="\e[91m"
@@ -27,7 +26,7 @@ printf "\e[0;1;94m\
 
 compile () {
 	# 1=file 2=define used {ft/std} 3=output_file 4=compile_log
-	clang++ -Wall -Wextra -Werror -std=c++98 -o "$3" -I./$incl_path -DNAMESPACE=$2 -DWORD="$3" $1 &>$4
+	clang++ -Wall -Wextra -Werror -std=c++98 -o "$3" -I./$incl_path -DNAMESPACE=$2 $1 &>$4
 	return $?
 }
 
@@ -95,8 +94,8 @@ test () {
     ft_compile_log="$logCompil/ft."$testname.$container.compile.log    
 
 	#compilation with namespace ft & std
-    compile "$1" "ft"  "$ft_bin" $ft_compile_log "ft_";  ft_ret=$?
-    compile "$1" "std" "$std_bin" $std_compile_log "std_"; std_ret=$?
+    compile "$1" "ft"  "$ft_bin" $ft_compile_log ;  ft_ret=$?
+    compile "$1" "std" "$std_bin" $std_compile_log ; std_ret=$?
 	
 	if [ $ft_ret  -eq $std_ret ] && [ $std_ret -ne 0 ]
 	then
