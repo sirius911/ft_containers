@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 12:47:56 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/22 16:09:12 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/30 11:09:37 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,7 +223,6 @@ namespace ft
                 {
                     // 2 childrens
                     //is replaced by the minimum of it's right branch (successeur)
-                    //std::cout << " with 2 childrens \n\t";
                     _tmp = min(_to_del->right); //search for the minimum in the right child's branch
                     saved_color = _tmp->color;
                     _to_control = _tmp->right;  // to control right branch

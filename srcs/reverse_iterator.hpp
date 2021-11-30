@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/03 09:00:31 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/12 11:25:16 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/30 11:12:43 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,6 @@ namespace ft
             explicit reverse_iterator(Iterator it): _ptr(it) {}
             template <class U>
 			reverse_iterator(reverse_iterator<U> const &other):_ptr(other.base()){};
-
-            //operator reverse_iterator<Iterator const>() const{ return reverse_iterator<Iterator const>(_ptr);}
-
 
 			virtual ~reverse_iterator(void){};
             template <class U>
@@ -71,8 +68,6 @@ namespace ft
             {
                 return base()[-op -1];
             }
-			// const_reference	operator[](difference_type op) const	{return(_ptr[op]);};
-
 
 			//increments
 			reverse_iterator	&operator++(void){_ptr--; return(*this);};
@@ -100,17 +95,10 @@ namespace ft
 			reverse_iterator	&operator+=(difference_type op){_ptr -= op;return(*this);}
 			reverse_iterator	&operator-=(difference_type op){_ptr += op;return(*this);}
 
-			// ->
-			//pointer				operator->() const		{return(&_ptr);}
-			//const_pointer 		operator->() const	{return(&_ptr);};
-
             template <class Iterator1>
             friend difference_type operator-(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator1> &rhs);
             template< class Iterator1, class Iterator2>
             friend typename reverse_iterator<Iterator1>::difference_type operator-(const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs);
-
-            //forbiden
-            //difference_type     substract(const reverse_iterator<Iterator> rhs)const {return (rhs.base() - _ptr);}
 	};
 
     //Non member functions : comparaison operators overloads
@@ -178,19 +166,12 @@ namespace ft
     typename reverse_iterator<Iterator>::difference_type operator-(const reverse_iterator<Iterator> &lhs, const reverse_iterator<Iterator> &rhs)
     { 
         return ((rhs._ptr - lhs._ptr));
-        //return (lhs.operator-(rhs));
-    //  return (lhs.substract(rhs));
     }
     
     template< class Iterator1, class Iterator2>
     typename reverse_iterator<Iterator1>::difference_type operator-( const reverse_iterator<Iterator1> &lhs, const reverse_iterator<Iterator2> &rhs)
     {
-        // size_t  a = rhs._ptr;
-        // size_t  b = lhs._ptr;
         return ((rhs._ptr - lhs._ptr));
-        //return (lhs.operator-(rhs));
-        //return (lhs.substract(rhs));
     }
-}
-
+}   //ft
 #endif

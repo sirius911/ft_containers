@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:22:16 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/25 13:58:08 by clorin           ###   ########.fr       */
+/*   Updated: 2021/11/30 11:15:38 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ namespace ft
 			typedef typename allocator_type::const_pointer					const_pointer;
 			typedef typename ft::random_access_iterator<T>					iterator;
 			typedef typename ft::random_access_iterator<const T>			const_iterator;
-			//typedef typename ft::random_access_const_iterator<T>			const_iterator;
 			typedef typename ft::reverse_iterator<iterator> 				reverse_iterator;
 			typedef typename ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 			typedef typename ft::iterator_traits<iterator>::difference_type	difference_type;
@@ -174,7 +173,6 @@ namespace ft
 			//insert fill(2)
 			void		insert(iterator position, size_t n, const value_type &val)
 			{
-				//std::cout << "insert(fill)\n";
 				difference_type index = position - begin();
 				if(n + _size_container > _capacity)
 				{
@@ -198,10 +196,8 @@ namespace ft
 							_alloc.construct(_ptr + i, val);
 							i++;
 						}
-						//std::cout << "de z = " << z << " a prev_size = " << prev_size << std::endl;
 						for(;z < prev_size; z++)
 						{
-							//std::cout << *(prev_ptr + z)<< " -> _ptr+"<<i<<std::endl;
 							_alloc.construct(_ptr+i, *(prev_ptr + z));
 							i++;
 						}
@@ -213,7 +209,6 @@ namespace ft
 				{
 					if(position == end())
 					{
-						//std::cout << "at the end !!\n";
 						for (size_t i = 0; i < n; i++)
 							push_back(val);
 					}
@@ -221,21 +216,16 @@ namespace ft
 					{
 						difference_type i = index;
 						difference_type ending = _size_container - 1;
-					
-						//std::cout << "at " << index << " ending = "<< ending <<std::endl;
-						
+
 						while(ending > index)
 						{
-							//std::cout<<"cpy " <<*(_ptr+ending)<< " at " << &(*(_ptr + ending + n)) << std::endl;
 							_alloc.construct(_ptr + ending + n, *(_ptr + ending));
 							ending--;
 						}
-						//std::cout<<"cpy " <<*(_ptr+ending)<< " at " << &(*(_ptr + ending + n)) << std::endl;
 						_alloc.construct(_ptr + ending + n, *(_ptr + ending));
 						i = index;
 						for (size_t z = 0; z < n; z++)
 						{
-							//std::cout<<"cpy "<< val << " at " << &(*(_ptr+i))<<std::endl;
 							_alloc.construct(_ptr + i, val);
 							i++;	
 						}
@@ -249,10 +239,8 @@ namespace ft
 			void		insert(iterator position, InputIterator first, InputIterator last,
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type * = ft_nullptr_t) 
 			{
-				//std::cout<<"insert(range)\n";
 				size_type n = ft::distance(first, last);
 				difference_type index = position - begin();
-				//std::cout << "n = "<<n << " index = "<<index<<std::endl;
 				if(n + _size_container > _capacity)
 				{
 					// resize
@@ -274,10 +262,8 @@ namespace ft
 						{
 							_alloc.construct(_ptr + (i++),*first);
 						}
-						//std::cout << "de z = " << z << " a prev_size = " << prev_size << std::endl;
 						for(;z < prev_size; z++)
 						{
-							//std::cout << *(prev_ptr + z)<< " -> _ptr+"<<i<<std::endl;
 							_alloc.construct(_ptr+i, *(prev_ptr + z));
 							i++;
 						}
@@ -289,7 +275,6 @@ namespace ft
 				{
 					if(position == end())
 					{
-						//std::cout << "at the end !!\n";
 						for(;first != last;first++)
 							push_back(*first);
 					}
@@ -297,21 +282,16 @@ namespace ft
 					{
 						difference_type i = index;
 						difference_type ending = _size_container - 1;
-					
-						//std::cout << "at " << index << " ending = "<< ending <<std::endl;
 						
 						while(ending > index)
 						{
-							//std::cout<<"cpy " <<*(_ptr+ending)<< " at " << &(*(_ptr + ending + n)) << std::endl;
 							_alloc.construct(_ptr + ending + n, *(_ptr + ending));
 							ending--;
 						}
-						//std::cout<<"cpy " <<*(_ptr+ending)<< " at " << &(*(_ptr + ending + n)) << std::endl;
 						_alloc.construct(_ptr + ending + n, *(_ptr + ending));
 						i = index;
 						for (;first != last; first++)
 						{
-							//std::cout<<"cpy "<< *first << " at " << &(*(_ptr+i))<<std::endl;
 							_alloc.construct(_ptr + (i++), *first);
 						}
 						_size_container += n;
@@ -462,7 +442,7 @@ namespace ft
 			reverse_iterator		rend()		{return(reverse_iterator(begin()));};
 			const_reverse_iterator	rend() const{return(const_reverse_iterator(begin()));};
 		
-			//elment access
+			//element access
 			reference		front()			{return(*_ptr);};
 			const_reference	front() const	{return(*_ptr);};
 			reference		back()		{return(*(_ptr + _size_container - 1));};
