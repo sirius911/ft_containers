@@ -49,7 +49,7 @@ printRes () {
 	then
 		printf " ${DGRAY}=> Normal fail at compilation.${RESET}"
 	fi
-	if [ $4 -eq 1 ]
+	if [ $4 -eq 2 ]
 	then
 		printf " ${DGRAY}=> Normal diff with maxsize() Mac OS/Linux${RESET}"
 	fi 
@@ -75,7 +75,7 @@ valid_test()
 			return 0
 		fi
 	fi
-	if [ $1 -ne 0 ] && [ $3 -eq 1 ]
+	if [ $1 -ne 0 ] && [ $3 -eq 2 ]
 	then
 		return 0
 	fi

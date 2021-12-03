@@ -6,7 +6,7 @@
 #    By: clorin <clorin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/30 09:20:38 by clorin            #+#    #+#              #
-#    Updated: 2021/11/30 10:38:40 by clorin           ###   ########.fr        #
+#    Updated: 2021/12/03 17:05:48 by clorin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,9 +41,11 @@ echo " ___/ // / / /___"
 echo "/____//_/ /_____/ container's"
 echo "                 "
 
-start=$(date +%s.%N)
+#start=$(date +%s.%ss)
+start=$(ruby -e 'puts Time.now.to_f')
 ./stl.out $seed_
-time_stl=$(echo "$(date +%s.%N) - $start" | bc)
+end=$(ruby -e 'puts Time.now.to_f')
+time_stl=$(echo "$end - $start" | bc)
 
 printf "Test time = $time_stl s${RESET}\n"
 #echo "-> $time_stl s"
@@ -56,9 +58,10 @@ echo "  / /_    / /   "
 echo " / __/   / /    "
 echo "/_/     /_/     container's"
 echo "                "
-start=$(date +%s.%N)
+start=$(ruby -e 'puts Time.now.to_f')
 ./ft.out $seed_
-time_ft=$(echo "$(date +%s.%N) - $start" | bc)
+end=$(ruby -e 'puts Time.now.to_f')
+time_ft=$(echo "$end - $start" | bc)
 
 printf "Test time = $time_ft s${RESET}\n"
 
