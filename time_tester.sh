@@ -6,7 +6,7 @@
 #    By: clorin <clorin@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/30 09:20:38 by clorin            #+#    #+#              #
-#    Updated: 2021/12/03 17:05:48 by clorin           ###   ########.fr        #
+#    Updated: 2021/12/04 11:54:20 by clorin           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,14 +41,12 @@ echo " ___/ // / / /___"
 echo "/____//_/ /_____/ container's"
 echo "                 "
 
-#start=$(date +%s.%ss)
 start=$(ruby -e 'puts Time.now.to_f')
-./stl.out $seed_
+./stl.out $seed_ > stl.log
 end=$(ruby -e 'puts Time.now.to_f')
 time_stl=$(echo "$end - $start" | bc)
 
 printf "Test time = $time_stl s${RESET}\n"
-#echo "-> $time_stl s"
 
 #time for ft containers
 printf "${YELLOW}"
@@ -59,7 +57,7 @@ echo " / __/   / /    "
 echo "/_/     /_/     container's"
 echo "                "
 start=$(ruby -e 'puts Time.now.to_f')
-./ft.out $seed_
+./ft.out $seed_ > ft.log
 end=$(ruby -e 'puts Time.now.to_f')
 time_ft=$(echo "$end - $start" | bc)
 
@@ -74,6 +72,11 @@ then
 else
     printf ${RED}
 fi
+diff stl.log ft.log 2>/dev/null 1>diff_file;
 printf "\nFactor x = Time_FT / Time_std = $x${RESET}\n"
-
-rm -rf ft.out stl.out
+if ! [ -s diff_file ]; then
+    printf "${GREEN}Output OK\n${RESET}"
+else
+    printf "${RED}Output KO\n${RESET}"
+fi
+rm -rf ft.out stl.out ft.log stl.log diff_file

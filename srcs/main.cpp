@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <stdlib.h>
 #ifndef NAMESPACE //CREATE A REAL STL EXAMPLE
 	#include <map>
 	#include <stack>
@@ -91,17 +92,15 @@ int main(int argc, char** argv) {
 	
 	for (int i = 0; i < COUNT; ++i)
 	{
-		int a=rand();
-		int b=rand();
-		//std::cout << " ("<<a<<","<<b<<")";
+		int a = rand() % COUNT;
+		int b = rand() % COUNT;
 		map_int.insert(ft::make_pair(a, b));
 	}
 
-	int sum = 0;
+	long long sum = 0;
 	for (int i = 0; i < 10000; i++)
 	{
-		int access = rand();
-		std::cout << "mpa_int["<<access<<"] = "<< map_int[access]<<std::endl;
+		int access = rand() % COUNT;
 		sum += map_int[access];
 	}
 	std::cout << "should be constant with the same seed: " << sum << std::endl;
