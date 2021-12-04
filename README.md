@@ -185,12 +185,19 @@ Canonique form :
 ### non-member overloads:
 
 - [X] relational operators (vector)
-		- [X] ==
-		- [X] !=	a!=b	-> !(a==b)
-		- [X] <
-		- [X] <=	a<=b	->	!(b < a)
-		- [X] >		a>b		->  b < a
-		- [X] >=	a>=b	->	!(a < b)
+	
+	- [X] ==
+	
+	- [X] <
+	
+	- [X] != a!=b	-> !(a==b)
+	
+	- [X] <= a<=b	-> !(b < a)
+							
+	- [X] >	a>b	->  b < a
+							 
+	- [X] >= a>=b	->!(a < b)
+							
 - [X] swap (vector)
 
 
@@ -205,3 +212,13 @@ Arbres binaires Rouges Noires:
 	https://miashs-www.u-ga.fr/prevert/Prog/Java/CoursJava/arbresRougeNoir.html
 
 simulateurs: https://www.cs.usfca.edu/~galles/visualization/RedBlack.html
+							
+## Runtime recovery with Ruby and |bc
+```bash
+start=$(ruby -e 'puts Time.now.to_f')
+./my_process
+end=$(ruby -e 'puts Time.now.to_f')
+runTime=$(echo "$end - $start" | bc)
+
+printf "Runtime = $runTime s\n"
+```
