@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:22:16 by clorin            #+#    #+#             */
-/*   Updated: 2021/12/04 15:52:22 by clorin           ###   ########.fr       */
+/*   Updated: 2021/12/04 16:25:38 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,9 @@ namespace ft
 
 			//copy(4)
 			vector (vector<T, Allocator> const &copy)
-			: _alloc(copy._alloc), _capacity(copy._capacity), _size_container(0)
+			: _alloc(allocator_type()),_ptr(0), _capacity(0), _size_container(0)
 			{
-				insert(begin(), copy.begin(), copy.end());
+				*this = copy;
 			};
 
 			vector &operator=(vector const & copy)
@@ -162,7 +162,6 @@ namespace ft
 			//insert single element(1)
 			iterator	insert(iterator position, const value_type &val)
 			{
-				//std::cout<<"insert(element)\n";
 				difference_type index = position - begin();
 				insert(position, 1, val);
 				return begin() + index;
