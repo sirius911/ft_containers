@@ -61,8 +61,6 @@ isEq () {
 }
 
 compare_diff(){
-	# cat $1 | grep "Max_size" &>/dev/null
-	# [ "$?" -eq "0" ] && return 1 || return 2;
 
 	regex=$(cat <<- EOF
 	\d+c\d+
