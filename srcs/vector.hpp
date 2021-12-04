@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/27 17:22:16 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/30 11:15:38 by clorin           ###   ########.fr       */
+/*   Updated: 2021/12/04 15:52:22 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ namespace ft
 
 			//construct range(3)
 			template <class InputIterator>
-			explicit vector(InputIterator first, InputIterator last,
+			vector(InputIterator first, InputIterator last,
 					const Allocator & alloc = Allocator(), 
 					typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = ft_nullptr_t)
 					: _alloc(alloc), _size_container(0)
@@ -76,12 +76,10 @@ namespace ft
 					}
 
 			//copy(4)
-			explicit vector (vector<T, Allocator> const &copy)
-			: _alloc(copy.get_allocator()), _capacity(copy._capacity), _size_container(0)
+			vector (vector<T, Allocator> const &copy)
+			: _alloc(copy._alloc), _capacity(copy._capacity), _size_container(0)
 			{
-				_ptr = _alloc.allocate(_capacity);
-				for (const_iterator it = copy.begin(); it != copy.end(); it++)
-					this->push_back(*it);
+				insert(begin(), copy.begin(), copy.end());
 			};
 
 			vector &operator=(vector const & copy)
