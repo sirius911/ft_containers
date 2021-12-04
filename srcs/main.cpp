@@ -91,13 +91,17 @@ int main(int argc, char** argv) {
 	
 	for (int i = 0; i < COUNT; ++i)
 	{
-		map_int.insert(ft::make_pair(rand(), rand()));
+		int a=rand();
+		int b=rand();
+		//std::cout << " ("<<a<<","<<b<<")";
+		map_int.insert(ft::make_pair(a, b));
 	}
 
 	int sum = 0;
 	for (int i = 0; i < 10000; i++)
 	{
 		int access = rand();
+		std::cout << "mpa_int["<<access<<"] = "<< map_int[access]<<std::endl;
 		sum += map_int[access];
 	}
 	std::cout << "should be constant with the same seed: " << sum << std::endl;

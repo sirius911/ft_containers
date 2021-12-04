@@ -6,7 +6,7 @@
 /*   By: clorin <clorin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 11:20:17 by clorin            #+#    #+#             */
-/*   Updated: 2021/11/23 14:48:32 by clorin           ###   ########.fr       */
+/*   Updated: 2021/12/04 09:53:29 by clorin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,8 +128,11 @@ namespace ft
 
             mapped_type    &operator[] (const key_type &k)
             {
-                _tree.insert(value_type(k, mapped_type()));
                 node_ptr    node = _tree.search(k);
+                if (node != _tree.getNill())
+                    return (node->data.second);
+                _tree.insert(value_type(k, mapped_type()));
+                node = _tree.search(k);
                 return (node->data.second);
             }
 
