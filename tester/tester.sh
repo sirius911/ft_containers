@@ -61,7 +61,18 @@ isEq () {
 }
 
 compare_diff(){
-	cat $1 | grep "Max_size" &>/dev/null
+	# cat $1 | grep "Max_size" &>/dev/null
+	# [ "$?" -eq "0" ] && return 1 || return 2;
+
+	regex=$(cat <<- EOF
+	\d+c\d+
+	< max_size: \d+
+	---
+	> max_size: \d+
+	EOF
+	)
+
+	cat $1 | grep -v -E "$regex" &>/dev/null
 	[ "$?" -eq "0" ] && return 1 || return 2;
 }
 
@@ -156,6 +167,9 @@ do_test () {
 
 pheader
 containers=(vector map stack set)
+if [ $# -ne 0 ]; then
+		containers=($@);
+fi
 for container in ${containers[@]}; do
 		printf "${BOLD}${CYAN}%40s${RESET}\n"  $container
 		do_test $container 2>/dev/null
